@@ -22,7 +22,7 @@
     <ProjectGuid>{BC384972-8782-4F3D-A52A-13ECCDE414A0}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>My02simpleGame</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
     <ProjectName>Arkanoid</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

@@ -22,7 +22,7 @@
     <ProjectGuid>{04AC65FD-CD47-4131-BCF5-DFE3AD8998CB}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>My01simpleStaticdemo</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
     <ProjectName>DemoPruebas</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
