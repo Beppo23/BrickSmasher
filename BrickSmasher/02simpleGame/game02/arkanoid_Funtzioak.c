@@ -121,6 +121,10 @@ EGOERA jokatu(void)
 	if (ebentu == TECLA_SPACE)
 	{
 		hasi = 1;
+		if (zirkulua.pos.x < 320) ////////////////// Si esta a la izquierda de la mitad lo lanza hacia la izquierda
+		{
+			rebote = 1;
+		}
 	}
 	/////////////////////////////////////////////////////////////////////PILOTA JAURTI DA
 

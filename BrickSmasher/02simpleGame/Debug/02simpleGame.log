@@ -2,5 +2,6 @@
   arkanoid_Funtzioak.c
 c:\popbl\brick smasher edicion\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(80): warning C4013: 'JOKOA_fondoaSortu' sin definir; se supone que extern devuelve como resultado int
 c:\popbl\brick smasher edicion\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(100): warning C4013: 'JOKOA_pilotaIrudiaSortu' sin definir; se supone que extern devuelve como resultado int
+c:\popbl\brick smasher edicion\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(231): warning C4020: 'JOKOA_egoera': hay demasiados parámetros reales
   02simpleGame.vcxproj -> C:\POPBL\Brick Smasher edicion\BrickSmasher\Debug\Arkanoid.exe
   02simpleGame.vcxproj -> C:\POPBL\Brick Smasher edicion\BrickSmasher\Debug\Arkanoid.pdb (Partial PDB)
