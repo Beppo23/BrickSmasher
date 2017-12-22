@@ -16,11 +16,16 @@
 #define JOKOA_SOUND_LOOSE ".\\sound\\you_lose.wav" 
 #define BUKAERA_SOUND_1 ".\\sound\\arkanoid_audio.wav"
 #define BUKAERA_IMAGE ".\\img\\gameOver_1.bmp"
-#define LAUKIZUZENA1_BMP ".\\img\\Bloke1_3.bmp"
+#define LAUKIZUZENA1_1BMP ".\\img\\Bloke1_1.bmp"
+#define LAUKIZUZENA1_2BMP ".\\img\\Bloke1_2.bmp"
+#define LAUKIZUZENA1_3BMP ".\\img\\Bloke1_3.bmp"
 
+int posx = 0;
+int posy = 0;
+int zein = 1;
 void sarreraMezuaIdatzi();
 int JOKOA_jokalariaIrudiaSortu();
-int JOKOA_LaukizuzenaIrudiaSortu();
+int JOKOA_LaukizuzenaIrudiaSortu(int posx, int posy, int zein);
 EGOERA JOKOA_egoera(JOKO_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota);
 POSIZIOA ERREALITATE_FISIKOA_mugimendua(POSIZIOA posizioa);
 POSIZIOA ERREALITATE_FISIKOA_mugimenduaEZK(POSIZIOA posizioa);
@@ -62,11 +67,14 @@ EGOERA jokatu(void)
 
   EGOERA  egoera = JOLASTEN;
   int ebentu = 0;
-  JOKO_ELEMENTUA zirkulua, Laukizuzena1, jokalaria, fondoa;
+  JOKO_ELEMENTUA zirkulua, Laukizuzenak, jokalaria, fondoa;
   POSIZIOA aux;
 
   jokalaria.pos.x = 280;
   jokalaria.pos.y = 400;
+
+  Laukizuzenak.pos.x = 280;
+  Laukizuzenak.pos.y = 400;
 
   zirkulua.pos.x = jokalaria.pos.x + 38;
   zirkulua.pos.y = jokalaria.pos.y - 23;
@@ -78,24 +86,7 @@ EGOERA jokatu(void)
   loadTheMusic(JOKOA_SOUND);
   //playMusic();    /////////////////////////Comentado para que no de la brasa durante el testeo, quitar para la publicación final
   fondoa.id = JOKOA_fondoaSortu();
-  //METER EN UN METODO
-  for (int i = 0; i < 10; i++)
-  {
-	  if (i == 0)
-	  {
-		  posy = 50;
-	  }
-	  for (int t = 0; t < 13; t++)
-	  {
-		  if (t == 0)
-		  {
-			  posx = 60;
-		  }
-		  Laukizuzena1.id = JOKOA_LaukizuzenaIrudiaSortu(posx, posy);
-		  posx += 40;
-	  }
-	  posy += 20;
-  }
+  laukizuzenakEzarri(Laukizuzenak);
   jokalaria.id = JOKOA_jokalariaIrudiaSortu();
   zirkulua.id = JOKOA_pilotaIrudiaSortu();
   
@@ -228,7 +219,7 @@ EGOERA jokatu(void)
 		rebote = 0;
 	}
 	///////////////////////////////////////////////////////////////ERREBOTEAK PARETETAN
-    egoera = JOKOA_egoera(jokalaria, zirkulua, Laukizuzena1);
+    egoera = JOKOA_egoera(jokalaria, zirkulua, Laukizuzenak);
   } while (egoera == JOLASTEN);
   irudiaKendu(jokalaria.id);
   toggleMusic();
@@ -265,15 +256,32 @@ int JOKOA_jokalariaIrudiaSortu()
   return barraId;
 
 }
-int JOKOA_LaukizuzenaIrudiaSortu(int posizioax, int posizioay)
+int JOKOA_LaukizuzenaIrudiaSortu(int posizioax, int posizioay, int zein)
 {
-	int Laukizuzena1 = -1;
-	Laukizuzena1 = irudiaKargatu(LAUKIZUZENA1_BMP);
-	irudiaMugitu(Laukizuzena1, posizioax, posizioay);
+
+	int Laukizuzena = -1;
+	switch (zein)
+	{
+	case 1:
+
+		Laukizuzena = irudiaKargatu(LAUKIZUZENA1_1BMP);
+		break;
+	case 2:
+		Laukizuzena = irudiaKargatu(LAUKIZUZENA1_2BMP);
+
+		break;
+	case 3:
+		Laukizuzena = irudiaKargatu(LAUKIZUZENA1_3BMP);
+
+		break;
+	default:
+		break;
+	}
+	irudiaMugitu(Laukizuzena, posizioax, posizioay);
 	pantailaGarbitu();
 	irudiakMarraztu();
 	pantailaBerriztu();
-	return Laukizuzena1;
+	return Laukizuzena;
 
 }
 
@@ -300,7 +308,41 @@ int JOKOA_fondoaSortu()
 	return fondoaId;
 
 }
+void laukizuzenakEzarri(JOKO_ELEMENTUA Laukizuzena) {
+	int r = 1, maximoa = 0;
+	for (int i = 0; i < 10; i++)
+	{
+		if (i == 0)
+		{
+			posy = 50;
+		}
 
+		for (int t = 0; t < 13; t++)
+		{
+			if (t == 0)
+			{
+				posx = 60;
+			}
+			Laukizuzena.id = JOKOA_LaukizuzenaIrudiaSortu(posx, posy, r);
+			posx += 40;
+		}
+		posy += 20;
+		if (r == 3)
+		{
+			maximoa = 1;
+
+		}
+		else if (r == 1) {
+			maximoa = 0;
+		}
+		if (maximoa == 1) {
+			r--;
+		}
+		else {
+			r++;
+		}
+	}
+}
 
 /////////////////////////////////////////////////////////////////////////BARRA + PILOTA mugimenduak
 POSIZIOA ERREALITATE_FISIKOA_mugimendua(POSIZIOA posizioa) {
