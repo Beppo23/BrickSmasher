@@ -21,9 +21,12 @@
 void sarreraMezuaIdatzi();
 int JOKOA_jokalariaIrudiaSortu();
 int JOKOA_LaukizuzenaIrudiaSortu();
-EGOERA JOKOA_egoera(JOKO_ELEMENTUA jokalaria, JOKO_ELEMENTUA oztopoa);
+EGOERA JOKOA_egoera(JOKO_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota);
 POSIZIOA ERREALITATE_FISIKOA_mugimendua(POSIZIOA posizioa);
 POSIZIOA ERREALITATE_FISIKOA_mugimenduaEZK(POSIZIOA posizioa);
+POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTA(POSIZIOA posizioa);
+POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEESK(POSIZIOA posizioa);
+POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEGOI(POSIZIOA posizioa);
 //int  BUKAERA_menua(EGOERA egoera);
 int BUKAERA_irudiaBistaratu();
 
@@ -53,23 +56,27 @@ EGOERA jokatu(void)
   int mugituEZK = 0;
   int posx = 0;
   int posy = 0;
+  int hasi = 0;
+  int rebote = 0;
+  int goian = 0;
+
   EGOERA  egoera = JOLASTEN;
   int ebentu = 0;
   JOKO_ELEMENTUA zirkulua, Laukizuzena1, jokalaria, fondoa;
   POSIZIOA aux;
-  zirkulua.pos.x = 325;
-  zirkulua.pos.y = 390;
 
   jokalaria.pos.x = 280;
   jokalaria.pos.y = 400;
 
+  zirkulua.pos.x = jokalaria.pos.x + 38;
+  zirkulua.pos.y = jokalaria.pos.y - 23;
 
   fondoa.pos.x = 0;
   fondoa.pos.y = 0;
 
   audioInit();
   loadTheMusic(JOKOA_SOUND);
-  playMusic();
+  //playMusic();    /////////////////////////Comentado para que no de la brasa durante el testeo, quitar para la publicación final
   fondoa.id = JOKOA_fondoaSortu();
   //METER EN UN METODO
   for (int i = 0; i < 10; i++)
@@ -97,12 +104,28 @@ EGOERA jokatu(void)
     Sleep(2);
     pantailaGarbitu();
     arkatzKoloreaEzarri(0, 0, 0xFF);
-	irudiaMugitu(zirkulua.id, jokalaria.pos.x + 38, jokalaria.pos.y - 23);
+	if (hasi)
+	{
+		irudiaMugitu(zirkulua.id, zirkulua.pos.x, zirkulua.pos.y);
+	}
+	else
+	{
+		irudiaMugitu(zirkulua.id, jokalaria.pos.x + 38, jokalaria.pos.y - 23);
+	}
+
     irudiaMugitu(jokalaria.id, jokalaria.pos.x, jokalaria.pos.y);
     irudiakMarraztu();
     pantailaBerriztu();
     ebentu = ebentuaJasoGertatuBada();
+	/////////////////////////////////////////////////////////////////////PILOTA JAURTI DA
+	if (ebentu == TECLA_SPACE)
+	{
+		hasi = 1;
+	}
+	/////////////////////////////////////////////////////////////////////PILOTA JAURTI DA
+
 	////////////////////////////////////////////////////////////////////MUGIMENDUA LIMITATUA
+	
     if (ebentu == TECLA_RIGHT) 
     {
       mugitu = 1;
@@ -128,19 +151,80 @@ EGOERA jokatu(void)
 		mugitu = 1;
 		mugituEZK = 0;
 	}
-    if (mugitu) {
-      aux = ERREALITATE_FISIKOA_mugimendua(jokalaria.pos);
-      jokalaria.pos.x = aux.x;
-	  zirkulua.pos.x = aux.x + 45;
-    }
-	if (mugituEZK)
+	if (hasi == 0)
 	{
-		aux = ERREALITATE_FISIKOA_mugimenduaEZK(jokalaria.pos);
-		jokalaria.pos.x = aux.x;
-		zirkulua.pos.x = aux.x + 45;
+		if (mugitu) {
+			aux = ERREALITATE_FISIKOA_mugimendua(jokalaria.pos);
+			jokalaria.pos.x = aux.x;
+		}
+		if (mugituEZK)
+		{
+			aux = ERREALITATE_FISIKOA_mugimenduaEZK(jokalaria.pos);
+			jokalaria.pos.x = aux.x;
+		}
+		zirkulua.pos.x = jokalaria.pos.x + 38;
+		zirkulua.pos.y = jokalaria.pos.y - 23;
 	}
+	else
+	{
+		if (rebote == 0)
+		{
+			aux = ERREALITATE_FISIKOA_mugimenduaPILOTA(zirkulua.pos);
+			zirkulua.pos.y = aux.y;
+			zirkulua.pos.x = aux.x;
+		}
+		else if(rebote == 1)
+		{
+			aux = ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEESK(zirkulua.pos);
+			zirkulua.pos.y = aux.y;
+			zirkulua.pos.x = aux.x;
+		}
+		if (goian == 1)
+		{
+			aux = ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEGOI(zirkulua.pos);
+			zirkulua.pos.y = aux.y;
+
+			if (rebote == 0)
+			{
+				aux = ERREALITATE_FISIKOA_mugimenduaPILOTA(zirkulua.pos);
+				zirkulua.pos.x = aux.x;
+			}
+			else if (rebote == 1)
+			{
+				aux = ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEESK(zirkulua.pos);
+				zirkulua.pos.x = aux.x;
+			}
+		}
+
+
+		if (mugitu) {
+			aux = ERREALITATE_FISIKOA_mugimendua(jokalaria.pos);
+			jokalaria.pos.x = aux.x;
+
+		}
+		if (mugituEZK)
+		{
+			aux = ERREALITATE_FISIKOA_mugimenduaEZK(jokalaria.pos);
+			jokalaria.pos.x = aux.x;
+		}
+	}
+
 	///////////////////////////////////////////////////////////////MUGIMENDUA LIMITATUTA
-    egoera = JOKOA_egoera(jokalaria, zirkulua);
+	//////////////////////////////////////////////////////////////ERREBOTEAK PARETETAN
+	if (zirkulua.pos.x > 595)
+	{
+		rebote = 1;
+	}
+	if (zirkulua.pos.y < 15)
+	{
+		goian = 1;
+	}
+	if (zirkulua.pos.x < 20)
+	{
+		rebote = 0;
+	}
+	///////////////////////////////////////////////////////////////ERREBOTEAK PARETETAN
+    egoera = JOKOA_egoera(jokalaria, zirkulua, Laukizuzena1);
   } while (egoera == JOLASTEN);
   irudiaKendu(jokalaria.id);
   toggleMusic();
@@ -149,18 +233,22 @@ EGOERA jokatu(void)
   pantailaBerriztu();
   return egoera;
 }
-
-EGOERA JOKOA_egoera(JOKO_ELEMENTUA jokalaria, JOKO_ELEMENTUA oztopoa) {
+/////////////////////////////////////////////////////////////////////////JOKOAREN AMAIERA
+EGOERA JOKOA_egoera(JOKO_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota) {
   EGOERA  ret = JOLASTEN;
-  if (jokalaria.pos.x >oztopoa.pos.x - 20 && jokalaria.pos.x <oztopoa.pos.x + 20 && jokalaria.pos.y >oztopoa.pos.y - 20 && jokalaria.pos.y <oztopoa.pos.y + 20) {
+  if (jokalaria.pos.x >pilota.pos.x - 20 && jokalaria.pos.x <pilota.pos.x + 20 && jokalaria.pos.y >pilota.pos.y - 20 && jokalaria.pos.y <pilota.pos.y + 20) {
     //ret = IRABAZI;
   }
-  else if (jokalaria.pos.x > 600) {
-	  //ret = GALDU;
+  else if (pilota.pos.y > 480) {
+	  ret = GALDU;
+	  irudiaKendu(jokalaria.id);
+	  irudiaKendu(pilota.id);
+		
   }
-
   return ret;
 }
+
+/////////////////////////////////////////////////////////////////////////JOKOAREN AMAIERA
 
 int JOKOA_jokalariaIrudiaSortu() 
 {
@@ -209,22 +297,41 @@ int JOKOA_fondoaSortu()
 
 }
 
+
+/////////////////////////////////////////////////////////////////////////BARRA + PILOTA mugimenduak
 POSIZIOA ERREALITATE_FISIKOA_mugimendua(POSIZIOA posizioa) {
-  //posizioa.y = posizioa.y + 1;
   posizioa.x = posizioa.x + 15;
   return posizioa;
 }
 
 POSIZIOA ERREALITATE_FISIKOA_mugimenduaEZK(POSIZIOA posizioa) {
-	//posizioa.y = posizioa.y + 1;
 	posizioa.x = posizioa.x - 15;
 	return posizioa;
 }
+POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTA(POSIZIOA posizioa) {
+	posizioa.y = posizioa.y - 1;
+	posizioa.x = posizioa.x + 1;
+	return posizioa;
+}
+POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEESK(POSIZIOA posizioa) {
+	posizioa.y = posizioa.y - 1;
+	posizioa.x = posizioa.x - 1;
+	return posizioa;
+}
+
+POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEGOI(POSIZIOA posizioa) {
+	posizioa.y = posizioa.y + 2;
+	posizioa.x = posizioa.x + 1;
+	return posizioa;
+}
+/////////////////////////////////////////////////////////////////////////BARRA + PILOTA mugimenduak
+
 
 int  jokoAmaierakoa(EGOERA egoera)
 {
   int ebentu = 0, id;
   int idAudioGame;
+
 
   loadTheMusic(BUKAERA_SOUND_1);
   if (egoera == IRABAZI) {

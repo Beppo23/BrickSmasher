@@ -17,14 +17,15 @@ int ebentuaJasoGertatuBada(void){
 				{
 					case SDLK_LEFT:
 						ret = TECLA_LEFT;
-						//actualizaPlayer(-15);
 						break;
 					case SDLK_RIGHT:
 						ret = TECLA_RIGHT;
-						//actualizaPlayer(15);
 						break;
 					case SDLK_DOWN:
 						ret = TECLA_DOWN;	
+						break;
+					case SDLK_SPACE:
+						ret = TECLA_SPACE;
 						break;
 					default:
 						ret = event.key.keysym.sym;
