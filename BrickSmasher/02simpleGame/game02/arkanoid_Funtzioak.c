@@ -190,6 +190,26 @@ EGOERA jokatu(void)
 				zirkulua.pos.x = aux.x;
 			}
 		}
+		if (zirkulua.pos.y > 376)
+		{
+			if ((zirkulua.pos.x > jokalaria.pos.x) && (zirkulua.pos.x < (jokalaria.pos.x + 95)))
+			{
+				zirkulua.pos.y -= 2;
+				goian = 0;
+				if (rebote == 0)
+				{
+					aux = ERREALITATE_FISIKOA_mugimenduaPILOTA(zirkulua.pos);
+					zirkulua.pos.x = aux.x;
+					zirkulua.pos.y = aux.y;
+				}
+				else if (rebote == 1)
+				{
+					aux = ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEESK(zirkulua.pos);
+					zirkulua.pos.x = aux.x;
+					zirkulua.pos.y = aux.y;
+				}
+			}
+		}
 
 
 		if (mugitu) {
