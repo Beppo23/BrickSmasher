@@ -162,18 +162,7 @@ EGOERA jokatu(void)
 	}
 	else
 	{
-		if (rebote == 0)
-		{
-			aux = ERREALITATE_FISIKOA_mugimenduaPILOTA(zirkulua.pos);
-			zirkulua.pos.y = aux.y;
-			zirkulua.pos.x = aux.x;
-		}
-		else if(rebote == 1)
-		{
-			aux = ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEESK(zirkulua.pos);
-			zirkulua.pos.y = aux.y;
-			zirkulua.pos.x = aux.x;
-		}
+		
 		if (goian == 1)
 		{
 			aux = ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEGOI(zirkulua.pos);
@@ -187,6 +176,21 @@ EGOERA jokatu(void)
 			else if (rebote == 1)
 			{
 				aux = ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEESK(zirkulua.pos);
+				zirkulua.pos.x = aux.x;
+			}
+		}
+		else
+		{
+			if (rebote == 0)
+			{
+				aux = ERREALITATE_FISIKOA_mugimenduaPILOTA(zirkulua.pos);
+				zirkulua.pos.y = aux.y;
+				zirkulua.pos.x = aux.x;
+			}
+			else if (rebote == 1)
+			{
+				aux = ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEESK(zirkulua.pos);
+				zirkulua.pos.y = aux.y;
 				zirkulua.pos.x = aux.x;
 			}
 		}
@@ -386,7 +390,7 @@ POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEESK(POSIZIOA posizioa) {
 }
 
 POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEGOI(POSIZIOA posizioa) {
-	posizioa.y = posizioa.y + 2;
+	posizioa.y = posizioa.y + 1;
 	posizioa.x = posizioa.x + 1;
 	return posizioa;
 }
