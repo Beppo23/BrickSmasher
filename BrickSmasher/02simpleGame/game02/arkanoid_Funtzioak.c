@@ -28,7 +28,7 @@ void sarreraMezuaIdatzi();
 int JOKOA_jokalariaIrudiaSortu();
 int JOKOA_barraIrudiaSortu();
 int JOKOA_LaukizuzenaIrudiaSortu(int posx, int posy, int zein);
-EGOERA JOKOA_egoera(JOKO_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota);
+EGOERA JOKOA_egoera(JOKO_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bizitza);
 POSIZIOA ERREALITATE_FISIKOA_mugimendua(POSIZIOA posizioa);
 POSIZIOA ERREALITATE_FISIKOA_mugimenduaEZK(POSIZIOA posizioa);
 POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTA(POSIZIOA posizioa);
@@ -66,6 +66,7 @@ EGOERA jokatu(void)
   int hasi = 0;
   int rebote = 0;
   int goian = 0;
+  int bizitza = 3;
 
   EGOERA  egoera = JOLASTEN;
   int ebentu = 0;
@@ -118,11 +119,12 @@ EGOERA jokatu(void)
 	/////////////////////////////////////////////////////////////////////PILOTA JAURTI DA
 	if (ebentu == TECLA_SPACE)
 	{
-		hasi = 1;
-		if (zirkulua.pos.x < 320) ////////////////// Si esta a la izquierda de la mitad lo lanza hacia la izquierda
+
+		if (zirkulua.pos.x < 320 && hasi == 0) ////////////////// Si esta a la izquierda de la mitad lo lanza hacia la izquierda
 		{
 			rebote = 1;
 		}
+		hasi = 1;
 	}
 	/////////////////////////////////////////////////////////////////////PILOTA JAURTI DA
 
@@ -253,7 +255,21 @@ EGOERA jokatu(void)
 		rebote = 0;
 	}
 	///////////////////////////////////////////////////////////////ERREBOTEAK PARETETAN
-    egoera = JOKOA_egoera(jokalaria, zirkulua, Laukizuzenak);
+	///////////////////////////////////////////////////////////////BIZITZAK
+	if (zirkulua.pos.y > 480)
+	{
+		bizitza -= 1;
+		hasi = 0;
+		rebote = 0;
+		goian = 0;
+		jokalaria.pos.x = 280;
+		jokalaria.pos.y = 400;
+		zirkulua.pos.x = jokalaria.pos.x + 38;
+		zirkulua.pos.y = jokalaria.pos.y - 23;
+
+	}
+	///////////////////////////////////////////////////////////////BIZITZAK
+	egoera = JOKOA_egoera(jokalaria, zirkulua, bizitza);
   } while (egoera == JOLASTEN);
   irudiaKendu(jokalaria.id);
   toggleMusic();
@@ -263,12 +279,12 @@ EGOERA jokatu(void)
   return egoera;
 }
 /////////////////////////////////////////////////////////////////////////JOKOAREN AMAIERA
-EGOERA JOKOA_egoera(JOKO_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota) {
+EGOERA JOKOA_egoera(JOKO_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bizitza) {
   EGOERA  ret = JOLASTEN;
   if (jokalaria.pos.x >pilota.pos.x - 20 && jokalaria.pos.x <pilota.pos.x + 20 && jokalaria.pos.y >pilota.pos.y - 20 && jokalaria.pos.y <pilota.pos.y + 20) {
     //ret = IRABAZI;
   }
-  else if (pilota.pos.y > 480) {
+  else if (bizitza == 0) {
 	  ret = GALDU;
 	  irudiaKendu(jokalaria.id);
 	  irudiaKendu(pilota.id);
