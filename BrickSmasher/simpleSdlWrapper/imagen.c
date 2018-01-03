@@ -67,6 +67,30 @@ void  irudiaMugitu( int numImg , int x, int y)
   irudiak[id].dest.y = y;
 }
 
+void  irudiaAldatu(int numImg, int w)
+{
+
+	int id = 0;
+
+	id = irudiarenPosizioaAurkitu(numImg);
+	if (w == 1)
+	{
+		irudiak[id].dest.w -= 10;
+	}
+	else if (w == 0)
+	{
+		if (irudiak[id].dest.w < 106)
+		{
+
+			irudiak[id].dest.w = 106;
+		}
+	}
+	else if (w == 2)
+	{
+		irudiak[id].dest.w = 0;
+	}
+}
+
 void irudiakMarraztu(void)
 {
   int i = 0;

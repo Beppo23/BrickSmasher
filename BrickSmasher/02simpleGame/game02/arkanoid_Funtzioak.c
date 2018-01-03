@@ -12,6 +12,7 @@
 #define JOKOA_PLAYER_IMAGE ".\\img\\barra1.bmp"
 #define JOKOA_PELOTA_IMAGE ".\\img\\pelota.bmp"
 #define JOKOA_BACKGROUND_IMAGE ".\\img\\arkanoid_fondo.bmp"
+#define JOKOA_ENERGIA_IMAGE ".\\img\\barra_energia.bmp"
 #define JOKOA_SOUND_WIN ".\\sound\\you_win.wav"
 #define JOKOA_SOUND_LOOSE ".\\sound\\you_lose.wav" 
 #define BUKAERA_SOUND_1 ".\\sound\\arkanoid_audio.wav"
@@ -25,6 +26,7 @@ int posy = 0;
 int zein = 1;
 void sarreraMezuaIdatzi();
 int JOKOA_jokalariaIrudiaSortu();
+int JOKOA_barraIrudiaSortu();
 int JOKOA_LaukizuzenaIrudiaSortu(int posx, int posy, int zein);
 EGOERA JOKOA_egoera(JOKO_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota);
 POSIZIOA ERREALITATE_FISIKOA_mugimendua(POSIZIOA posizioa);
@@ -67,7 +69,7 @@ EGOERA jokatu(void)
 
   EGOERA  egoera = JOLASTEN;
   int ebentu = 0;
-  JOKO_ELEMENTUA zirkulua, Laukizuzenak, jokalaria, fondoa;
+  JOKO_ELEMENTUA zirkulua, Laukizuzenak, jokalaria, fondoa, barra;
   POSIZIOA aux;
 
   jokalaria.pos.x = 280;
@@ -78,6 +80,8 @@ EGOERA jokatu(void)
 
   zirkulua.pos.x = jokalaria.pos.x + 38;
   zirkulua.pos.y = jokalaria.pos.y - 23;
+  barra.pos.x = jokalaria.pos.x;
+  barra.pos.y = jokalaria.pos.y + 23;
 
   fondoa.pos.x = 0;
   fondoa.pos.y = 0;
@@ -89,6 +93,7 @@ EGOERA jokatu(void)
   laukizuzenakEzarri(Laukizuzenak);
   jokalaria.id = JOKOA_jokalariaIrudiaSortu();
   zirkulua.id = JOKOA_pilotaIrudiaSortu();
+  barra.id = JOKOA_barraIrudiaSortu();
   
 
   do {
@@ -102,9 +107,11 @@ EGOERA jokatu(void)
 	else
 	{
 		irudiaMugitu(zirkulua.id, jokalaria.pos.x + 38, jokalaria.pos.y - 23);
+		irudiaAldatu(barra.id, 2);
 	}
 
     irudiaMugitu(jokalaria.id, jokalaria.pos.x, jokalaria.pos.y);
+	irudiaMugitu(barra.id, jokalaria.pos.x - 5, jokalaria.pos.y + 20);
     irudiakMarraztu();
     pantailaBerriztu();
     ebentu = ebentuaJasoGertatuBada();
@@ -162,7 +169,14 @@ EGOERA jokatu(void)
 	}
 	else
 	{
-		
+		if (ebentu == TECLA_SPACE)
+		{
+			irudiaAldatu(barra.id, 1);
+		}
+		else if (ebentu == TECLA_g) ///////////////////////////////////////////////PROVISIONAL INSERTAR POWER UP
+		{
+			irudiaAldatu(barra.id, 0);
+		}
 		if (goian == 1)
 		{
 			aux = ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEGOI(zirkulua.pos);
@@ -274,7 +288,17 @@ int JOKOA_jokalariaIrudiaSortu()
   irudiakMarraztu();
   pantailaBerriztu();
   return barraId;
+}
 
+int JOKOA_barraIrudiaSortu()
+{
+	int energiaId = -1;
+	energiaId = irudiaKargatu(JOKOA_ENERGIA_IMAGE);
+	irudiaMugitu(energiaId, 10, 239);
+	pantailaGarbitu();
+	irudiakMarraztu();
+	pantailaBerriztu();
+	return energiaId;
 }
 int JOKOA_LaukizuzenaIrudiaSortu(int posizioax, int posizioay, int zein)
 {
