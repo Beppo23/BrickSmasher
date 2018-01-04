@@ -210,9 +210,12 @@ EGOERA jokatu(void)
 				pilota.pos.x = aux.x;
 			}
 		}
-		if ((pilota.pos.y == 376) && (pilota.pos.x > jokalaria.pos.x) && (pilota.pos.x < (jokalaria.pos.x + 110)))
+		if ((pilota.pos.y == 377) && (pilota.pos.x > jokalaria.pos.x) && (pilota.pos.x < (jokalaria.pos.x + 110)))
 		{
 			goian = 0;
+			if (pilota.pos.x > jokalaria.pos.x + 53) rebote = 0;
+			if (pilota.pos.x < jokalaria.pos.x + 53) rebote = 1;
+
 			if (rebote == 0)
 			{
 				aux = ERREALITATE_FISIKOA_mugimenduaPILOTA(pilota.pos);
@@ -446,7 +449,7 @@ int  jokoAmaierakoa(EGOERA egoera)
   {
     ebentu = ebentuaJasoGertatuBada();
   } while ((ebentu!= TECLA_RETURN) && (ebentu!= SAGU_BOTOIA_ESKUMA));
-  audioTerminate();
+  /*audioTerminate();*/
   irudiaKendu(id);
   return (ebentu != TECLA_RETURN) ? 1 : 0;
 }
