@@ -70,7 +70,7 @@ EGOERA jokatu(void)
 
   EGOERA  egoera = JOLASTEN;
   int ebentu = 0;
-  JOKO_ELEMENTUA zirkulua, Laukizuzenak, jokalaria, fondoa, barra;
+  JOKO_ELEMENTUA pilota, Laukizuzenak, jokalaria, fondoa, barra;
   POSIZIOA aux;
 
   jokalaria.pos.x = 280;
@@ -79,8 +79,8 @@ EGOERA jokatu(void)
   Laukizuzenak.pos.x = 280;
   Laukizuzenak.pos.y = 400;
 
-  zirkulua.pos.x = jokalaria.pos.x + 38;
-  zirkulua.pos.y = jokalaria.pos.y - 23;
+  pilota.pos.x = jokalaria.pos.x + 38;
+  pilota.pos.y = jokalaria.pos.y - 23;
   barra.pos.x = jokalaria.pos.x;
   barra.pos.y = jokalaria.pos.y + 23;
 
@@ -93,7 +93,7 @@ EGOERA jokatu(void)
   fondoa.id = JOKOA_fondoaSortu();
   laukizuzenakEzarri(Laukizuzenak);
   jokalaria.id = JOKOA_jokalariaIrudiaSortu();
-  zirkulua.id = JOKOA_pilotaIrudiaSortu();
+  pilota.id = JOKOA_pilotaIrudiaSortu();
   barra.id = JOKOA_barraIrudiaSortu();
   
 
@@ -103,11 +103,11 @@ EGOERA jokatu(void)
     arkatzKoloreaEzarri(0, 0, 0xFF);
 	if (hasi)
 	{
-		irudiaMugitu(zirkulua.id, zirkulua.pos.x, zirkulua.pos.y);
+		irudiaMugitu(pilota.id, pilota.pos.x, pilota.pos.y);
 	}
 	else
 	{
-		irudiaMugitu(zirkulua.id, jokalaria.pos.x + 38, jokalaria.pos.y - 23);
+		irudiaMugitu(pilota.id, jokalaria.pos.x + 38, jokalaria.pos.y - 23);
 		irudiaAldatu(barra.id, 2);
 	}
 
@@ -120,7 +120,7 @@ EGOERA jokatu(void)
 	if (ebentu == TECLA_SPACE)
 	{
 
-		if (zirkulua.pos.x < 320 && hasi == 0) ////////////////// Si esta a la izquierda de la mitad lo lanza hacia la izquierda
+		if (pilota.pos.x < 320 && hasi == 0) ////////////////// Si esta a la izquierda de la mitad lo lanza hacia la izquierda
 		{
 			rebote = 1;
 		}
@@ -166,8 +166,8 @@ EGOERA jokatu(void)
 			aux = ERREALITATE_FISIKOA_mugimenduaEZK(jokalaria.pos);
 			jokalaria.pos.x = aux.x;
 		}
-		zirkulua.pos.x = jokalaria.pos.x + 38;
-		zirkulua.pos.y = jokalaria.pos.y - 23;
+		pilota.pos.x = jokalaria.pos.x + 38;
+		pilota.pos.y = jokalaria.pos.y - 23;
 	}
 	else
 	{
@@ -181,52 +181,55 @@ EGOERA jokatu(void)
 		}
 		if (goian == 1)
 		{
-			aux = ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEGOI(zirkulua.pos);
-			zirkulua.pos.y = aux.y;
+			aux = ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEGOI(pilota.pos);
+			pilota.pos.y = aux.y;
 
 			if (rebote == 0)
 			{
-				aux = ERREALITATE_FISIKOA_mugimenduaPILOTA(zirkulua.pos);
-				zirkulua.pos.x = aux.x;
+				aux = ERREALITATE_FISIKOA_mugimenduaPILOTA(pilota.pos);
+				pilota.pos.x = aux.x;
 			}
 			else if (rebote == 1)
 			{
-				aux = ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEESK(zirkulua.pos);
-				zirkulua.pos.x = aux.x;
+				aux = ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEESK(pilota.pos);
+				pilota.pos.x = aux.x;
 			}
 		}
 		else
 		{
 			if (rebote == 0)
 			{
-				aux = ERREALITATE_FISIKOA_mugimenduaPILOTA(zirkulua.pos);
-				zirkulua.pos.y = aux.y;
-				zirkulua.pos.x = aux.x;
+				aux = ERREALITATE_FISIKOA_mugimenduaPILOTA(pilota.pos);
+				pilota.pos.y = aux.y;
+				pilota.pos.x = aux.x;
 			}
 			else if (rebote == 1)
 			{
-				aux = ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEESK(zirkulua.pos);
-				zirkulua.pos.y = aux.y;
-				zirkulua.pos.x = aux.x;
+				aux = ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEESK(pilota.pos);
+				pilota.pos.y = aux.y;
+				pilota.pos.x = aux.x;
 			}
 		}
-		if ((zirkulua.pos.y == 376) && (zirkulua.pos.x > jokalaria.pos.x) && (zirkulua.pos.x < (jokalaria.pos.x + 110)))
+		if ((pilota.pos.y == 376) && (pilota.pos.x > jokalaria.pos.x) && (pilota.pos.x < (jokalaria.pos.x + 110)))
 		{
 			goian = 0;
 			if (rebote == 0)
 			{
-				aux = ERREALITATE_FISIKOA_mugimenduaPILOTA(zirkulua.pos);
-				zirkulua.pos.x = aux.x;
-				zirkulua.pos.y = aux.y;
+				aux = ERREALITATE_FISIKOA_mugimenduaPILOTA(pilota.pos);
+				pilota.pos.x = aux.x;
+				pilota.pos.y = aux.y;
 			}
 			else if (rebote == 1)
 			{
-				aux = ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEESK(zirkulua.pos);
-				zirkulua.pos.x = aux.x;
-				zirkulua.pos.y = aux.y;
+				aux = ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEESK(pilota.pos);
+				pilota.pos.x = aux.x;
+				pilota.pos.y = aux.y;
 			}
 		}
-
+		if ((pilota.pos.y == 230) && (pilota.pos.x >60) && (pilota.pos.x < 580)) goian = 1;
+		if ((pilota.pos.x == 50) && (pilota.pos.y < 230) && (pilota.pos.y > 50)) rebote = 1;
+		if ((pilota.pos.y == 30) && (pilota.pos.x >60) && (pilota.pos.x < 580))	goian = 0;
+		if ((pilota.pos.x == 580) && (pilota.pos.y < 230) && (pilota.pos.y > 50)) rebote = 0;
 
 		if (mugitu) {
 			aux = ERREALITATE_FISIKOA_mugimendua(jokalaria.pos);
@@ -242,21 +245,14 @@ EGOERA jokatu(void)
 
 	///////////////////////////////////////////////////////////////MUGIMENDUA LIMITATUTA
 	//////////////////////////////////////////////////////////////ERREBOTEAK PARETETAN
-	if (zirkulua.pos.x > 595)
-	{
-		rebote = 1;
-	}
-	if (zirkulua.pos.y < 15)
-	{
-		goian = 1;
-	}
-	if (zirkulua.pos.x < 20)
-	{
-		rebote = 0;
-	}
+	if (pilota.pos.x > 595) rebote = 1;
+
+	if (pilota.pos.y < 15) goian = 1;
+	
+	if (pilota.pos.x < 20) rebote = 0;
 	///////////////////////////////////////////////////////////////ERREBOTEAK PARETETAN
 	///////////////////////////////////////////////////////////////BIZITZAK
-	if (zirkulua.pos.y > 480)
+	if (pilota.pos.y > 480)
 	{
 		bizitza -= 1;
 		hasi = 0;
@@ -264,12 +260,12 @@ EGOERA jokatu(void)
 		goian = 0;
 		jokalaria.pos.x = 280;
 		jokalaria.pos.y = 400;
-		zirkulua.pos.x = jokalaria.pos.x + 38;
-		zirkulua.pos.y = jokalaria.pos.y - 23;
+		pilota.pos.x = jokalaria.pos.x + 38;
+		pilota.pos.y = jokalaria.pos.y - 23;
 
 	}
 	///////////////////////////////////////////////////////////////BIZITZAK
-	egoera = JOKOA_egoera(jokalaria, zirkulua, bizitza);
+	egoera = JOKOA_egoera(jokalaria, pilota, bizitza);
   } while (egoera == JOLASTEN);
   irudiaKendu(jokalaria.id);
   toggleMusic();
@@ -316,6 +312,7 @@ int JOKOA_barraIrudiaSortu()
 	pantailaBerriztu();
 	return energiaId;
 }
+
 int JOKOA_LaukizuzenaIrudiaSortu(int posizioax, int posizioay, int zein)
 {
 
@@ -368,70 +365,66 @@ int JOKOA_fondoaSortu()
 	return fondoaId;
 
 }
+
 void laukizuzenakEzarri(JOKO_ELEMENTUA Laukizuzena) {
+	
 	int r = 1, maximoa = 0;
-	for (int i = 0; i < 10; i++)
+	
+	for (int i = 0; i < 9; i++)
 	{
-		if (i == 0)
-		{
-			posy = 50;
-		}
+		if (i == 0)	posy = 50;
 
 		for (int t = 0; t < 13; t++)
 		{
-			if (t == 0)
-			{
-				posx = 60;
-			}
+			if (t == 0)	posx = 60;
+
 			Laukizuzena.id = JOKOA_LaukizuzenaIrudiaSortu(posx, posy, r);
 			posx += 40;
 		}
+		
 		posy += 20;
-		if (r == 3)
-		{
-			maximoa = 1;
+		if (r == 3)	maximoa = 1;
 
-		}
-		else if (r == 1) {
-			maximoa = 0;
-		}
-		if (maximoa == 1) {
-			r--;
-		}
-		else {
-			r++;
-		}
+		else if (r == 1) maximoa = 0;
+
+		if (maximoa == 1) r--;
+
+		else r++;
 	}
 }
 
 /////////////////////////////////////////////////////////////////////////BARRA + PILOTA mugimenduak
-POSIZIOA ERREALITATE_FISIKOA_mugimendua(POSIZIOA posizioa) {
+POSIZIOA ERREALITATE_FISIKOA_mugimendua(POSIZIOA posizioa) 
+{
   posizioa.x = posizioa.x + 15;
   return posizioa;
 }
 
-POSIZIOA ERREALITATE_FISIKOA_mugimenduaEZK(POSIZIOA posizioa) {
+POSIZIOA ERREALITATE_FISIKOA_mugimenduaEZK(POSIZIOA posizioa) 
+{
 	posizioa.x = posizioa.x - 15;
 	return posizioa;
 }
-POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTA(POSIZIOA posizioa) {
+POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTA(POSIZIOA posizioa) 
+{
 	posizioa.y = posizioa.y - 1;
 	posizioa.x = posizioa.x + 1;
 	return posizioa;
 }
-POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEESK(POSIZIOA posizioa) {
+POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEESK(POSIZIOA posizioa) 
+{
 	posizioa.y = posizioa.y - 1;
 	posizioa.x = posizioa.x - 1;
 	return posizioa;
 }
 
-POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEGOI(POSIZIOA posizioa) {
+POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEGOI(POSIZIOA posizioa) 
+{
 	posizioa.y = posizioa.y + 1;
 	posizioa.x = posizioa.x + 1;
 	return posizioa;
 }
 /////////////////////////////////////////////////////////////////////////BARRA + PILOTA mugimenduak
-
 
 int  jokoAmaierakoa(EGOERA egoera)
 {
@@ -439,7 +432,7 @@ int  jokoAmaierakoa(EGOERA egoera)
   int idAudioGame;
 
 
-  loadTheMusic(BUKAERA_SOUND_1);
+ /* loadTheMusic(BUKAERA_SOUND_1);
   if (egoera == IRABAZI) {
     idAudioGame = loadSound(JOKOA_SOUND_WIN);
     playSound(idAudioGame);
@@ -447,7 +440,7 @@ int  jokoAmaierakoa(EGOERA egoera)
   else {
     idAudioGame = loadSound(JOKOA_SOUND_LOOSE);
     playSound(idAudioGame);
-  }
+  }*/
   id=BUKAERA_irudiaBistaratu();
   do 
   {
@@ -467,4 +460,3 @@ int BUKAERA_irudiaBistaratu() {
   pantailaBerriztu();
   return id;
 }
-
