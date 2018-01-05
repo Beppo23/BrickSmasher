@@ -30,6 +30,7 @@
 #define LAUKIZUZENA1_1BMP ".\\img\\Bloke1_1.bmp"
 #define LAUKIZUZENA1_2BMP ".\\img\\Bloke1_2.bmp"
 #define LAUKIZUZENA1_3BMP ".\\img\\Bloke1_3.bmp"
+#define MENU_AUDIO ".\\sound\\menu_audio.wav"
 
 int posx = 0;
 int posy = 0;
@@ -53,6 +54,9 @@ void jokoaAurkeztu(void)
 {
 	int ebentu = 0, saguaclick = 0, barruan = 0;
 	POSIZIOA pos;
+	audioInit();
+	loadTheMusic(MENU_AUDIO);
+	playMusic();
 
 	sarreraMezuaIdatzi();
 
@@ -86,8 +90,9 @@ void jokoaAurkeztu(void)
 		switch (saguaclick)
 		{
 		case 1:
-			saguaclick = 0;
-			jokatu();
+			saguaclick = 999;
+			toggleMusic();
+			audioTerminate();
 			break;
 
 		case 2:pantailaGarbitu();
@@ -108,7 +113,7 @@ void jokoaAurkeztu(void)
 			saguaclick = 0;
 			break;
 		}
-	} while (ebentu != '0');
+	} while (saguaclick != 999);
 
 }
 

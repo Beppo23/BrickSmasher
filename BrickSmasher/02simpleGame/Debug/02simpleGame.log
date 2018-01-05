@@ -1,14 +1,14 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(387,5): warning MSB8028: El directorio intermedio (Debug\) contiene archivos compartidos de otro proyecto (02simpleGame.vcxproj). Esto puede dar lugar a un comportamiento incorrecto de limpieza y recompilación.
   arkanoid_Funtzioak.c
-c:\popbl\brick smasher\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(95): warning C4013: 'JOKOA_fondoaSortu' sin definir; se supone que extern devuelve como resultado int
-c:\popbl\brick smasher\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(103): warning C4013: 'JOKOA_KreditoakSortu' sin definir; se supone que extern devuelve como resultado int
-c:\popbl\brick smasher\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(118): warning C4013: 'JOKOA_backSortu' sin definir; se supone que extern devuelve como resultado int
-c:\popbl\brick smasher\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(119): warning C4013: 'JOKOA_jokatu' sin definir; se supone que extern devuelve como resultado int
-c:\popbl\brick smasher\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(120): warning C4013: 'JOKOA_tutoriala' sin definir; se supone que extern devuelve como resultado int
-c:\popbl\brick smasher\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(121): warning C4013: 'JOKOA_kreditoak' sin definir; se supone que extern devuelve como resultado int
-c:\popbl\brick smasher\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(122): warning C4013: 'JOKOA_itxi' sin definir; se supone que extern devuelve como resultado int
-c:\popbl\brick smasher\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(236): warning C4013: 'JOKOA_pilotaIrudiaSortu' sin definir; se supone que extern devuelve como resultado int
-c:\popbl\brick smasher\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(251): warning C4013: 'irudiaAldatu' sin definir; se supone que extern devuelve como resultado int
-c:\popbl\brick smasher\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(613): warning C4101: 'idAudioGame': variable local sin referencia
+c:\popbl\brick smasher\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(100): warning C4013: 'JOKOA_fondoaSortu' sin definir; se supone que extern devuelve como resultado int
+c:\popbl\brick smasher\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(108): warning C4013: 'JOKOA_KreditoakSortu' sin definir; se supone que extern devuelve como resultado int
+c:\popbl\brick smasher\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(123): warning C4013: 'JOKOA_backSortu' sin definir; se supone que extern devuelve como resultado int
+c:\popbl\brick smasher\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(124): warning C4013: 'JOKOA_jokatu' sin definir; se supone que extern devuelve como resultado int
+c:\popbl\brick smasher\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(125): warning C4013: 'JOKOA_tutoriala' sin definir; se supone que extern devuelve como resultado int
+c:\popbl\brick smasher\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(126): warning C4013: 'JOKOA_kreditoak' sin definir; se supone que extern devuelve como resultado int
+c:\popbl\brick smasher\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(127): warning C4013: 'JOKOA_itxi' sin definir; se supone que extern devuelve como resultado int
+c:\popbl\brick smasher\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(241): warning C4013: 'JOKOA_pilotaIrudiaSortu' sin definir; se supone que extern devuelve como resultado int
+c:\popbl\brick smasher\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(256): warning C4013: 'irudiaAldatu' sin definir; se supone que extern devuelve como resultado int
+c:\popbl\brick smasher\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(622): warning C4101: 'idAudioGame': variable local sin referencia
   02simpleGame.vcxproj -> C:\POPBL\Brick Smasher\BrickSmasher\BrickSmasher\Debug\Arkanoid.exe
   02simpleGame.vcxproj -> C:\POPBL\Brick Smasher\BrickSmasher\BrickSmasher\Debug\Arkanoid.pdb (Partial PDB)
