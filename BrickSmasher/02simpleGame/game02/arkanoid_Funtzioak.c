@@ -7,11 +7,11 @@
 #include <stdio.h>
 #include <windows.h>
 
+#define BOTON_ITZULI ".\\img\\itzuli.bmp"
 #define JOKATU ".\\img\\joka.bmp"
 #define TUTORIALA ".\\img\\noljoka.bmp"
 #define NOLA_JOKATU "Barra bat daukazu, hau mugitzeko <- ->geziak erabiltzen dira. "
-#define NOLA2_JOKATU "Pilota barratik jaurtitzeko <espace> teklari eman."
-#define NOLA3_JOKATU "Jokoa hasteko eman saguaren eskumako botoiari ."
+#define NOLA2_JOKATU "Pilota barratik jaurtitzeko <space> teklari eman."
 #define KREDITUAK ".\\img\\kredituak.bmp"
 #define KREDITOAK_IMAGE ".\\img\\krekre.bmp"
 #define ITXI ".\\img\\itxijokua.bmp"
@@ -87,6 +87,11 @@ void jokoaAurkeztu(void)
 			barruan = 1;
 
 		}
+		if (ebentu == SAGU_BOTOIA_EZKERRA && (pos.x >= 50) && (pos.x <= 175) && (pos.y >= 370) && (pos.y <= 423) && barruan == 1)
+		{
+			saguaclick = 5;
+			barruan = 0;
+		}
 		switch (saguaclick)
 		{
 		case 1:
@@ -98,19 +103,25 @@ void jokoaAurkeztu(void)
 		case 2:pantailaGarbitu();
 			saguaclick = 0;
 			JOKOA_fondoaSortu();
+			JOKOA_itzuli();
 			textuaIdatzi(100, 100, NOLA_JOKATU);
 			textuaIdatzi(100, 200, NOLA2_JOKATU);
-			textuaIdatzi(50, 370, NOLA3_JOKATU);
 			pantailaBerriztu();
 			break;
 		case 3:pantailaGarbitu();
 			saguaclick = 0;
 			JOKOA_KreditoakSortu();
+			JOKOA_itzuli();
 			pantailaBerriztu();
 			break;
 		case 4:sgItxi();
 			audioTerminate();
 			saguaclick = 0;
+			break;
+		case 5:
+			saguaclick = 0;
+			barruan = 0;
+			sarreraMezuaIdatzi();
 			break;
 		}
 	} while (saguaclick != 999);
@@ -171,6 +182,17 @@ int JOKOA_itxi()
 	irudiakMarraztu();
 	pantailaBerriztu();
 	return itxId;
+
+}
+int JOKOA_itzuli()
+{
+	int itzulId = -1;
+	itzulId = irudiaKargatu(BOTON_ITZULI);
+	irudiaMugitu(itzulId, 50, 370);
+	pantailaGarbitu();
+	irudiakMarraztu();
+	pantailaBerriztu();
+	return itzulId;
 
 }
 
