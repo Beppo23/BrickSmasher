@@ -350,7 +350,7 @@ EGOERA jokatu(void)
 				pilota.pos.x = aux.x;
 			}
 		}
-		if ((pilota.pos.y == 377) && (pilota.pos.x > jokalaria.pos.x) && (pilota.pos.x < (jokalaria.pos.x + 110)))
+		if ((pilota.pos.y == 377) && (pilota.pos.x > jokalaria.pos.x - 15) && (pilota.pos.x < (jokalaria.pos.x + 121)))
 		{
 			goian = 0;
 			if (pilota.pos.x > jokalaria.pos.x + 53) rebote = 0;
@@ -369,6 +369,10 @@ EGOERA jokatu(void)
 				pilota.pos.y = aux.y;
 			}
 		}
+		////BARRAREN ALDEAN ERREBOTEA
+		if ((pilota.pos.x == jokalaria.pos.x) && (pilota.pos.y > 400) && (pilota.pos.y < 427)) rebote = 1;
+		if ((pilota.pos.x == jokalaria.pos.x + 106) && (pilota.pos.y > 400) && (pilota.pos.y < 427)) rebote = 0;
+		////////////////////////////
 		if ((pilota.pos.y == 230) && (pilota.pos.x >60) && (pilota.pos.x < 580)) goian = 1;
 		if ((pilota.pos.x == 50) && (pilota.pos.y < 230) && (pilota.pos.y > 50)) rebote = 1;
 		if ((pilota.pos.y == 30) && (pilota.pos.x >60) && (pilota.pos.x < 580))	goian = 0;
