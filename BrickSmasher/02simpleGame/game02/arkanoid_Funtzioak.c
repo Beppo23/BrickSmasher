@@ -11,12 +11,14 @@
 #define JOKOA_SOUND ".\\sound\\arkanoid_audio.wav"
 #define JOKOA_PLAYER_IMAGE ".\\img\\barra1.bmp"
 #define JOKOA_PELOTA_IMAGE ".\\img\\pelota.bmp"
+#define JOKOA_BIHOTZAK_IMAGE ".\\img\\bihotza.bmp"
 #define JOKOA_BACKGROUND_IMAGE ".\\img\\arkanoid_fondo.bmp"
 #define JOKOA_ENERGIA_IMAGE ".\\img\\barra_energia.bmp"
 #define JOKOA_SOUND_WIN ".\\sound\\you_win.wav"
 #define JOKOA_SOUND_LOOSE ".\\sound\\you_lose.wav" 
 #define BUKAERA_SOUND_1 ".\\sound\\arkanoid_audio.wav"
-#define BUKAERA_IMAGE ".\\img\\gameOver_1.bmp"
+#define BUKAERA_IMAGE ".\\img\\gameOver_3.bmp"
+#define FINAL_SCORE "SCORE XD"
 #define LAUKIZUZENA1_1BMP ".\\img\\Bloke1_1.bmp"
 #define LAUKIZUZENA1_2BMP ".\\img\\Bloke1_2.bmp"
 #define LAUKIZUZENA1_3BMP ".\\img\\Bloke1_3.bmp"
@@ -27,6 +29,7 @@ int zein = 1;
 void sarreraMezuaIdatzi();
 int JOKOA_jokalariaIrudiaSortu();
 int JOKOA_barraIrudiaSortu();
+int BihotzakMarraztu(posx, posy);
 int JOKOA_LaukizuzenaIrudiaSortu(int posx, int posy, int zein);
 EGOERA JOKOA_egoera(JOKO_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bizitza);
 POSIZIOA ERREALITATE_FISIKOA_mugimendua(POSIZIOA posizioa);
@@ -36,6 +39,7 @@ POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEESK(POSIZIOA posizioa);
 POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEGOI(POSIZIOA posizioa);
 //int  BUKAERA_menua(EGOERA egoera);
 int BUKAERA_irudiaBistaratu();
+void finalScore();
 
 void jokoaAurkeztu(void)
 {
@@ -70,7 +74,7 @@ EGOERA jokatu(void)
 
   EGOERA  egoera = JOLASTEN;
   int ebentu = 0;
-  JOKO_ELEMENTUA pilota, Laukizuzenak, jokalaria, fondoa, barra;
+  JOKO_ELEMENTUA pilota, Laukizuzenak, jokalaria, fondoa, barra, bihotzak;
   POSIZIOA aux;
 
   jokalaria.pos.x = 280;
@@ -78,6 +82,9 @@ EGOERA jokatu(void)
 
   Laukizuzenak.pos.x = 280;
   Laukizuzenak.pos.y = 400;
+
+  bihotzak.pos.x = 280;
+  bihotzak.pos.y = 400;
 
   pilota.pos.x = jokalaria.pos.x + 38;
   pilota.pos.y = jokalaria.pos.y - 23;
@@ -92,6 +99,7 @@ EGOERA jokatu(void)
   //playMusic();    /////////////////////////Comentado para que no de la brasa durante el testeo, quitar para la publicación final
   fondoa.id = JOKOA_fondoaSortu();
   laukizuzenakEzarri(Laukizuzenak);
+  bihotzakEzarri(bihotzak, bizitza);
   jokalaria.id = JOKOA_jokalariaIrudiaSortu();
   pilota.id = JOKOA_pilotaIrudiaSortu();
   barra.id = JOKOA_barraIrudiaSortu();
@@ -257,7 +265,8 @@ EGOERA jokatu(void)
 	///////////////////////////////////////////////////////////////BIZITZAK
 	if (pilota.pos.y > 480)
 	{
-		bizitza -= 1;
+		bizitza--;
+		bihotzakKendu(bihotzak, bizitza);
 		hasi = 0;
 		rebote = 0;
 		goian = 0;
@@ -304,6 +313,18 @@ int JOKOA_jokalariaIrudiaSortu()
   pantailaBerriztu();
   return barraId;
 }
+
+int BihotzakMarraztu(int posizioax, int posizioay)
+{
+	int bihotzId = -1;
+	bihotzId = irudiaKargatu(JOKOA_BIHOTZAK_IMAGE);
+	irudiaMugitu(bihotzId, posizioax, posizioay);
+	pantailaGarbitu();
+	irudiakMarraztu();
+	pantailaBerriztu();
+	return bihotzId;
+}
+
 
 int JOKOA_barraIrudiaSortu()
 {
@@ -396,6 +417,31 @@ void laukizuzenakEzarri(JOKO_ELEMENTUA Laukizuzena) {
 	}
 }
 
+//////////////////////////////////////7 bihotzak
+void bihotzakEzarri(JOKO_ELEMENTUA bihotzak, int bizitza)
+{
+	int i, posy = 430, posx = 30;
+	for (i = 0; i < bizitza; i++) {
+		bihotzak.id = BihotzakMarraztu(posx, posy);
+		posx += 30;
+	}
+}
+
+void bihotzakKendu(JOKO_ELEMENTUA bihotzak, int bizitza)
+{
+	int n = 133;
+
+	while (n == bizitza + 131) { //gero 2, 3 eta 4 izango dira (ez 131, 132 eta 133)
+		if (bihotzak.id == n)
+		{
+			posy += 300;
+		}
+		n--;
+	}
+}
+
+//////////////////////////////////////7 bihotzak
+
 /////////////////////////////////////////////////////////////////////////BARRA + PILOTA mugimenduak
 POSIZIOA ERREALITATE_FISIKOA_mugimendua(POSIZIOA posizioa) 
 {
@@ -457,9 +503,19 @@ int  jokoAmaierakoa(EGOERA egoera)
 int BUKAERA_irudiaBistaratu() {
   int id = -1;
   id = irudiaKargatu(BUKAERA_IMAGE);
-  irudiaMugitu(id, 200, 200);
+  irudiaMugitu(id, 0, 0);
   pantailaGarbitu();
   irudiakMarraztu();
+  finalScore();
   pantailaBerriztu();
   return id;
 }
+
+//////////////////////////////////////////////////score
+
+void finalScore()
+{
+	textuaIdatzi(280, 210, FINAL_SCORE);
+}
+
+//////////////////////////////////////////////////score
