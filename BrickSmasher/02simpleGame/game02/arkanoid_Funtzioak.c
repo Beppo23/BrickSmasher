@@ -7,7 +7,15 @@
 #include <stdio.h>
 #include <windows.h>
 
-#define ONGI_ETORRI_MEZUA "Sakatu return hasteko..."
+#define JOKATU ".\\img\\joka.bmp"
+#define TUTORIALA ".\\img\\noljoka.bmp"
+#define NOLA_JOKATU "Barra bat daukazu, hau mugitzeko <- ->geziak erabiltzen dira. "
+#define NOLA2_JOKATU "Pilota barratik jaurtitzeko <espace> teklari eman."
+#define NOLA3_JOKATU "Jokoa hasteko eman saguaren eskumako botoiari ."
+#define KREDITUAK ".\\img\\kredituak.bmp"
+#define KREDITOAK_IMAGE ".\\img\\krekre.bmp"
+#define ITXI ".\\img\\itxijokua.bmp"
+#define MENU_BACKGROUD_IMAGE ".\\img\\men.bmp"
 #define JOKOA_SOUND ".\\sound\\arkanoid_audio.wav"
 #define JOKOA_PLAYER_IMAGE ".\\img\\barra1.bmp"
 #define JOKOA_PELOTA_IMAGE ".\\img\\pelota.bmp"
@@ -43,23 +51,147 @@ void finalScore();
 
 void jokoaAurkeztu(void)
 {
-  int ebentu = 0;
+	int ebentu = 0, saguaclick = 0, barruan = 0;
+	POSIZIOA pos;
 
-  sarreraMezuaIdatzi();
-  do
-  {
-    ebentu = ebentuaJasoGertatuBada();
-  } while (ebentu != TECLA_RETURN);
-  pantailaGarbitu();
-  pantailaBerriztu();
+	sarreraMezuaIdatzi();
+
+	do
+	{
+		pos = saguarenPosizioa();
+		ebentu = ebentuaJasoGertatuBada();
+		if (ebentu == SAGU_BOTOIA_EZKERRA && (pos.x >= 260) && (pos.x <= 375) && (pos.y >= 120) && (pos.y <= 153) && barruan == 0)
+		{
+			saguaclick = 1;
+			barruan = 1;
+		}
+		if (ebentu == SAGU_BOTOIA_EZKERRA && (pos.x >= 260) && (pos.x <= 375) && (pos.y >= 210) && (pos.y <= 243) && barruan == 0)
+		{
+			saguaclick = 2;
+			barruan = 1;
+
+		}
+		if (ebentu == SAGU_BOTOIA_EZKERRA && (pos.x >= 260) && (pos.x <= 375) && (pos.y >= 300) && (pos.y <= 333) && barruan == 0)
+		{
+			saguaclick = 3;
+			barruan = 1;
+
+		}
+		if (ebentu == SAGU_BOTOIA_EZKERRA && (pos.x >= 260) && (pos.x <= 375) && (pos.y >= 390) && (pos.y <= 423) && barruan == 0)
+		{
+			saguaclick = 4;
+			barruan = 1;
+
+		}
+		switch (saguaclick)
+		{
+		case 1:
+			saguaclick = 0;
+			jokatu();
+			break;
+
+		case 2:pantailaGarbitu();
+			saguaclick = 0;
+			JOKOA_fondoaSortu();
+			textuaIdatzi(100, 100, NOLA_JOKATU);
+			textuaIdatzi(100, 200, NOLA2_JOKATU);
+			textuaIdatzi(50, 370, NOLA3_JOKATU);
+			pantailaBerriztu();
+			break;
+		case 3:pantailaGarbitu();
+			saguaclick = 0;
+			JOKOA_KreditoakSortu();
+			pantailaBerriztu();
+			break;
+		case 4:sgItxi();
+			audioTerminate();
+			saguaclick = 0;
+			break;
+		}
+	} while (ebentu != '0');
+
 }
 
 void sarreraMezuaIdatzi()
 {
-  pantailaGarbitu();
-  textuaIdatzi(225, 200, ONGI_ETORRI_MEZUA);
-  pantailaBerriztu();
+	pantailaGarbitu();
+	JOKOA_backSortu();
+	JOKOA_jokatu();
+	JOKOA_tutoriala();
+	JOKOA_kreditoak();
+	JOKOA_itxi();
+
+	pantailaBerriztu();
+
 }
+int JOKOA_jokatu()
+{
+	int jokatuId = -1;
+	jokatuId = irudiaKargatu(JOKATU);
+	irudiaMugitu(jokatuId, 260, 120);
+	pantailaGarbitu();
+	irudiakMarraztu();
+	pantailaBerriztu();
+	return jokatuId;
+
+}
+int JOKOA_tutoriala()
+{
+	int tutoId = -1;
+	tutoId = irudiaKargatu(TUTORIALA);
+	irudiaMugitu(tutoId, 260, 210);
+	pantailaGarbitu();
+	irudiakMarraztu();
+	pantailaBerriztu();
+	return tutoId;
+
+}
+int JOKOA_kreditoak()
+{
+	int kreId = -1;
+	kreId = irudiaKargatu(KREDITUAK);
+	irudiaMugitu(kreId, 260, 300);
+	pantailaGarbitu();
+	irudiakMarraztu();
+	pantailaBerriztu();
+	return kreId;
+
+}
+int JOKOA_itxi()
+{
+	int itxId = -1;
+	itxId = irudiaKargatu(ITXI);
+	irudiaMugitu(itxId, 260, 390);
+	pantailaGarbitu();
+	irudiakMarraztu();
+	pantailaBerriztu();
+	return itxId;
+
+}
+
+int JOKOA_backSortu()
+{
+	int backId = -1;
+	backId = irudiaKargatu(MENU_BACKGROUD_IMAGE);
+	irudiaMugitu(backId, 0, 0);
+	pantailaGarbitu();
+	irudiakMarraztu();
+	pantailaBerriztu();
+	return backId;
+
+}
+int JOKOA_KreditoakSortu()
+{
+	int kredId = -1;
+	kredId = irudiaKargatu(KREDITOAK_IMAGE);
+	irudiaMugitu(kredId, 0, 0);
+	pantailaGarbitu();
+	irudiakMarraztu();
+	pantailaBerriztu();
+	return kredId;
+
+}
+
 
 EGOERA jokatu(void) 
 {
