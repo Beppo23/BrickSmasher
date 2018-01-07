@@ -20,6 +20,8 @@
 #define JOKOA_PLAYER_IMAGE ".\\img\\barra1.bmp"
 #define JOKOA_PELOTA_IMAGE ".\\img\\pelota.bmp"
 #define JOKOA_BIHOTZAK_IMAGE ".\\img\\bihotza.bmp"
+#define JOKOA_2BIHOTZAKENDU_IMAGE ".\\img\\2bihotza_tapatu.bmp"
+#define JOKOA_3BIHOTZAKENDU_IMAGE ".\\img\\3bihotza_tapatu.bmp"
 #define JOKOA_BACKGROUND_IMAGE ".\\img\\arkanoid_fondo.bmp"
 #define JOKOA_ENERGIA_IMAGE ".\\img\\barra_energia.bmp"
 #define JOKOA_SOUND_WIN ".\\sound\\you_win.wav"
@@ -429,7 +431,8 @@ EGOERA jokatu(void)
 	if (pilota.pos.y > 480)
 	{
 		bizitza--;
-		bihotzakKendu(bihotzak, bizitza);
+		if (bizitza == 2) hiruBihotzaKendu();
+		else biBihotzaKendu();
 		hasi = 0;
 		rebote = 0;
 		goian = 0;
@@ -476,18 +479,6 @@ int JOKOA_jokalariaIrudiaSortu()
   pantailaBerriztu();
   return barraId;
 }
-
-int BihotzakMarraztu(int posizioax, int posizioay)
-{
-	int bihotzId = -1;
-	bihotzId = irudiaKargatu(JOKOA_BIHOTZAK_IMAGE);
-	irudiaMugitu(bihotzId, posizioax, posizioay);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return bihotzId;
-}
-
 
 int JOKOA_barraIrudiaSortu()
 {
@@ -590,18 +581,39 @@ void bihotzakEzarri(JOKO_ELEMENTUA bihotzak, int bizitza)
 	}
 }
 
-void bihotzakKendu(JOKO_ELEMENTUA bihotzak, int bizitza)
+int BihotzakMarraztu(int posizioax, int posizioay)
 {
-	int n = 133;
-
-	while (n == bizitza + 131) { //gero 2, 3 eta 4 izango dira (ez 131, 132 eta 133)
-		if (bihotzak.id == n)
-		{
-			posy += 300;
-		}
-		n--;
-	}
+	int bihotzId = -1;
+	bihotzId = irudiaKargatu(JOKOA_BIHOTZAK_IMAGE);
+	irudiaMugitu(bihotzId, posizioax, posizioay);
+	pantailaGarbitu();
+	irudiakMarraztu();
+	pantailaBerriztu();
+	return bihotzId;
 }
+
+int biBihotzaKendu()
+{
+	int kenduId = -1;
+	kenduId = irudiaKargatu(JOKOA_2BIHOTZAKENDU_IMAGE);
+	irudiaMugitu(kenduId, 60, 430);
+	pantailaGarbitu();
+	irudiakMarraztu();
+	pantailaBerriztu();
+	return kenduId;
+}
+
+int hiruBihotzaKendu()
+{
+	int kenduId = -1;
+	kenduId = irudiaKargatu(JOKOA_3BIHOTZAKENDU_IMAGE);
+	irudiaMugitu(kenduId, 90, 430);
+	pantailaGarbitu();
+	irudiakMarraztu();
+	pantailaBerriztu();
+	return kenduId;
+}
+
 
 //////////////////////////////////////7 bihotzak
 
