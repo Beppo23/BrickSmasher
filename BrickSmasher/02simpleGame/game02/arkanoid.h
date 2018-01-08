@@ -5,7 +5,7 @@
 
 void jokoaAurkeztu(void);
 EGOERA jokatu(void);
-void laukizuzenakEzarri(JOKO_ELEMENTUA Laukizuzenak);
+void laukizuzenakEzarri(LAUKIZUZENA_ELEMENTUA Laukizuzenak, LAUKIZUZENA_ELEMENTUA blokeak[]);
 void bihotzakEzarri(JOKO_ELEMENTUA Bihotzak, int bizitza);
 int  jokoAmaierakoa(EGOERA egoera);
 

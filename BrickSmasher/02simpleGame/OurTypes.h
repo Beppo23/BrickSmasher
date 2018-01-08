@@ -12,5 +12,11 @@ typedef struct
   int id;
   MOTA mota;
 }JOKO_ELEMENTUA;
-
+typedef struct
+{
+	POSIZIOA pos;
+	int id;
+	int apurtuta;
+	MOTA mota;
+}LAUKIZUZENA_ELEMENTUA;
 #endif

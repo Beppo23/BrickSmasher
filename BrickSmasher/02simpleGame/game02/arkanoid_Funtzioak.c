@@ -235,14 +235,17 @@ EGOERA jokatu(void)
 
   EGOERA  egoera = JOLASTEN;
   int ebentu = 0;
-  JOKO_ELEMENTUA pilota, Laukizuzenak, jokalaria, fondoa, barra, bihotzak;
+  JOKO_ELEMENTUA pilota, jokalaria, fondoa, barra, bihotzak;
+  LAUKIZUZENA_ELEMENTUA Laukizuzena;
   POSIZIOA aux;
+  LAUKIZUZENA_ELEMENTUA Blokeak[130];
+
 
   jokalaria.pos.x = 280;
   jokalaria.pos.y = 400;
 
-  Laukizuzenak.pos.x = 280;
-  Laukizuzenak.pos.y = 400;
+  Laukizuzena.pos.x = 280;
+  Laukizuzena.pos.y = 400;
 
   bihotzak.pos.x = 280;
   bihotzak.pos.y = 400;
@@ -259,7 +262,7 @@ EGOERA jokatu(void)
   loadTheMusic(JOKOA_SOUND);
   //playMusic();    /////////////////////////Comentado para que no de la brasa durante el testeo, quitar para la publicación final
   fondoa.id = JOKOA_fondoaSortu();
-  laukizuzenakEzarri(Laukizuzenak);
+  laukizuzenakEzarri(Laukizuzena, Blokeak);
   bihotzakEzarri(bihotzak, bizitza);
   jokalaria.id = JOKOA_jokalariaIrudiaSortu();
   pilota.id = JOKOA_pilotaIrudiaSortu();
@@ -379,6 +382,22 @@ EGOERA jokatu(void)
 				pilota.pos.x = aux.x;
 			}
 		}
+		if ((pilota.pos.y >= 50) && (pilota.pos.y <= 250) && (pilota.pos.x >= 60) && (pilota.pos.x <= 580))
+		{
+			int id = 0;
+			id = Id_aurkitu(pilota.pos.x, pilota.pos.y);
+
+			if (id >= 1 && id <= 130) {
+				if (Blokeak[id].apurtuta != 1)
+				{
+					Blokeak[id].apurtuta = 1;
+					Blokeak[id].pos.x = 4000;
+					Blokeak[id].pos.y = 4000;
+					irudiaMugitu(id, Blokeak[id].pos.x, Blokeak[id].pos.y);
+				}
+			}
+
+		}
 		if ((pilota.pos.y == 377) && (pilota.pos.x > jokalaria.pos.x - 15) && (pilota.pos.x < (jokalaria.pos.x + 121)))
 		{
 			goian = 0;
@@ -402,11 +421,11 @@ EGOERA jokatu(void)
 		if ((pilota.pos.x == jokalaria.pos.x) && (pilota.pos.y > 400) && (pilota.pos.y < 427)) rebote = 1;
 		if ((pilota.pos.x == jokalaria.pos.x + 106) && (pilota.pos.y > 400) && (pilota.pos.y < 427)) rebote = 0;
 		////////////////////////////
-		if ((pilota.pos.y == 230) && (pilota.pos.x >60) && (pilota.pos.x < 580)) goian = 1;
+		/*if ((pilota.pos.y == 230) && (pilota.pos.x >60) && (pilota.pos.x < 580)) goian = 1;
 		if ((pilota.pos.x == 50) && (pilota.pos.y < 230) && (pilota.pos.y > 50)) rebote = 1;
 		if ((pilota.pos.y == 30) && (pilota.pos.x >60) && (pilota.pos.x < 580))	goian = 0;
 		if ((pilota.pos.x == 580) && (pilota.pos.y < 230) && (pilota.pos.y > 50)) rebote = 0;
-
+*/
 		if (mugitu) {
 			aux = ERREALITATE_FISIKOA_mugimendua(jokalaria.pos);
 			jokalaria.pos.x = aux.x;
@@ -544,33 +563,60 @@ int JOKOA_fondoaSortu()
 
 }
 
-void laukizuzenakEzarri(JOKO_ELEMENTUA Laukizuzena) {
-	
-	int r = 1, maximoa = 0;
-	
-	for (int i = 0; i < 9; i++)
+void laukizuzenakEzarri(LAUKIZUZENA_ELEMENTUA Laukizuzena, LAUKIZUZENA_ELEMENTUA blokeak[]) {
+	int r = 1, maximoa = 0, j = 0;
+	for (int i = 0; i < 10; i++)
 	{
-		if (i == 0)	posy = 50;
+		if (i == 0)
+		{
+			posy = 50;
+		}
 
 		for (int t = 0; t < 13; t++)
 		{
-			if (t == 0)	posx = 60;
-
+			if (t == 0)
+			{
+				posx = 60;
+			}
 			Laukizuzena.id = JOKOA_LaukizuzenaIrudiaSortu(posx, posy, r);
+			Laukizuzena.apurtuta = 0;
+			blokeak[j] = Laukizuzena;
 			posx += 40;
+			j++;
 		}
-		
 		posy += 20;
-		if (r == 3)	maximoa = 1;
+		if (r == 3)
+		{
+			maximoa = 1;
 
-		else if (r == 1) maximoa = 0;
-
-		if (maximoa == 1) r--;
-
-		else r++;
+		}
+		else if (r == 1) {
+			maximoa = 0;
+		}
+		if (maximoa == 1) {
+			r--;
+		}
+		else {
+			r++;
+		}
 	}
 }
+int Id_aurkitu(int x, int y) {
+	int id = 6, xtxiki = 60, ytxikia = 50;
 
+
+	while (x<xtxiki || x > xtxiki + 40)
+	{
+		xtxiki += 40;
+		id++;
+	}
+	while (y<ytxikia || y > ytxikia + 20)
+	{
+		ytxikia += 20;
+		id += 13;
+	}
+	return id;
+}
 //////////////////////////////////////7 bihotzak
 void bihotzakEzarri(JOKO_ELEMENTUA bihotzak, int bizitza)
 {
