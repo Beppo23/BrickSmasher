@@ -1,17 +1,24 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(387,5): warning MSB8028: El directorio intermedio (Debug\) contiene archivos compartidos de otro proyecto (02simpleGame.vcxproj). Esto puede dar lugar a un comportamiento incorrecto de limpieza y recompilación.
   arkanoid_Funtzioak.c
-c:\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(107): warning C4013: 'JOKOA_fondoaSortu' sin definir; se supone que extern devuelve como resultado int
-c:\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(108): warning C4013: 'JOKOA_itzuli' sin definir; se supone que extern devuelve como resultado int
-c:\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(115): warning C4013: 'JOKOA_KreditoakSortu' sin definir; se supone que extern devuelve como resultado int
-c:\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(136): warning C4013: 'JOKOA_backSortu' sin definir; se supone que extern devuelve como resultado int
-c:\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(137): warning C4013: 'JOKOA_jokatu' sin definir; se supone que extern devuelve como resultado int
-c:\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(138): warning C4013: 'JOKOA_tutoriala' sin definir; se supone que extern devuelve como resultado int
-c:\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(139): warning C4013: 'JOKOA_kreditoak' sin definir; se supone que extern devuelve como resultado int
-c:\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(140): warning C4013: 'JOKOA_itxi' sin definir; se supone que extern devuelve como resultado int
-c:\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(268): warning C4013: 'JOKOA_pilotaIrudiaSortu' sin definir; se supone que extern devuelve como resultado int
-c:\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(283): warning C4013: 'irudiaAldatu' sin definir; se supone que extern devuelve como resultado int
-c:\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(388): warning C4013: 'Id_aurkitu' sin definir; se supone que extern devuelve como resultado int
-c:\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(453): warning C4013: 'hiruBihotzaKendu' sin definir; se supone que extern devuelve como resultado int
-c:\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(454): warning C4013: 'biBihotzaKendu' sin definir; se supone que extern devuelve como resultado int
-c:\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(702): warning C4101: 'idAudioGame': variable local sin referencia
-  02simpleGame.vcxproj -> C:\POPBL\BrickSmasher\BrickSmasher\Debug\Arkanoid.exe
+c:\users\usuario\desktop\mondragon\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(109): warning C4013: 'JOKOA_fondoaSortu' sin definir; se supone que extern devuelve como resultado int
+c:\users\usuario\desktop\mondragon\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(110): warning C4013: 'JOKOA_itzuli' sin definir; se supone que extern devuelve como resultado int
+c:\users\usuario\desktop\mondragon\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(117): warning C4013: 'JOKOA_KreditoakSortu' sin definir; se supone que extern devuelve como resultado int
+c:\users\usuario\desktop\mondragon\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(138): warning C4013: 'JOKOA_backSortu' sin definir; se supone que extern devuelve como resultado int
+c:\users\usuario\desktop\mondragon\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(139): warning C4013: 'JOKOA_jokatu' sin definir; se supone que extern devuelve como resultado int
+c:\users\usuario\desktop\mondragon\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(140): warning C4013: 'JOKOA_tutoriala' sin definir; se supone que extern devuelve como resultado int
+c:\users\usuario\desktop\mondragon\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(141): warning C4013: 'JOKOA_kreditoak' sin definir; se supone que extern devuelve como resultado int
+c:\users\usuario\desktop\mondragon\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(142): warning C4013: 'JOKOA_itxi' sin definir; se supone que extern devuelve como resultado int
+c:\users\usuario\desktop\mondragon\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(270): warning C4013: 'JOKOA_pilotaIrudiaSortu' sin definir; se supone que extern devuelve como resultado int
+c:\users\usuario\desktop\mondragon\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(285): warning C4013: 'irudiaAldatu' sin definir; se supone que extern devuelve como resultado int
+c:\users\usuario\desktop\mondragon\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(390): warning C4013: 'Id_aurkitu' sin definir; se supone que extern devuelve como resultado int
+c:\users\usuario\desktop\mondragon\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(463): warning C4013: 'hiruBihotzaKendu' sin definir; se supone que extern devuelve como resultado int
+c:\users\usuario\desktop\mondragon\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(464): warning C4013: 'biBihotzaKendu' sin definir; se supone que extern devuelve como resultado int
+c:\users\usuario\desktop\mondragon\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(729): warning C4101: 'idAudioGame': variable local sin referencia
+  arkanoid_Main.c
+  text.c
+  soinua.c
+  imagen.c
+  graphics.c
+  ebentoak.c
+  Generando código...
+  02simpleGame.vcxproj -> C:\Users\USUARIO\Desktop\Mondragon\POPBL\BrickSmasher\BrickSmasher\Debug\Arkanoid.exe

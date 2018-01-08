@@ -41,6 +41,8 @@ void sarreraMezuaIdatzi();
 int JOKOA_jokalariaIrudiaSortu();
 int JOKOA_barraIrudiaSortu();
 int BihotzakMarraztu(posx, posy);
+int aurkituYKoordenatuak(int id);
+int aurkituXKoordenatuak(int id);
 int JOKOA_LaukizuzenaIrudiaSortu(int posx, int posy, int zein);
 EGOERA JOKOA_egoera(JOKO_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bizitza);
 POSIZIOA ERREALITATE_FISIKOA_mugimendua(POSIZIOA posizioa);
@@ -59,7 +61,6 @@ void jokoaAurkeztu(void)
 	audioInit();
 	loadTheMusic(MENU_AUDIO);
 	playMusic();
-
 	sarreraMezuaIdatzi();
 
 	do
@@ -75,19 +76,16 @@ void jokoaAurkeztu(void)
 		{
 			saguaclick = 2;
 			barruan = 1;
-
 		}
 		if (ebentu == SAGU_BOTOIA_EZKERRA && (pos.x >= 260) && (pos.x <= 375) && (pos.y >= 300) && (pos.y <= 333) && barruan == 0)
 		{
 			saguaclick = 3;
 			barruan = 1;
-
 		}
 		if (ebentu == SAGU_BOTOIA_EZKERRA && (pos.x >= 260) && (pos.x <= 375) && (pos.y >= 390) && (pos.y <= 423) && barruan == 0)
 		{
 			saguaclick = 4;
 			barruan = 1;
-
 		}
 		if (ebentu == SAGU_BOTOIA_EZKERRA && (pos.x >= 50) && (pos.x <= 175) && (pos.y >= 370) && (pos.y <= 423) && barruan == 1)
 		{
@@ -127,7 +125,6 @@ void jokoaAurkeztu(void)
 			break;
 		}
 	} while (saguaclick != 999);
-
 }
 
 void sarreraMezuaIdatzi()
@@ -140,7 +137,6 @@ void sarreraMezuaIdatzi()
 	JOKOA_itxi();
 
 	pantailaBerriztu();
-
 }
 int JOKOA_jokatu()
 {
@@ -151,7 +147,6 @@ int JOKOA_jokatu()
 	irudiakMarraztu();
 	pantailaBerriztu();
 	return jokatuId;
-
 }
 int JOKOA_tutoriala()
 {
@@ -162,7 +157,6 @@ int JOKOA_tutoriala()
 	irudiakMarraztu();
 	pantailaBerriztu();
 	return tutoId;
-
 }
 int JOKOA_kreditoak()
 {
@@ -173,7 +167,6 @@ int JOKOA_kreditoak()
 	irudiakMarraztu();
 	pantailaBerriztu();
 	return kreId;
-
 }
 int JOKOA_itxi()
 {
@@ -184,7 +177,6 @@ int JOKOA_itxi()
 	irudiakMarraztu();
 	pantailaBerriztu();
 	return itxId;
-
 }
 int JOKOA_itzuli()
 {
@@ -195,7 +187,6 @@ int JOKOA_itzuli()
 	irudiakMarraztu();
 	pantailaBerriztu();
 	return itzulId;
-
 }
 
 int JOKOA_backSortu()
@@ -207,7 +198,6 @@ int JOKOA_backSortu()
 	irudiakMarraztu();
 	pantailaBerriztu();
 	return backId;
-
 }
 int JOKOA_KreditoakSortu()
 {
@@ -218,7 +208,6 @@ int JOKOA_KreditoakSortu()
 	irudiakMarraztu();
 	pantailaBerriztu();
 	return kredId;
-
 }
 
 
@@ -239,7 +228,6 @@ EGOERA jokatu(void)
   LAUKIZUZENA_ELEMENTUA Laukizuzena;
   POSIZIOA aux;
   LAUKIZUZENA_ELEMENTUA Blokeak[130];
-
 
   jokalaria.pos.x = 280;
   jokalaria.pos.y = 400;
@@ -267,22 +255,20 @@ EGOERA jokatu(void)
   jokalaria.id = JOKOA_jokalariaIrudiaSortu();
   pilota.id = JOKOA_pilotaIrudiaSortu();
   barra.id = JOKOA_barraIrudiaSortu();
-  
 
-  do {
+  do 
+  {
     Sleep(2);
     pantailaGarbitu();
     arkatzKoloreaEzarri(0, 0, 0xFF);
-	if (hasi)
-	{
-		irudiaMugitu(pilota.id, pilota.pos.x, pilota.pos.y);
-	}
+
+	if (hasi) irudiaMugitu(pilota.id, pilota.pos.x, pilota.pos.y);
+
 	else
 	{
 		irudiaMugitu(pilota.id, jokalaria.pos.x + 38, jokalaria.pos.y - 23);
 		irudiaAldatu(barra.id, 2);
 	}
-
     irudiaMugitu(jokalaria.id, jokalaria.pos.x, jokalaria.pos.y);
 	irudiaMugitu(barra.id, jokalaria.pos.x - 5, jokalaria.pos.y + 20);
     irudiakMarraztu();
@@ -291,8 +277,7 @@ EGOERA jokatu(void)
 	/////////////////////////////////////////////////////////////////////PILOTA JAURTI DA
 	if (ebentu == TECLA_SPACE)
 	{
-
-		if (pilota.pos.x < 320 && hasi == 0) ////////////////// Si esta a la izquierda de la mitad lo lanza hacia la izquierda
+		if (pilota.pos.x < 320 && hasi == 0)///////////////// Si esta a la izquierda de la mitad lo lanza hacia la izquierda
 		{
 			rebote = 1;
 		}
@@ -302,16 +287,10 @@ EGOERA jokatu(void)
 
 	////////////////////////////////////////////////////////////////////MUGIMENDUA LIMITATUA
 	
-    if (ebentu == TECLA_RIGHT) 
-    {
-      mugitu = 1;
-    }
-	else if (ebentu == TECLA_LEFT)
-	{
-		
-		mugituEZK = 1;
-		
-	}
+    if (ebentu == TECLA_RIGHT) mugitu = 1;
+  
+	else if (ebentu == TECLA_LEFT)	mugituEZK = 1;
+	
 	else if (ebentu != TECLA_RIGHT || ebentu != TECLA_LEFT)
 	{
 		mugitu = 0;
@@ -343,10 +322,8 @@ EGOERA jokatu(void)
 	}
 	else
 	{
-		if (ebentu == TECLA_SPACE)
-		{
-			irudiaAldatu(barra.id, 1);
-		}
+		if (ebentu == TECLA_SPACE)	irudiaAldatu(barra.id, 1);
+
 		else if (ebentu == TECLA_g) ///////////////////////////////////////////////PROVISIONAL INSERTAR POWER UP
 		{
 			irudiaAldatu(barra.id, 0);
@@ -384,19 +361,26 @@ EGOERA jokatu(void)
 		}
 		if ((pilota.pos.y >= 50) && (pilota.pos.y <= 250) && (pilota.pos.x >= 60) && (pilota.pos.x <= 580))
 		{
-			int id = 0;
+			int id = 0, blokeGoi, blokeBehe, blokeEzk, blokeEsk;
 			id = Id_aurkitu(pilota.pos.x, pilota.pos.y);
 
-			if (id >= 1 && id <= 130) {
+			if (id >= 6 && id <= 135) {
 				if (Blokeak[id].apurtuta != 1)
 				{
+					blokeEzk = aurkituXKoordenatuak(id);
+					blokeEsk = blokeEzk + 40;
+					blokeGoi = aurkituYKoordenatuak(id);
+					blokeBehe = blokeGoi + 20;
+					if (pilota.pos.x == blokeEzk) rebote = 1;
+					if (pilota.pos.x == blokeEsk) rebote = 0;
+					if (pilota.pos.y + 24 == blokeGoi) goian = 0;
+					if (pilota.pos.y == blokeBehe) goian = 1;
 					Blokeak[id].apurtuta = 1;
 					Blokeak[id].pos.x = 4000;
 					Blokeak[id].pos.y = 4000;
 					irudiaMugitu(id, Blokeak[id].pos.x, Blokeak[id].pos.y);
 				}
 			}
-
 		}
 		if ((pilota.pos.y == 377) && (pilota.pos.x > jokalaria.pos.x - 15) && (pilota.pos.x < (jokalaria.pos.x + 121)))
 		{
@@ -426,10 +410,10 @@ EGOERA jokatu(void)
 		if ((pilota.pos.y == 30) && (pilota.pos.x >60) && (pilota.pos.x < 580))	goian = 0;
 		if ((pilota.pos.x == 580) && (pilota.pos.y < 230) && (pilota.pos.y > 50)) rebote = 0;
 */
-		if (mugitu) {
+		if (mugitu) 
+		{
 			aux = ERREALITATE_FISIKOA_mugimendua(jokalaria.pos);
 			jokalaria.pos.x = aux.x;
-
 		}
 		if (mugituEZK)
 		{
@@ -459,7 +443,6 @@ EGOERA jokatu(void)
 		jokalaria.pos.y = 400;
 		pilota.pos.x = jokalaria.pos.x + 38;
 		pilota.pos.y = jokalaria.pos.y - 23;
-
 	}
 	///////////////////////////////////////////////////////////////BIZITZAK
 	egoera = JOKOA_egoera(jokalaria, pilota, bizitza);
@@ -512,21 +495,17 @@ int JOKOA_barraIrudiaSortu()
 
 int JOKOA_LaukizuzenaIrudiaSortu(int posizioax, int posizioay, int zein)
 {
-
 	int Laukizuzena = -1;
 	switch (zein)
 	{
 	case 1:
-
 		Laukizuzena = irudiaKargatu(LAUKIZUZENA1_1BMP);
 		break;
 	case 2:
 		Laukizuzena = irudiaKargatu(LAUKIZUZENA1_2BMP);
-
 		break;
 	case 3:
 		Laukizuzena = irudiaKargatu(LAUKIZUZENA1_3BMP);
-
 		break;
 	default:
 		break;
@@ -536,7 +515,6 @@ int JOKOA_LaukizuzenaIrudiaSortu(int posizioax, int posizioay, int zein)
 	irudiakMarraztu();
 	pantailaBerriztu();
 	return Laukizuzena;
-
 }
 
 int JOKOA_pilotaIrudiaSortu()
@@ -548,7 +526,6 @@ int JOKOA_pilotaIrudiaSortu()
 	irudiakMarraztu();
 	pantailaBerriztu();
 	return pilotaId;
-
 }
 
 int JOKOA_fondoaSortu()
@@ -560,24 +537,18 @@ int JOKOA_fondoaSortu()
 	irudiakMarraztu();
 	pantailaBerriztu();
 	return fondoaId;
-
 }
 
 void laukizuzenakEzarri(LAUKIZUZENA_ELEMENTUA Laukizuzena, LAUKIZUZENA_ELEMENTUA blokeak[]) {
 	int r = 1, maximoa = 0, j = 0;
+	
 	for (int i = 0; i < 10; i++)
 	{
-		if (i == 0)
-		{
-			posy = 50;
-		}
+		if (i == 0)	posy = 50;
 
 		for (int t = 0; t < 13; t++)
 		{
-			if (t == 0)
-			{
-				posx = 60;
-			}
+			if (t == 0)	posx = 60;
 			Laukizuzena.id = JOKOA_LaukizuzenaIrudiaSortu(posx, posy, r);
 			Laukizuzena.apurtuta = 0;
 			blokeak[j] = Laukizuzena;
@@ -585,25 +556,18 @@ void laukizuzenakEzarri(LAUKIZUZENA_ELEMENTUA Laukizuzena, LAUKIZUZENA_ELEMENTUA
 			j++;
 		}
 		posy += 20;
-		if (r == 3)
-		{
-			maximoa = 1;
+		if (r == 3)	maximoa = 1;
 
-		}
-		else if (r == 1) {
-			maximoa = 0;
-		}
-		if (maximoa == 1) {
-			r--;
-		}
-		else {
-			r++;
-		}
+		else if (r == 1) maximoa = 0;
+		
+		if (maximoa == 1) r--;
+		
+		else r++;
 	}
 }
-int Id_aurkitu(int x, int y) {
+int Id_aurkitu(int x, int y) 
+{
 	int id = 6, xtxiki = 60, ytxikia = 50;
-
 
 	while (x<xtxiki || x > xtxiki + 40)
 	{
@@ -617,11 +581,29 @@ int Id_aurkitu(int x, int y) {
 	}
 	return id;
 }
+int aurkituXKoordenatuak(int id)
+{
+	int i = 0, xkoor = 20, ilarapos;
+	id -= 5;
+	while (id - (i + 1) * 13 > 0) i++;
+	ilarapos = id - i * 13;
+	xkoor += ilarapos * 40;
+	return xkoor;
+}
+int aurkituYKoordenatuak(int id)
+{
+	int i = 1, ykoor = 30;
+	id -= 5;
+	while (id - i * 13 > 0) i++;
+	ykoor += i * 20;
+	return ykoor;
+}
 //////////////////////////////////////7 bihotzak
 void bihotzakEzarri(JOKO_ELEMENTUA bihotzak, int bizitza)
 {
 	int i, posy = 430, posx = 30;
-	for (i = 0; i < bizitza; i++) {
+	for (i = 0; i < bizitza; i++) 
+	{
 		bihotzak.id = BihotzakMarraztu(posx, posy);
 		posx += 30;
 	}
@@ -701,7 +683,6 @@ int  jokoAmaierakoa(EGOERA egoera)
   int ebentu = 0, id;
   int idAudioGame;
 
-
  /* loadTheMusic(BUKAERA_SOUND_1);
   if (egoera == IRABAZI) {
     idAudioGame = loadSound(JOKOA_SOUND_WIN);
@@ -721,7 +702,8 @@ int  jokoAmaierakoa(EGOERA egoera)
   return (ebentu != TECLA_RETURN) ? 1 : 0;
 }
 
-int BUKAERA_irudiaBistaratu() {
+int BUKAERA_irudiaBistaratu() 
+{
   int id = -1;
   id = irudiaKargatu(BUKAERA_IMAGE);
   irudiaMugitu(id, 0, 0);
