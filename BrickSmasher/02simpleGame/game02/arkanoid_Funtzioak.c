@@ -28,6 +28,17 @@
 #define JOKOA_SOUND_LOOSE ".\\sound\\you_lose.wav" 
 #define BUKAERA_SOUND_1 ".\\sound\\arkanoid_audio.wav"
 #define BUKAERA_IMAGE ".\\img\\gameOver_3.bmp"
+
+#define ZENBAKIA_0 ".\\img\\0zenbakia.bmp"
+#define ZENBAKIA_1 ".\\img\\1zenbakia.bmp"
+#define ZENBAKIA_2 ".\\img\\2zenbakia.bmp"
+#define ZENBAKIA_3 ".\\img\\3zenbakia.bmp"
+#define ZENBAKIA_4 ".\\img\\4zenbakia.bmp"
+#define ZENBAKIA_5 ".\\img\\5zenbakia.bmp"
+#define ZENBAKIA_6 ".\\img\\6zenbakia.bmp"
+#define ZENBAKIA_7 ".\\img\\7zenbakia.bmp"
+#define ZENBAKIA_8 ".\\img\\8zenbakia.bmp"
+#define ZENBAKIA_9 ".\\img\\9zenbakia.bmp"
 #define FINAL_SCORE "SCORE XD"
 #define LAUKIZUZENA1_1BMP ".\\img\\Bloke1_1.bmp"
 #define LAUKIZUZENA1_2BMP ".\\img\\Bloke1_2.bmp"
@@ -45,6 +56,8 @@ void sarreraMezuaIdatzi();
 int JOKOA_jokalariaIrudiaSortu();
 int JOKOA_barraIrudiaSortu();
 int BihotzakMarraztu(posx, posy);
+void markagailua(int posx, int posy, int kontScore);
+void zifra(int posx, int posy, int kontScore);
 int aurkituYKoordenatuak(int id);
 int aurkituXKoordenatuak(int id);
 int JOKOA_LaukizuzenaIrudiaSortu(int posx, int posy, int zein);
@@ -229,6 +242,7 @@ EGOERA jokatu(void)
   int rebote = 0;
   int goian = 0;
   int bizitza = 3;
+  int kontScore = 0;
   int random;
 
   EGOERA  egoera = JOLASTEN;
@@ -274,6 +288,7 @@ EGOERA jokatu(void)
   sY.id = JOKOA_SYPowerUPIrudiaSortu(1);
   xP.id = JOKOA_SYPowerUPIrudiaSortu(2);
   nG.id = JOKOA_SYPowerUPIrudiaSortu(3);
+  markagailua(posx, posy, kontScore);
 
   do 
   {
@@ -403,7 +418,9 @@ EGOERA jokatu(void)
 					Blokeak[id].pos.x = 4000;
 					Blokeak[id].pos.y = 4000;
 					irudiaMugitu(id, Blokeak[id].pos.x, Blokeak[id].pos.y);
-					
+					kontScore += 10;
+					markagailua(posx, posy, kontScore);
+
 					if (!pwUP)
 					{
 						random = rng(51);
@@ -827,6 +844,79 @@ int JOKOA_SYPowerUPIrudiaSortu(int zein)
 }
 
 //////////////////////////////////////////////////score
+
+void markagailua(int posizioax, int posizioay, int kontScore)
+{
+	int i;
+	posizioax = 500;
+	posizioay = 450;
+	i = kontScore;
+	if (i > 1000) {
+		i /= 1000;
+		zifra(posizioax, posizioay, i);
+		kontScore = kontScore - i * 1000;
+	}
+	posizioax = 516;
+	if (i > 100) {
+		i /= 100;
+		zifra(posizioax, posizioay, i);
+		kontScore = kontScore - i * 100;
+	}
+	posizioax = 532;
+	if (i > 10) {
+		i /= 10;
+		zifra(posizioax, posizioay, i);
+		kontScore = kontScore - i * 10;
+	}
+	posizioax = 548;
+	kontScore = 0;
+	zifra(posizioax, posizioay, 0);
+}
+
+void zifra(int posizioax, int posizioay, int kontScore)
+{
+	int zenbakia = -1;
+	switch (kontScore)
+	{
+	case 0:
+		zenbakia = irudiaKargatu(ZENBAKIA_0);
+		break;
+	case 1:
+		zenbakia = irudiaKargatu(ZENBAKIA_1);
+		break;
+	case 2:
+		zenbakia = irudiaKargatu(ZENBAKIA_2);
+		break;
+	case 3:
+		zenbakia = irudiaKargatu(ZENBAKIA_3);
+		break;
+	case 4:
+		zenbakia = irudiaKargatu(ZENBAKIA_4);
+		break;
+	case 5:
+		zenbakia = irudiaKargatu(ZENBAKIA_5);
+		break;
+	case 6:
+		zenbakia = irudiaKargatu(ZENBAKIA_6);
+		break;
+	case 7:
+		zenbakia = irudiaKargatu(ZENBAKIA_7);
+		break;
+	case 8:
+		zenbakia = irudiaKargatu(ZENBAKIA_8);
+		break;
+	case 9:
+		zenbakia = irudiaKargatu(ZENBAKIA_9);
+		break;
+	default:
+		break;
+	}
+	irudiaMugitu(zenbakia, posizioax, posizioay);
+	pantailaGarbitu();
+	irudiakMarraztu();
+	pantailaBerriztu();
+}
+
 
 void finalScore()
 {
