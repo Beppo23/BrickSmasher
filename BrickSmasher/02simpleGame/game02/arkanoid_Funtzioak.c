@@ -51,6 +51,7 @@ int JOKOA_LaukizuzenaIrudiaSortu(int posx, int posy, int zein);
 EGOERA JOKOA_egoera(JOKO_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bizitza);
 int zeinPOWER(JOKO_ELEMENTUA zein, int posx, int posy);
 int zeinPOWERY(JOKO_ELEMENTUA zein, int posx, int posy);
+int rng(int zenb);
 POSIZIOA ERREALITATE_FISIKOA_mugimendua(POSIZIOA posizioa);
 POSIZIOA ERREALITATE_FISIKOA_mugimenduaEZK(POSIZIOA posizioa);
 POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTA(POSIZIOA posizioa);
@@ -305,63 +306,6 @@ EGOERA jokatu(void)
 		hasi = 1;
 	}
 	/////////////////////////////////////////////////////////////////////PILOTA JAURTI DA
-	if (ebentu == TECLA_x && pwUP == 0)
-	{
-		random = rng(51);
-		switch (random)
-		{
-		case 0:
-			pwUP = 1;
-			nG.pos.x = zeinPOWER(nG, 230, 360);
-			nG.pos.y = zeinPOWERY(nG, 230, 360);
-			break;
-		case 1:
-			pwUP = 1;
-			sY.pos.x = zeinPOWER(sY, 230, 360);
-			sY.pos.y = zeinPOWERY(sY, 230, 360);
-			break;
-		case 2:
-			pwUP = 1;
-			xP.pos.x = zeinPOWER(xP, 230, 360);
-			xP.pos.y = zeinPOWERY(xP, 230, 360);
-			break;
-		}
-	}
-	if (sY.pos.y == 500 || xP.pos.y == 500 || nG.pos.y == 500)
-	{
-		pwUP = 0;
-	}
-	if (pwUP)
-	{
-		if (random == 1)
-		{
-			aux = ERREALITATE_FISIKOA_mugimenduaPOWERUP(sY.pos);
-			sY.pos.y = aux.y;
-		}
-		else if (random == 2)
-		{
-			aux = ERREALITATE_FISIKOA_mugimenduaPOWERUP(xP.pos);
-			xP.pos.y = aux.y;
-		}
-		else if (random == 0)
-		{
-			aux = ERREALITATE_FISIKOA_mugimenduaPOWERUP(nG.pos);
-			nG.pos.y = aux.y;
-		}
-	}
-	else
-	{
-		irudiaMugitu(sY.id, 1000, 1000);
-		sY.pos.x = 1000;
-		sY.pos.y = 1000;
-		irudiaMugitu(xP.id, 1000, 1000);
-		xP.pos.x = 1000;
-		xP.pos.y = 1000;
-		irudiaMugitu(nG.id, 1000, 1000);
-		nG.pos.x = 1000;
-		nG.pos.y = 1000;
-	}
-	/////////////////////////////////////////////////////////////////////POWER UP
 
 	////////////////////////////////////////////////////////////////////MUGIMENDUA LIMITATUA
 	
@@ -449,17 +393,81 @@ EGOERA jokatu(void)
 					blokeEsk = blokeEzk + 40;
 					blokeGoi = aurkituYKoordenatuak(id);
 					blokeBehe = blokeGoi + 20;
+
 					if (pilota.pos.x == blokeEzk) rebote = 1;
 					if (pilota.pos.x == blokeEsk) rebote = 0;
 					if (pilota.pos.y + 24 == blokeGoi) goian = 0;
 					if (pilota.pos.y == blokeBehe) goian = 1;
+
 					Blokeak[id].apurtuta = 1;
 					Blokeak[id].pos.x = 4000;
 					Blokeak[id].pos.y = 4000;
 					irudiaMugitu(id, Blokeak[id].pos.x, Blokeak[id].pos.y);
+					
+					if (!pwUP)
+					{
+						random = rng(51);
+						switch (random)
+						{
+						case 0:
+							pwUP = 1;
+							nG.pos.x = blokeEzk + 20;
+							nG.pos.y = blokeGoi + 10;
+							zein = 3;
+							break;
+						case 1:
+							pwUP = 1;
+							sY.pos.x = blokeEzk + 20;
+							sY.pos.y = blokeGoi + 10;
+							zein = 1;
+							break;
+						case 2:
+							pwUP = 1;
+							xP.pos.x = blokeEzk + 20;
+							xP.pos.y = blokeGoi + 10;
+							zein = 2;
+							break;
+						}
+					}
 				}
 			}
 		}
+		if (sY.pos.y == 500 || xP.pos.y == 500 || nG.pos.y == 500)
+		{
+			pwUP = 0;
+			zein = 0;
+		}
+		if (pwUP)
+		{
+			if (zein == 1)
+			{
+				aux = ERREALITATE_FISIKOA_mugimenduaPOWERUP(sY.pos);
+				sY.pos.y = aux.y;
+			}
+			else if (zein == 2)
+			{
+				aux = ERREALITATE_FISIKOA_mugimenduaPOWERUP(xP.pos);
+				xP.pos.y = aux.y;
+			}
+			else if (zein == 3)
+			{
+				aux = ERREALITATE_FISIKOA_mugimenduaPOWERUP(nG.pos);
+				nG.pos.y = aux.y;
+			}
+		}
+		else
+		{
+			irudiaMugitu(sY.id, 1000, 1000);
+			sY.pos.x = 1000;
+			sY.pos.y = 1000;
+			irudiaMugitu(xP.id, 1000, 1000);
+			xP.pos.x = 1000;
+			xP.pos.y = 1000;
+			irudiaMugitu(nG.id, 1000, 1000);
+			nG.pos.x = 1000;
+			nG.pos.y = 1000;
+		}
+
 		if ((pilota.pos.y == 377) && (pilota.pos.x > jokalaria.pos.x - 15) && (pilota.pos.x < (jokalaria.pos.x + 121)))
 		{
 			goian = 0;
@@ -479,15 +487,12 @@ EGOERA jokatu(void)
 				pilota.pos.y = aux.y;
 			}
 		}
+		
 		////BARRAREN ALDEAN ERREBOTEA
 		if ((pilota.pos.x == jokalaria.pos.x) && (pilota.pos.y > 400) && (pilota.pos.y < 427)) rebote = 1;
 		if ((pilota.pos.x == jokalaria.pos.x + 106) && (pilota.pos.y > 400) && (pilota.pos.y < 427)) rebote = 0;
 		////////////////////////////
-		/*if ((pilota.pos.y == 230) && (pilota.pos.x >60) && (pilota.pos.x < 580)) goian = 1;
-		if ((pilota.pos.x == 50) && (pilota.pos.y < 230) && (pilota.pos.y > 50)) rebote = 1;
-		if ((pilota.pos.y == 30) && (pilota.pos.x >60) && (pilota.pos.x < 580))	goian = 0;
-		if ((pilota.pos.x == 580) && (pilota.pos.y < 230) && (pilota.pos.y > 50)) rebote = 0;
-*/
+		
 		if (mugitu) 
 		{
 			aux = ERREALITATE_FISIKOA_mugimendua(jokalaria.pos);
