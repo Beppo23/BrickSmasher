@@ -19,4 +19,10 @@ typedef struct
 	int apurtuta;
 	MOTA mota;
 }LAUKIZUZENA_ELEMENTUA;
+typedef struct
+{
+	POSIZIOA pos;
+	int zein;
+	int id;
+}POWERUP_ELEMENTUA;
 #endif

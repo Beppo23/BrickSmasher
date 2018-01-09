@@ -247,7 +247,8 @@ EGOERA jokatu(void)
 
   EGOERA  egoera = JOLASTEN;
   int ebentu = 0;
-  JOKO_ELEMENTUA pilota, jokalaria, fondoa, barra, bihotzak, sY, xP, nG;
+  JOKO_ELEMENTUA pilota, jokalaria, fondoa, barra, bihotzak;
+  POWERUP_ELEMENTUA sY, xP, nG;
   LAUKIZUZENA_ELEMENTUA Laukizuzena;
   POSIZIOA aux;
   LAUKIZUZENA_ELEMENTUA Blokeak[130];
@@ -269,12 +270,15 @@ EGOERA jokatu(void)
   fondoa.pos.x = 0;
   fondoa.pos.y = 0;
 
-  sY.pos.x = 1000;
-  sY.pos.y = 1000;
-  xP.pos.x = 1000;
-  xP.pos.y = 1000;
-  nG.pos.x = 1000;
-  nG.pos.y = 1000;
+  xP.pos.x = 700;
+  xP.pos.y = 550;
+  nG.pos.x = 700;
+  nG.pos.y = 550;
+  sY.pos.x = 700;
+  sY.pos.y = 550;
+  sY.zein = 0;
+  nG.zein = 0;
+  xP.zein = 0;
 
   audioInit();
   loadTheMusic(JOKOA_SOUND);
@@ -430,19 +434,19 @@ EGOERA jokatu(void)
 							pwUP = 1;
 							nG.pos.x = blokeEzk + 20;
 							nG.pos.y = blokeGoi + 10;
-							zein = 3;
+							nG.zein = 3;
 							break;
 						case 1:
 							pwUP = 1;
 							sY.pos.x = blokeEzk + 20;
 							sY.pos.y = blokeGoi + 10;
-							zein = 1;
+							sY.zein = 1;
 							break;
 						case 2:
 							pwUP = 1;
 							xP.pos.x = blokeEzk + 20;
 							xP.pos.y = blokeGoi + 10;
-							zein = 2;
+							xP.zein = 2;
 							break;
 						}
 					}
@@ -456,17 +460,17 @@ EGOERA jokatu(void)
 		}
 		if (pwUP)
 		{
-			if (zein == 1)
+			if (sY.zein == 1)
 			{
 				aux = ERREALITATE_FISIKOA_mugimenduaPOWERUP(sY.pos);
 				sY.pos.y = aux.y;
 			}
-			else if (zein == 2)
+			else if (xP.zein == 2)
 			{
 				aux = ERREALITATE_FISIKOA_mugimenduaPOWERUP(xP.pos);
 				xP.pos.y = aux.y;
 			}
-			else if (zein == 3)
+			else if (nG.zein == 3)
 			{
 				aux = ERREALITATE_FISIKOA_mugimenduaPOWERUP(nG.pos);
 				nG.pos.y = aux.y;
@@ -543,6 +547,16 @@ EGOERA jokatu(void)
 		jokalaria.pos.y = 400;
 		pilota.pos.x = jokalaria.pos.x + 38;
 		pilota.pos.y = jokalaria.pos.y - 23;
+		xP.pos.x = 700;
+		xP.pos.y = 550;
+		nG.pos.x = 700;
+		nG.pos.y = 550;
+		sY.pos.x = 700;
+		sY.pos.y = 550;
+		xP.zein = 0;
+		nG.zein = 0;
+		sY.zein = 0;
+		pwUP = 0;
 	}
 	///////////////////////////////////////////////////////////////BIZITZAK
 	egoera = JOKOA_egoera(jokalaria, pilota, bizitza);
