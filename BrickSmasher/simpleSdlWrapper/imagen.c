@@ -75,7 +75,7 @@ void  irudiaAldatu(int numImg, int w)
 	id = irudiarenPosizioaAurkitu(numImg);
 	if (w == 1)
 	{
-		irudiak[id].dest.w -= 10;
+		irudiak[id].dest.w -= 18;
 	}
 	else if (w == 0)
 	{

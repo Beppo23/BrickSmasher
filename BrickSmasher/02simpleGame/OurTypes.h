@@ -25,4 +25,12 @@ typedef struct
 	int zein;
 	int id;
 }POWERUP_ELEMENTUA;
+typedef struct
+{
+	POSIZIOA pos;
+	int id;
+	int zein;
+	int jaurti;
+	MOTA mota;
+}TIROA_ELEMENTUA;
 #endif
