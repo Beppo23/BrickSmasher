@@ -10,12 +10,17 @@
 #define BOTON_ITZULI ".\\img\\itzuli.bmp"
 #define JOKATU ".\\img\\joka.bmp"
 #define TUTORIALA ".\\img\\noljoka.bmp"
-#define NOLA_JOKATU "Barra bat daukazu, hau mugitzeko <- ->geziak erabiltzen dira. "
+#define NOLA_JOKATU "Barra bat daukazu, hau mugitzeko geziak erabiltzen dira. "
+#define NOLA1_JOKATU "Ezkerrera joateko gezi hau erabiltzen duzu:"
 #define NOLA2_JOKATU "Pilota barratik jaurtitzeko <space> teklari eman."
+#define NOLA3_JOKATU "Eskumara joateko gezi hau erabiltzen duzu:"
 #define KREDITUAK ".\\img\\kredituak.bmp"
 #define KREDITOAK_IMAGE ".\\img\\krekre.bmp"
 #define ITXI ".\\img\\itxijokua.bmp"
 #define MENU_BACKGROUD_IMAGE ".\\img\\men.bmp"
+#define TECLA_BARRA ".\\img\\espacio.bmp"
+#define TECLA_EZKERRA ".\\img\\ezkerra.bmp"
+#define TECLA_ESKUMA ".\\img\\eskuma.bmp"
 #define JOKOA_SOUND ".\\sound\\arkanoid_audio.wav"
 #define JOKOA_PLAYER_IMAGE ".\\img\\barra1.bmp"
 #define JOKOA_PELOTA_IMAGE ".\\img\\pelota.bmp"
@@ -29,6 +34,7 @@
 #define BUKAERA_SOUND_1 ".\\sound\\arkanoid_audio.wav"
 #define BUKAERA_IMAGE ".\\img\\gameOver_3.bmp"
 
+
 #define ZENBAKIA_0 ".\\img\\0zenbakia.bmp"
 #define ZENBAKIA_1 ".\\img\\1zenbakia.bmp"
 #define ZENBAKIA_2 ".\\img\\2zenbakia.bmp"
@@ -40,6 +46,7 @@
 #define ZENBAKIA_8 ".\\img\\8zenbakia.bmp"
 #define ZENBAKIA_9 ".\\img\\9zenbakia.bmp"
 #define FINAL_SCORE "SCORE XD"
+#define BOTON_MENU ".\\img\\joan.bmp"
 #define LAUKIZUZENA1_1BMP ".\\img\\Bloke1_1.bmp"
 #define LAUKIZUZENA1_2BMP ".\\img\\Bloke1_2.bmp"
 #define LAUKIZUZENA1_3BMP ".\\img\\Bloke1_3.bmp"
@@ -61,6 +68,23 @@ void zifra(int posx, int posy, int kontScore);
 int aurkituYKoordenatuak(int id);
 int aurkituXKoordenatuak(int id);
 int JOKOA_LaukizuzenaIrudiaSortu(int posx, int posy, int zein);
+int JOKOA_fondoaSortu();
+int JOKOA_itzuli();
+int JOKOA_teclaEzkerra();
+int JOKOA_teclaEskuma();
+int JOKOA_barra();
+int JOKOA_KreditoakSortu();
+int JOKOA_backSortu();
+int JOKOA_jokatu();
+int JOKOA_tutoriala();
+int JOKOA_kreditoak();
+int JOKOA_itxi();
+int JOKOA_pilotaIrudiaSortu();
+int hiruBihotzaKendu();
+int biBihotzaKendu();
+int JOKOA_SYPowerUPIrudiaSortu(int zein);
+int Id_aurkitu(int x, int y);
+
 EGOERA JOKOA_egoera(JOKO_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bizitza);
 int zeinPOWER(JOKO_ELEMENTUA zein, int posx, int posy);
 int zeinPOWERY(JOKO_ELEMENTUA zein, int posx, int posy);
@@ -125,8 +149,13 @@ void jokoaAurkeztu(void)
 			saguaclick = 0;
 			JOKOA_fondoaSortu();
 			JOKOA_itzuli();
-			textuaIdatzi(100, 100, NOLA_JOKATU);
-			textuaIdatzi(100, 200, NOLA2_JOKATU);
+			JOKOA_teclaEzkerra();
+			JOKOA_teclaEskuma();
+			JOKOA_barra();
+			textuaIdatzi(50, 100, NOLA_JOKATU);
+			textuaIdatzi(50, 170, NOLA1_JOKATU);
+			textuaIdatzi(50, 230, NOLA3_JOKATU);
+			textuaIdatzi(50, 300, NOLA2_JOKATU);
 			pantailaBerriztu();
 			break;
 		case 3:pantailaGarbitu();
@@ -189,6 +218,7 @@ int JOKOA_kreditoak()
 	pantailaBerriztu();
 	return kreId;
 }
+
 int JOKOA_itxi()
 {
 	int itxId = -1;
@@ -199,6 +229,17 @@ int JOKOA_itxi()
 	pantailaBerriztu();
 	return itxId;
 }
+//int JOKOA_itxi2()
+//{
+//	int itxId = -1;
+//	itxId = irudiaKargatu(ITXI);
+//	irudiaMugitu(itxId, 440, 370);
+//	pantailaGarbitu();
+//	irudiakMarraztu();
+//	pantailaBerriztu();
+//	return itxId;
+//
+//}
 int JOKOA_itzuli()
 {
 	int itzulId = -1;
@@ -209,6 +250,47 @@ int JOKOA_itzuli()
 	pantailaBerriztu();
 	return itzulId;
 }
+int JOKOA_teclaEzkerra()
+{
+	int teclaId = -1;
+	teclaId = irudiaKargatu(TECLA_EZKERRA);
+	irudiaMugitu(teclaId, 360, 140);
+	pantailaGarbitu();
+	irudiakMarraztu();
+	pantailaBerriztu();
+	return teclaId;
+}
+int JOKOA_teclaEskuma()
+{
+	int teclaId = -1;
+	teclaId = irudiaKargatu(TECLA_ESKUMA);
+	irudiaMugitu(teclaId, 360, 200);
+	pantailaGarbitu();
+	irudiakMarraztu();
+	pantailaBerriztu();
+	return teclaId;
+}
+int JOKOA_barra()
+{
+	int barraId = -1;
+	barraId = irudiaKargatu(TECLA_BARRA);
+	irudiaMugitu(barraId, 300, 340);
+	pantailaGarbitu();
+	irudiakMarraztu();
+	pantailaBerriztu();
+	return barraId;
+}
+//int JOKOA_menu()
+//{
+//	int menuraId = -1;
+//	menuraId = irudiaKargatu(BOTON_MENU);
+//	irudiaMugitu(menuraId, 50, 370);
+//	pantailaGarbitu();
+//	irudiakMarraztu();
+//	pantailaBerriztu();
+//	return menuraId;
+//}
+
 
 int JOKOA_backSortu()
 {
@@ -230,7 +312,6 @@ int JOKOA_KreditoakSortu()
 	pantailaBerriztu();
 	return kredId;
 }
-
 
 EGOERA jokatu(void) 
 {
@@ -797,41 +878,81 @@ POSIZIOA ERREALITATE_FISIKOA_mugimenduaPOWERUP(POSIZIOA posizioa)
 	return posizioa;
 }
 /////////////////////////////////////////////////////////////////////////BARRA + PILOTA mugimenduak
+//void jokoabukatu(void)
+//{
+//	int eben = 0, saguaclik = 0, barru = 0;
+//	POSIZIOA pos;
+//	sarreraMezuaIdatzi();
+//	do
+//	{
+//		pos = saguarenPosizioa();
+//		eben = ebentuaJasoGertatuBada();
+//		if (eben == SAGU_BOTOIA_EZKERRA && (pos.x >= 50) && (pos.x <= 175) && (pos.y >= 370) && (pos.y <= 403) && barru == 0)
+//		{
+//			saguaclik = 1;
+//			barru = 1;
+//		}
+//		if (eben == SAGU_BOTOIA_EZKERRA && (pos.x >= 440) && (pos.x <= 565) && (pos.y >= 370) && (pos.y <= 403) && barru == 0)
+//		{
+//			saguaclik = 2;
+//			barru = 1;
+//
+//		}
+//		switch (saguaclik)
+//		{
+//		case 1:
+//			jokoaAurkeztu();
+//			break;
+//
+//		case 2:
+//			saguaclik = 0;
+//			sgItxi();
+//			break;
+//		}
+//	} while (saguaclik != 999);
+//
+//}
+
+
+
 
 int  jokoAmaierakoa(EGOERA egoera)
 {
-  int ebentu = 0, id;
-  int idAudioGame;
+	int ebentu = 0, id;
+	int idAudioGame;
 
- /* loadTheMusic(BUKAERA_SOUND_1);
-  if (egoera == IRABAZI) {
-    idAudioGame = loadSound(JOKOA_SOUND_WIN);
-    playSound(idAudioGame);
-  }
-  else {
-    idAudioGame = loadSound(JOKOA_SOUND_LOOSE);
-    playSound(idAudioGame);
-  }*/
-  id=BUKAERA_irudiaBistaratu();
-  do 
-  {
-    ebentu = ebentuaJasoGertatuBada();
-  } while ((ebentu!= TECLA_RETURN) && (ebentu!= SAGU_BOTOIA_ESKUMA));
-  /*audioTerminate();*/
-  irudiaKendu(id);
-  return (ebentu != TECLA_RETURN) ? 1 : 0;
+	/* loadTheMusic(BUKAERA_SOUND_1);
+	if (egoera == IRABAZI) {
+	idAudioGame = loadSound(JOKOA_SOUND_WIN);
+	playSound(idAudioGame);
+	}
+	else {
+	idAudioGame = loadSound(JOKOA_SOUND_LOOSE);
+	playSound(idAudioGame);
+	}*/
+	id = BUKAERA_irudiaBistaratu();
+	do
+	{
+		ebentu = ebentuaJasoGertatuBada();
+	} while ((ebentu != TECLA_RETURN) && (ebentu != SAGU_BOTOIA_ESKUMA));
+	/*audioTerminate();*/
+	irudiaKendu(id);
+	return (ebentu != TECLA_RETURN) ? 1 : 0;
 }
 
-int BUKAERA_irudiaBistaratu() 
+int BUKAERA_irudiaBistaratu()
 {
-  int id = -1;
-  id = irudiaKargatu(BUKAERA_IMAGE);
-  irudiaMugitu(id, 0, 0);
-  pantailaGarbitu();
-  irudiakMarraztu();
-  finalScore();
-  pantailaBerriztu();
-  return id;
+	int id = -1;
+	id = irudiaKargatu(BUKAERA_IMAGE);
+	irudiaMugitu(id, 0, 0);
+	pantailaGarbitu();
+	irudiakMarraztu();
+	/*JOKOA_menu();*/
+	/*JOKOA_itxi2();*/
+	finalScore();
+	/*textuaIdatzi(50, 340, HASIERATU);*/
+	pantailaBerriztu();
+	return id;
 }
 
 int JOKOA_SYPowerUPIrudiaSortu(int zein)
