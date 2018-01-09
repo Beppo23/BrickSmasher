@@ -494,17 +494,6 @@ EGOERA jokatu(void)
 	}
 	else
 	{
-		if (ebentu == TECLA_SPACE)	irudiaAldatu(barra.id, 1);
-
-		else if (ebentu == TECLA_g) ///////////////////////////////////////////////PROVISIONAL INSERTAR POWER UP
-		{
-			irudiaAldatu(barra.id, 0);
-			tiroak = 0;
-			for (int i = 0; i < 6; i++)
-			{
-				Tiroak[i].jaurti = 0;
-			}
-		}
 		if (goian == 1)
 		{
 			aux = ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEGOI(pilota.pos);
@@ -570,7 +559,7 @@ EGOERA jokatu(void)
 							pwUP = 1;
 							nG.pos.x = blokeEzk + 20;
 							nG.pos.y = blokeGoi + 10;
-							nG.zein = 3;
+							nG.zein = 1;
 							break;
 						case 1:
 							pwUP = 1;
@@ -582,7 +571,7 @@ EGOERA jokatu(void)
 							pwUP = 1;
 							xP.pos.x = blokeEzk + 20;
 							xP.pos.y = blokeGoi + 10;
-							xP.zein = 2;
+							xP.zein = 1;
 							break;
 						}
 					}
@@ -592,25 +581,58 @@ EGOERA jokatu(void)
 		if (sY.pos.y == 500 || xP.pos.y == 500 || nG.pos.y == 500)
 		{
 			pwUP = 0;
-			zein = 0;
+			sY.zein = 0;
+			xP.zein = 0;
+			nG.zein = 0;
 		}
 		if (pwUP)
 		{
-			if (sY.zein == 1)
+			if (sY.zein)
 			{
 				aux = ERREALITATE_FISIKOA_mugimenduaPOWERUP(sY.pos);
 				sY.pos.y = aux.y;
 			}
-			else if (xP.zein == 2)
+			else if (xP.zein)
 			{
 				aux = ERREALITATE_FISIKOA_mugimenduaPOWERUP(xP.pos);
 				xP.pos.y = aux.y;
 			}
-			else if (nG.zein == 3)
+			else if (nG.zein)
 			{
 				aux = ERREALITATE_FISIKOA_mugimenduaPOWERUP(nG.pos);
 				nG.pos.y = aux.y;
 			}
+			if ((sY.pos.y == 390) || (xP.pos.y == 390) || (nG.pos.y == 390))
+			{
+				if (sY.zein)
+				{
+					if ((sY.pos.x > jokalaria.pos.x) && (sY.pos.x < (jokalaria.pos.x + 106)))
+					{
+						irudiaAldatu(barra.id, 0);
+						pwUP = 0;
+						sY.zein = 0;
+					}
+				}
+				else if (xP.zein)
+				{
+					if ((xP.pos.x > jokalaria.pos.x) && (xP.pos.x < (jokalaria.pos.x + 106)))
+					{
+						irudiaAldatu(barra.id, 0);
+						pwUP = 0;
+						xP.zein = 0;
+					}
+				}
+				else if (nG.zein)
+				{
+					if ((nG.pos.x > jokalaria.pos.x) && (nG.pos.x < (jokalaria.pos.x + 106)))
+					{
+						irudiaAldatu(barra.id, 0);
+						pwUP = 0;
+						nG.zein = 0;
+					}
+				}
+			}
+			if (ebentu == TECLA_SPACE)	irudiaAldatu(barra.id, 1);
 		}
 		else
 		{

@@ -1,10 +1,2 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(387,5): warning MSB8028: El directorio intermedio (Debug\) contiene archivos compartidos de otro proyecto (02simpleGame.vcxproj). Esto puede dar lugar a un comportamiento incorrecto de limpieza y recompilación.
-  arkanoid_Funtzioak.c
-c:\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(400): warning C4013: 'irudiaAldatu' sin definir; se supone que extern devuelve como resultado int
-c:\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(1001): warning C4101: 'idAudioGame': variable local sin referencia
-c:\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(1042): warning C4047: '=': 'int' es distinto en los niveles de direccionamiento indirecto de 'char [19]'
-c:\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(1046): warning C4047: '=': 'int' es distinto en los niveles de direccionamiento indirecto de 'char [19]'
-c:\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(1050): warning C4047: '=': 'int' es distinto en los niveles de direccionamiento indirecto de 'char [18]'
-c:\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(1052): warning C4047: 'función': 'char *' es distinto en los niveles de direccionamiento indirecto de 'int'
-c:\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(1052): warning C4024: 'irudiaKargatu': tipos distintos para el parámetro formal y el parámetro real 1
-  02simpleGame.vcxproj -> C:\POPBL\BrickSmasher\BrickSmasher\Debug\Arkanoid.exe
+  02simpleGame.vcxproj -> C:\Users\USUARIO\Desktop\Mondragon\POPBL\BrickSmasher\BrickSmasher\Debug\Arkanoid.exe
