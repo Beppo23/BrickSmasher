@@ -378,7 +378,7 @@ EGOERA jokatu(void)
 
 	do
 	{
-		Sleep(2);
+		Sleep(10);
 		pantailaGarbitu();
 		arkatzKoloreaEzarri(0, 0, 0xFF);
 
@@ -543,7 +543,7 @@ EGOERA jokatu(void)
 
 						if (!pwUP)
 						{
-							random = rng(51);
+							random = rng(4);
 							switch (random)
 							{
 							case 1:
@@ -569,13 +569,13 @@ EGOERA jokatu(void)
 					}
 				}
 			}
-			if (powerupak[0].pos.y >= 500 || powerupak[1].pos.y >= 500 || powerupak[2].pos.y >= 500)
+			if (powerupak[0].pos.y > 500 || powerupak[1].pos.y > 500 || powerupak[2].pos.y > 500)
 			{
 				pwUP = 0;
 				powerupak[0].zein = 0;
 				powerupak[1].zein = 0;
 				powerupak[2].zein = 0;
-
+			}
 				if (pwUP)
 				{
 					if (powerupak[0].zein == 1)
@@ -583,17 +583,17 @@ EGOERA jokatu(void)
 						aux = ERREALITATE_FISIKOA_mugimenduaPOWERUP(powerupak[0].pos);
 						powerupak[0].pos.y = aux.y;
 					}
-					else if (powerupak[1].zein == 1)
+					if (powerupak[1].zein == 1)
 					{
 						aux = ERREALITATE_FISIKOA_mugimenduaPOWERUP(powerupak[1].pos);
 						powerupak[1].pos.y = aux.y;
 					}
-					else if (powerupak[2].zein == 1)
+					if (powerupak[2].zein == 1)
 					{
 						aux = ERREALITATE_FISIKOA_mugimenduaPOWERUP(powerupak[2].pos);
 						powerupak[2].pos.y = aux.y;
 					}
-				}
+				
 				/*if ((sY.pos.y == 390) || (xP.pos.y == 390) || (nG.pos.y == 390))
 				{
 					if (sY.zein)
@@ -630,6 +630,8 @@ EGOERA jokatu(void)
 			{
 				for (int i = 0; i < 3; i++) {
 					irudiaMugitu(powerupak[i].id, 1000, -1000);
+					powerupak[i].pos.x = 1000;
+					powerupak[i].pos.y = -1000;
 				}
 			}
 
