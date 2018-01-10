@@ -1014,7 +1014,7 @@ int  jokoAmaierakoa(EGOERA egoera)
 	do
 	{
 		ebentu = ebentuaJasoGertatuBada();
-	} while ((ebentu != TECLA_RETURN) && (ebentu != SAGU_BOTOIA_ESKUMA));
+	} while ((ebentu != 8) && (ebentu != SAGU_BOTOIA_ESKUMA));
 	/*audioTerminate();*/
 	irudiaKendu(id);
 	return (ebentu != TECLA_RETURN) ? 1 : 0;
