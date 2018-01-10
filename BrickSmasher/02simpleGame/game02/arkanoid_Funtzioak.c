@@ -62,8 +62,7 @@ void sarreraMezuaIdatzi();
 int JOKOA_jokalariaIrudiaSortu();
 int JOKOA_barraIrudiaSortu();
 int BihotzakMarraztu(posx, posy);
-void markagailua(int posx, int posy, int kontScore);
-void zifra(int posx, int posy, int kontScore);
+int zifra(int posizioax, int posizioay, int kontScore);
 int aurkituYKoordenatuak(int id);
 int aurkituXKoordenatuak(int id);
 int JOKOA_LaukizuzenaIrudiaSortu(int posx, int posy, int zein);
@@ -97,6 +96,7 @@ POSIZIOA ERREALITATE_FISIKOA_mugimenduaPOWERUP(POSIZIOA posizioa);
 void powerupSortu(POWERUP_ELEMENTUA pow, POWERUP_ELEMENTUA powerupak[]);
 //int  BUKAERA_menua(EGOERA egoera);
 int BUKAERA_irudiaBistaratu();
+void scoreKendu(JOKO_ELEMENTUA zenbakiak);
 void finalScore();
 
 void jokoaAurkeztu(void)
@@ -323,7 +323,7 @@ EGOERA jokatu(void)
 	int rebote = 0;
 	int goian = 0;
 	int bizitza = 3, bihotzArray[3];
-	int kontScore = 0;
+	int kontScore = 0, zenbakiArray[2];
 	int random;
 	int tiroak = 0;
 	int biak = 0;
@@ -331,7 +331,7 @@ EGOERA jokatu(void)
 
 	EGOERA  egoera = JOLASTEN;
 	int ebentu = 0;
-	JOKO_ELEMENTUA pilota, jokalaria, fondoa, barra, bihotzak;
+	JOKO_ELEMENTUA pilota, jokalaria, fondoa, barra, bihotzak, zenbakiak;
 	POWERUP_ELEMENTUA powerup;
 	POWERUP_ELEMENTUA powerupak[3];
 	LAUKIZUZENA_ELEMENTUA Laukizuzena;
@@ -348,6 +348,9 @@ EGOERA jokatu(void)
 
 	bihotzak.pos.x = 280;
 	bihotzak.pos.y = 400;
+
+	zenbakiak.pos.x = 0;
+	zenbakiak.pos.y = 0;
 
 	pilota.pos.x = jokalaria.pos.x + 38;
 	pilota.pos.y = jokalaria.pos.y - 23;
@@ -372,8 +375,11 @@ EGOERA jokatu(void)
 	jokalaria.id = JOKOA_jokalariaIrudiaSortu();
 	pilota.id = JOKOA_pilotaIrudiaSortu();
 	barra.id = JOKOA_barraIrudiaSortu();
+	zifra(548, 450, 0);
+	zifra(532, 450, 0);
+	zifra(516, 450, 0);
+	zifra(500, 450, 0);
 	powerupSortu(powerup, powerupak);
-	markagailua(posx, posy, kontScore);
 	tiroakSortu(tiroa, Tiroak);
 
 	do
@@ -539,7 +545,7 @@ EGOERA jokatu(void)
 						Blokeak[id].pos.y = 4000;
 						irudiaMugitu(id, Blokeak[id].pos.x, Blokeak[id].pos.y);
 						kontScore += 10;
-						markagailua(posx, posy, kontScore);
+						markagailua(kontScore, zenbakiak, zenbakiArray);
 
 						if (!pwUP)
 						{
@@ -1026,41 +1032,42 @@ int BUKAERA_irudiaBistaratu()
 
 //////////////////////////////////////////////////score
 
-void markagailua(int posizioax, int posizioay, int kontScore)
+void markagailua(int kontScore, JOKO_ELEMENTUA zenbakiak, int zenbakiArray[])
 {
-	int i;
-	posizioax = 500;
-	posizioay = 450;
+	int i, posizioay = 450;
 	i = kontScore;
+
 	if (i >= 1000) {
 		i /= 1000;
-		zifra(posizioax, posizioay, i);
-		kontScore = kontScore - i * 1000;
+		zenbakiak.id = zifra(500, posizioay, i);
+		zenbakiArray[0] = zenbakiak.id;
+		i = kontScore - i * 1000;
 	}
-	posizioax = 516;
+	else zifra(500, posizioay, 0);
+
 	if (i >= 100) {
 		i /= 100;
-		zifra(posizioax, posizioay, i);
-		kontScore = kontScore - i * 100;
+		zenbakiak.id = zifra(516, posizioay, i);
+		zenbakiArray[1] = zenbakiak.id;
+		i = kontScore - i * 100;
 	}
-	posizioax = 532;
+	else zifra(516, posizioay, 0);
+
 	if (i >= 10) {
 		i /= 10;
-		zifra(posizioax, posizioay, i);
-		kontScore = kontScore - i * 10;
+		zenbakiak.id = zifra(532, posizioay, i);
+		zenbakiArray[2] = zenbakiak.id;
+		i = kontScore - i * 10;
 	}
-	posizioax = 548;
-	zifra(posizioax, posizioay, 0);
+	else zifra(532, posizioay, 0);
+
 }
 
-void zifra(int posizioax, int posizioay, int kontScore)
+int zifra(int posizioax, int posizioay, int kontScore)
 {
 	int zenbakia = -1;
 	switch (kontScore)
 	{
-	case 0:
-		zenbakia = irudiaKargatu(ZENBAKIA_0);
-		break;
 	case 1:
 		zenbakia = irudiaKargatu(ZENBAKIA_1);
 		break;
@@ -1089,14 +1096,22 @@ void zifra(int posizioax, int posizioay, int kontScore)
 		zenbakia = irudiaKargatu(ZENBAKIA_9);
 		break;
 	default:
+		zenbakia = irudiaKargatu(ZENBAKIA_0);
 		break;
 	}
 	irudiaMugitu(zenbakia, posizioax, posizioay);
 	pantailaGarbitu();
 	irudiakMarraztu();
 	pantailaBerriztu();
+	return zenbakia;
 }
 
+void scoreKendu(JOKO_ELEMENTUA zenbakiak)
+{
+	int i;
+	for (i = 0; i < 3; i++) irudiaMugitu(zenbakiak.id, 1000, 1000);
+
+}
 
 void finalScore()
 {
