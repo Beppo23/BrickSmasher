@@ -5,6 +5,7 @@
 
 typedef enum { JOLASTEN, GALDU, IRABAZI }EGOERA;
 typedef enum { IRUDIA, MARGOA, TESTUA } MOTA;
+typedef enum { HORIA, MOREA, BERDEA } KOLOREA;
 
 typedef struct
 {
@@ -22,15 +23,16 @@ typedef struct
 typedef struct
 {
 	POSIZIOA pos;
-	int zein;
-	int id;
-}POWERUP_ELEMENTUA;
-typedef struct
-{
-	POSIZIOA pos;
 	int id;
 	int zein;
 	int jaurti;
 	MOTA mota;
 }TIROA_ELEMENTUA;
+typedef struct
+{
+	POSIZIOA pos;
+	int zein;
+	int id;
+	KOLOREA koloreak;
+}POWERUP_ELEMENTUA;
 #endif

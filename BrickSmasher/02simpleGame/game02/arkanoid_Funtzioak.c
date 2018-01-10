@@ -80,7 +80,7 @@ int JOKOA_kreditoak();
 int JOKOA_itxi();
 int JOKOA_pilotaIrudiaSortu();
 void bihotzaKendu(int bizitza, int bihotzArray[]);
-int JOKOA_SYPowerUPIrudiaSortu(int zein);
+int JOKOA_SYPowerUPIrudiaSortu(POWERUP_ELEMENTUA pow, POWERUP_ELEMENTUA powerupak[]);
 int Id_aurkitu(int x, int y);
 
 EGOERA JOKOA_egoera(JOKO_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bizitza);
@@ -92,8 +92,9 @@ POSIZIOA ERREALITATE_FISIKOA_mugimenduaEZK(POSIZIOA posizioa);
 POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTA(POSIZIOA posizioa);
 POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEESK(POSIZIOA posizioa);
 POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEGOI(POSIZIOA posizioa);
-POSIZIOA ERREALITATE_FISIKOA_mugimenduaPOWERUP(POSIZIOA posizioa);
 POSIZIOA ERREALITATE_FISIKOA_mugimenduaTIROA(POSIZIOA posizioa);
+POSIZIOA ERREALITATE_FISIKOA_mugimenduaPOWERUP(POSIZIOA posizioa);
+void powerupSortu(POWERUP_ELEMENTUA pow, POWERUP_ELEMENTUA powerupak[]);
 //int  BUKAERA_menua(EGOERA egoera);
 int BUKAERA_irudiaBistaratu();
 void finalScore();
@@ -331,7 +332,8 @@ EGOERA jokatu(void)
 	EGOERA  egoera = JOLASTEN;
 	int ebentu = 0;
 	JOKO_ELEMENTUA pilota, jokalaria, fondoa, barra, bihotzak;
-	POWERUP_ELEMENTUA sY, xP, nG;
+	POWERUP_ELEMENTUA powerup;
+	POWERUP_ELEMENTUA powerupak[3];
 	LAUKIZUZENA_ELEMENTUA Laukizuzena;
 	TIROA_ELEMENTUA  tiroa;
 	POSIZIOA aux;
@@ -340,7 +342,7 @@ EGOERA jokatu(void)
 
 	jokalaria.pos.x = 280;
 	jokalaria.pos.y = 400;
-
+	
 	Laukizuzena.pos.x = 280;
 	Laukizuzena.pos.y = 400;
 
@@ -358,15 +360,8 @@ EGOERA jokatu(void)
 	fondoa.pos.x = 0;
 	fondoa.pos.y = 0;
 
-	xP.pos.x = 700;
-	xP.pos.y = 550;
-	nG.pos.x = 700;
-	nG.pos.y = 550;
-	sY.pos.x = 700;
-	sY.pos.y = 550;
-	sY.zein = 0;
-	nG.zein = 0;
-	xP.zein = 0;
+	powerup.pos.x = 700;
+	powerup.pos.y = -550;
 
 	audioInit();
 	loadTheMusic(JOKOA_SOUND);
@@ -377,9 +372,7 @@ EGOERA jokatu(void)
 	jokalaria.id = JOKOA_jokalariaIrudiaSortu();
 	pilota.id = JOKOA_pilotaIrudiaSortu();
 	barra.id = JOKOA_barraIrudiaSortu();
-	sY.id = JOKOA_SYPowerUPIrudiaSortu(1);
-	xP.id = JOKOA_SYPowerUPIrudiaSortu(2);
-	nG.id = JOKOA_SYPowerUPIrudiaSortu(3);
+	powerupSortu(powerup, powerupak);
 	markagailua(posx, posy, kontScore);
 	tiroakSortu(tiroa, Tiroak);
 
@@ -398,9 +391,10 @@ EGOERA jokatu(void)
 		}
 		irudiaMugitu(jokalaria.id, jokalaria.pos.x, jokalaria.pos.y);
 		irudiaMugitu(barra.id, jokalaria.pos.x - 5, jokalaria.pos.y + 20);
-		irudiaMugitu(sY.id, sY.pos.x, sY.pos.y);
-		irudiaMugitu(xP.id, xP.pos.x, xP.pos.y);
-		irudiaMugitu(nG.id, nG.pos.x, nG.pos.y);
+		for (int i = 0; i < 3; i++)
+		{
+			irudiaMugitu(powerupak[i].id, powerupak[i].pos.x, powerupak[i].pos.y);
+		}
 		irudiaMugitu(Tiroak[tiroak].id, Tiroak[tiroak].pos.x, Tiroak[tiroak].pos.y);
 		if (tiroak - 1 != -1)
 		{
@@ -552,54 +546,55 @@ EGOERA jokatu(void)
 							random = rng(51);
 							switch (random)
 							{
-							case 0:
-								pwUP = 1;
-								nG.pos.x = blokeEzk + 20;
-								nG.pos.y = blokeGoi + 10;
-								nG.zein = 1;
-								break;
 							case 1:
 								pwUP = 1;
-								sY.pos.x = blokeEzk + 20;
-								sY.pos.y = blokeGoi + 10;
-								sY.zein = 1;
+								powerupak[2].pos.x = blokeEzk + 20;
+								powerupak[2].pos.y = blokeGoi + 10;
+								powerupak[2].zein = 1;
 								break;
 							case 2:
 								pwUP = 1;
-								xP.pos.x = blokeEzk + 20;
-								xP.pos.y = blokeGoi + 10;
-								xP.zein = 1;
+								powerupak[0].pos.x = blokeEzk + 20;
+								powerupak[0].pos.y = blokeGoi + 10;
+								powerupak[0].zein = 1;
+								break;
+							case 3:
+								pwUP = 1;
+								powerupak[1].pos.x = blokeEzk + 20;
+								powerupak[1].pos.y = blokeGoi + 10;
+								powerupak[1].zein = 1;
 								break;
 							}
 						}
 					}
 				}
 			}
-			if (sY.pos.y == 500 || xP.pos.y == 500 || nG.pos.y == 500)
+			if (powerupak[0].pos.y >= 500 || powerupak[1].pos.y >= 500 || powerupak[2].pos.y >= 500)
 			{
 				pwUP = 0;
-				sY.zein = 0;
-				xP.zein = 0;
-				nG.zein = 0;
-			}
-			if (pwUP)
-			{
-				if (sY.zein)
+				powerupak[0].zein = 0;
+				powerupak[1].zein = 0;
+				powerupak[2].zein = 0;
+
+				if (pwUP)
 				{
-					aux = ERREALITATE_FISIKOA_mugimenduaPOWERUP(sY.pos);
-					sY.pos.y = aux.y;
+					if (powerupak[0].zein == 1)
+					{
+						aux = ERREALITATE_FISIKOA_mugimenduaPOWERUP(powerupak[0].pos);
+						powerupak[0].pos.y = aux.y;
+					}
+					else if (powerupak[1].zein == 1)
+					{
+						aux = ERREALITATE_FISIKOA_mugimenduaPOWERUP(powerupak[1].pos);
+						powerupak[1].pos.y = aux.y;
+					}
+					else if (powerupak[2].zein == 1)
+					{
+						aux = ERREALITATE_FISIKOA_mugimenduaPOWERUP(powerupak[2].pos);
+						powerupak[2].pos.y = aux.y;
+					}
 				}
-				else if (xP.zein)
-				{
-					aux = ERREALITATE_FISIKOA_mugimenduaPOWERUP(xP.pos);
-					xP.pos.y = aux.y;
-				}
-				else if (nG.zein)
-				{
-					aux = ERREALITATE_FISIKOA_mugimenduaPOWERUP(nG.pos);
-					nG.pos.y = aux.y;
-				}
-				if ((sY.pos.y == 390) || (xP.pos.y == 390) || (nG.pos.y == 390))
+				/*if ((sY.pos.y == 390) || (xP.pos.y == 390) || (nG.pos.y == 390))
 				{
 					if (sY.zein)
 					{
@@ -628,20 +623,14 @@ EGOERA jokatu(void)
 							nG.zein = 0;
 						}
 					}
-				}
+				}*/
 				if (ebentu == TECLA_SPACE)	irudiaAldatu(barra.id, 1);
 			}
 			else
 			{
-				irudiaMugitu(sY.id, 1000, 1000);
-				sY.pos.x = 1000;
-				sY.pos.y = 1000;
-				irudiaMugitu(xP.id, 1000, 1000);
-				xP.pos.x = 1000;
-				xP.pos.y = 1000;
-				irudiaMugitu(nG.id, 1000, 1000);
-				nG.pos.x = 1000;
-				nG.pos.y = 1000;
+				for (int i = 0; i < 3; i++) {
+					irudiaMugitu(powerupak[i].id, 1000, -1000);
+				}
 			}
 
 			if ((pilota.pos.y == 377) && (pilota.pos.x > jokalaria.pos.x - 15) && (pilota.pos.x < (jokalaria.pos.x + 121)))
@@ -701,15 +690,12 @@ EGOERA jokatu(void)
 			jokalaria.pos.y = 400;
 			pilota.pos.x = jokalaria.pos.x + 38;
 			pilota.pos.y = jokalaria.pos.y - 23;
-			xP.pos.x = 700;
-			xP.pos.y = 550;
-			nG.pos.x = 700;
-			nG.pos.y = 550;
-			sY.pos.x = 700;
-			sY.pos.y = 550;
-			xP.zein = 0;
-			nG.zein = 0;
-			sY.zein = 0;
+			for (int i = 0; i < 3; i++)
+			{
+				powerupak[i].pos.x = 1000;
+				powerupak[i].pos.y = 1000;
+				powerupak[i].zein = 0;
+			}
 			pwUP = 0;
 		}
 		///////////////////////////////////////////////////////////////BIZITZAK
@@ -1035,28 +1021,6 @@ int BUKAERA_irudiaBistaratu()
 	return id;
 }
 
-int JOKOA_SYPowerUPIrudiaSortu(int zein)
-{
-	int sYId = -1, balio = 0;
-	if (zein == 1)
-	{
-		balio = S_YELLOW_POWERUP;
-	}
-	else if (zein == 2)
-	{
-		balio = X_PURPLE_POWERUP;
-	}
-	else if (zein == 3)
-	{
-		balio = N_GREEN_POWERUP;
-	}
-	sYId = irudiaKargatu(balio);
-	irudiaMugitu(sYId, 1000, 1000);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return sYId;
-}
 
 //////////////////////////////////////////////////score
 
@@ -1151,6 +1115,57 @@ int zeinPOWERY(JOKO_ELEMENTUA zein, int posx, int posy)
 	irudiaMugitu(zein.id, posx, posy);
 	zein.pos.y = posy;
 	return zein.pos.y;
+}
+
+void powerupSortu(POWERUP_ELEMENTUA pow, POWERUP_ELEMENTUA powerupak[])
+{
+
+	for (int i = 1; i <= 3; i++)
+	{
+
+		if (i == 1)
+		{
+			pow.koloreak = HORIA;
+
+		}
+		else if (i == 2)
+		{
+			pow.koloreak = MOREA;
+		}
+		else if (i == 3)
+		{
+			pow.koloreak = BERDEA;
+		}
+		pow.id = JOKOA_SYPowerUPIrudiaSortu(pow, powerupak);
+	}
+
+}
+
+int JOKOA_SYPowerUPIrudiaSortu(POWERUP_ELEMENTUA pwup, POWERUP_ELEMENTUA powerupak[])
+{
+	int balio = 0;
+	pwup.id = -1;
+	if (pwup.koloreak == HORIA)
+	{
+		pwup.id = irudiaKargatu(S_YELLOW_POWERUP);
+		powerupak[0] = pwup;
+	}
+	else if (pwup.koloreak == MOREA)
+	{
+		pwup.id = irudiaKargatu(X_PURPLE_POWERUP);
+		powerupak[1] = pwup;
+	}
+	else if (pwup.koloreak == BERDEA)
+	{
+		pwup.id = irudiaKargatu(N_GREEN_POWERUP);
+		powerupak[2] = pwup;
+	}
+
+	irudiaMugitu(pwup.id, 1000, 1000);
+	pantailaGarbitu();
+	irudiakMarraztu();
+	pantailaBerriztu();
+	return pwup.id;
 }
 
 ////////////////////////////////////////////////RNG
