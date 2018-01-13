@@ -5,6 +5,7 @@
 
 typedef enum { JOLASTEN, GALDU, IRABAZI }EGOERA;
 typedef enum { IRUDIA, MARGOA, TESTUA } MOTA;
+typedef enum { NORMAL, TIROAK }PWUP_EGOERA;
 typedef enum { HORIA, MOREA, BERDEA } KOLOREA;
 
 typedef struct
@@ -13,6 +14,13 @@ typedef struct
   int id;
   MOTA mota;
 }JOKO_ELEMENTUA;
+typedef struct
+{
+	POSIZIOA pos;
+	int id;
+	PWUP_EGOERA egoera;
+	MOTA mota;
+}JOKALARIA_ELEMENTUA;
 typedef struct
 {
 	POSIZIOA pos;

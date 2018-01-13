@@ -82,7 +82,7 @@ void bihotzaKendu(int bizitza, int bihotzArray[]);
 int JOKOA_SYPowerUPIrudiaSortu(POWERUP_ELEMENTUA pow, POWERUP_ELEMENTUA powerupak[]);
 int Id_aurkitu(int x, int y);
 
-EGOERA JOKOA_egoera(JOKO_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bizitza);
+EGOERA JOKOA_egoera(JOKALARIA_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bizitza);
 int zeinPOWER(JOKO_ELEMENTUA zein, int posx, int posy);
 int zeinPOWERY(JOKO_ELEMENTUA zein, int posx, int posy);
 int rng(int zenb);
@@ -331,7 +331,8 @@ EGOERA jokatu(void)
 
 	EGOERA  egoera = JOLASTEN;
 	int ebentu = 0;
-	JOKO_ELEMENTUA pilota, jokalaria, fondoa, barra, bihotzak, zenbakiak;
+	JOKO_ELEMENTUA pilota,  fondoa, barra, bihotzak, zenbakiak;
+	JOKALARIA_ELEMENTUA jokalaria;
 	POWERUP_ELEMENTUA powerup;
 	POWERUP_ELEMENTUA powerupak[3];
 	LAUKIZUZENA_ELEMENTUA Laukizuzena;
@@ -342,6 +343,7 @@ EGOERA jokatu(void)
 
 	jokalaria.pos.x = 280;
 	jokalaria.pos.y = 400;
+	jokalaria.egoera = NORMAL;
 	
 	Laukizuzena.pos.x = 280;
 	Laukizuzena.pos.y = 400;
@@ -527,12 +529,12 @@ EGOERA jokatu(void)
 				int id = 0, blokeGoi, blokeBehe, blokeEzk, blokeEsk;
 				id = Id_aurkitu(pilota.pos.x, pilota.pos.y);
 
-				if (id >= 6 && id <= 135) {
+				if (id >= 0 && id <= 130) {
 					if (Blokeak[id].apurtuta != 1)
 					{
-						blokeEzk = aurkituXKoordenatuak(id);
+						blokeEzk = aurkituXKoordenatuak(id + 6);
 						blokeEsk = blokeEzk + 40;
-						blokeGoi = aurkituYKoordenatuak(id);
+						blokeGoi = aurkituYKoordenatuak(id + 6);
 						blokeBehe = blokeGoi + 20;
 
 						if (pilota.pos.x == blokeEzk) rebote = 1;
@@ -543,11 +545,11 @@ EGOERA jokatu(void)
 						Blokeak[id].apurtuta = 1;
 						Blokeak[id].pos.x = 4000;
 						Blokeak[id].pos.y = 4000;
-						irudiaMugitu(id, Blokeak[id].pos.x, Blokeak[id].pos.y);
+						irudiaKendu(id + 6);
 						kontScore += 10;
 						markagailua(kontScore, zenbakiak, zenbakiArray);
 
-						if (!pwUP)
+						if (pwUP == 0)
 						{
 							random = rng(4);
 							switch (random)
@@ -582,7 +584,7 @@ EGOERA jokatu(void)
 				powerupak[1].zein = 0;
 				powerupak[2].zein = 0;
 			}
-				if (pwUP)
+				if (pwUP == 1)
 				{
 					if (powerupak[0].zein == 1)
 					{
@@ -599,37 +601,52 @@ EGOERA jokatu(void)
 						aux = ERREALITATE_FISIKOA_mugimenduaPOWERUP(powerupak[2].pos);
 						powerupak[2].pos.y = aux.y;
 					}
-				
-				/*if ((sY.pos.y == 390) || (xP.pos.y == 390) || (nG.pos.y == 390))
-				{
-					if (sY.zein)
+					//amarillo 0 morado 1 berde 2 COJER EL PWUP
+					if ((powerupak[0].pos.y >= 390) || (powerupak[1].pos.y == 390) || (powerupak[2].pos.y == 390))
 					{
-						if ((sY.pos.x > jokalaria.pos.x) && (sY.pos.x < (jokalaria.pos.x + 106)))
+						if (powerupak[0].zein == 1)
 						{
-							irudiaAldatu(barra.id, 0);
-							pwUP = 0;
-							sY.zein = 0;
+							if ((powerupak[0].pos.x > jokalaria.pos.x) && (powerupak[0].pos.x < (jokalaria.pos.x + 106)))
+							{
+								irudiaAldatu(barra.id, 0);
+								pwUP = 0;
+								powerupak[0].zein = 0;
+							}
+						}
+						else if (powerupak[1].zein == 1)
+						{
+							if (((powerupak[1].pos.x > jokalaria.pos.x) && (powerupak[1].pos.x < (jokalaria.pos.x + 106))) /*|| ((powerupak[1].pos.x+29 > jokalaria.pos.x) && (powerupak[1].pos.x+29 < (jokalaria.pos.x + 106)))*/)
+							{
+
+								//irudiaMugitu(powerupak[1].id, 4000, 4000);
+								jokalaria.egoera = TIROAK;
+								irudiaKendu(powerupak[1].id);
+
+
+							}
+						}
+						else if (powerupak[2].zein == 1)
+						{
+							if ((powerupak[2].pos.x > jokalaria.pos.x) && (powerupak[2].pos.x < (jokalaria.pos.x + 106)))
+							{
+								irudiaAldatu(barra.id, 0);
+								pwUP = 0;
+								powerupak[2].zein = 0;
+							}
 						}
 					}
-					else if (xP.zein)
-					{
-						if ((xP.pos.x > jokalaria.pos.x) && (xP.pos.x < (jokalaria.pos.x + 106)))
+					if (jokalaria.egoera == TIROAK) {
+						irudiaAldatu(barra.id, 0);
+						powerupak[1].zein = 0;
+						for (int i = 0; i < 6; i++)
 						{
-							irudiaAldatu(barra.id, 0);
-							pwUP = 0;
-							xP.zein = 0;
+							Tiroak[i].jaurti = 0;
 						}
+						biak = 0;
+						tiroak = 0;
+						jokalaria.egoera = NORMAL;
 					}
-					else if (nG.zein)
-					{
-						if ((nG.pos.x > jokalaria.pos.x) && (nG.pos.x < (jokalaria.pos.x + 106)))
-						{
-							irudiaAldatu(barra.id, 0);
-							pwUP = 0;
-							nG.zein = 0;
-						}
-					}
-				}*/
+
 				if (ebentu == TECLA_SPACE)	irudiaAldatu(barra.id, 1);
 			}
 			else
@@ -717,7 +734,7 @@ EGOERA jokatu(void)
 	return egoera;
 }
 /////////////////////////////////////////////////////////////////////////JOKOAREN AMAIERA
-EGOERA JOKOA_egoera(JOKO_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bizitza) {
+EGOERA JOKOA_egoera(JOKALARIA_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bizitza) {
   EGOERA  ret = JOLASTEN;
   if (jokalaria.pos.x >pilota.pos.x - 20 && jokalaria.pos.x <pilota.pos.x + 20 && jokalaria.pos.y >pilota.pos.y - 20 && jokalaria.pos.y <pilota.pos.y + 20) {
     //ret = IRABAZI;
@@ -822,6 +839,10 @@ void laukizuzenakEzarri(LAUKIZUZENA_ELEMENTUA Laukizuzena, LAUKIZUZENA_ELEMENTUA
 			if (t == 0)	posx = 60;
 			Laukizuzena.id = JOKOA_LaukizuzenaIrudiaSortu(posx, posy, r);
 			Laukizuzena.apurtuta = 0;
+			Laukizuzena.pos.x = posx;
+			Laukizuzena.pos.y = posy;
+			Laukizuzena.apurtuta = 0;
+			Laukizuzena.mota = IRUDIA;
 			blokeak[j] = Laukizuzena;
 			posx += 40;
 			j++;
@@ -848,7 +869,7 @@ void tiroakSortu(TIROA_ELEMENTUA  tiroa, TIROA_ELEMENTUA  Tiroak[])
 }
 int Id_aurkitu(int x, int y) 
 {
-	int id = 6, xtxiki = 60, ytxikia = 50;
+	int id = 0, xtxiki = 60, ytxikia = 50;
 
 	while (x<xtxiki || x > xtxiki + 40)
 	{
