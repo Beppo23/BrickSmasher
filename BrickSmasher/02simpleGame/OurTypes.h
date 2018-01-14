@@ -34,6 +34,7 @@ typedef struct
 	int id;
 	int zein;
 	int jaurti;
+	int puxkatu;
 	MOTA mota;
 }TIROA_ELEMENTUA;
 typedef struct

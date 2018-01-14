@@ -1,5 +1,6 @@
 ﻿B:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(387,5): warning MSB8028: El directorio intermedio (Debug\) contiene archivos compartidos de otro proyecto (02simpleGame.vcxproj). Esto puede dar lugar a un comportamiento incorrecto de limpieza y recompilación.
   arkanoid_Funtzioak.c
-b:\beppo\documents\program\popbl\bricksmasher\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(398): warning C4013: 'irudiaAldatu' sin definir; se supone que extern devuelve como resultado int
-b:\beppo\documents\program\popbl\bricksmasher\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(1017): warning C4101: 'idAudioGame': variable local sin referencia
+b:\beppo\documents\program\popbl\bricksmasher\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(399): warning C4013: 'irudiaAldatu' sin definir; se supone que extern devuelve como resultado int
+b:\beppo\documents\program\popbl\bricksmasher\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(445): warning C4013: 'tiroaPuxkatu' sin definir; se supone que extern devuelve como resultado int
+b:\beppo\documents\program\popbl\bricksmasher\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(1040): warning C4101: 'idAudioGame': variable local sin referencia
   02simpleGame.vcxproj -> B:\Beppo\Documents\Program\POPBL\BrickSmasher\BrickSmasher\BrickSmasher\Debug\Arkanoid.exe
