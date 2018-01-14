@@ -528,21 +528,17 @@ EGOERA jokatu(void)
 			}
 			if ((pilota.pos.y >= 50) && (pilota.pos.y <= 250) && (pilota.pos.x >= 60) && (pilota.pos.x <= 580))
 			{
-				int id = 0, blokeGoi, blokeBehe, blokeEzk, blokeEsk;
+				int id = 0;
 				id = Id_aurkitu(pilota.pos.x, pilota.pos.y);
 
-				if (id >= 0 && id <= 130) {
+				if (id >= 0 && id <= 130) 
+				{
 					if (Blokeak[id].apurtuta != 1)
 					{
-						blokeEzk = aurkituXKoordenatuak(id + 6);
-						blokeEsk = blokeEzk + 40;
-						blokeGoi = aurkituYKoordenatuak(id + 6);
-						blokeBehe = blokeGoi + 20;
-
-						if (pilota.pos.x == blokeEzk) rebote = 1;
-						if (pilota.pos.x == blokeEsk) rebote = 0;
-						if (pilota.pos.y + 24 == blokeGoi) goian = 0;
-						if (pilota.pos.y == blokeBehe) goian = 1;
+						if (pilota.pos.x + 24 == Blokeak[id].pos.x) rebote = 1;
+						if (pilota.pos.x == Blokeak[id].pos.x + 40) rebote = 0;
+						if (pilota.pos.y + 24 == Blokeak[id].pos.y) goian = 0;
+						if (pilota.pos.y == Blokeak[id].pos.y + 20) goian = 1;
 
 						Blokeak[id].apurtuta = 1;
 						Blokeak[id].pos.x = 4000;
@@ -558,20 +554,20 @@ EGOERA jokatu(void)
 							{
 							case 1:
 								pwUP = 1;
-								powerupak[2].pos.x = blokeEzk + 20;
-								powerupak[2].pos.y = blokeGoi + 10;
+								powerupak[2].pos.x = Blokeak[id].pos.x + 20;
+								powerupak[2].pos.y = Blokeak[id].pos.y + 10;
 								powerupak[2].zein = 1;
 								break;
 							case 2:
 								pwUP = 1;
-								powerupak[0].pos.x = blokeEzk + 20;
-								powerupak[0].pos.y = blokeGoi + 10;
+								powerupak[0].pos.x = Blokeak[id].pos.x + 20;
+								powerupak[0].pos.y = Blokeak[id].pos.y + 10;
 								powerupak[0].zein = 1;
 								break;
 							case 3:
 								pwUP = 1;
-								powerupak[1].pos.x = blokeEzk + 20;
-								powerupak[1].pos.y = blokeGoi + 10;
+								powerupak[1].pos.x = Blokeak[id].pos.x + 20;
+								powerupak[1].pos.y = Blokeak[id].pos.y + 10;
 								powerupak[1].zein = 1;
 								break;
 							}
@@ -908,8 +904,7 @@ int Id_aurkitu(int x, int y)
 }
 int aurkituXKoordenatuak(int id)
 {
-	int i = 0, xkoor = 20, ilarapos;
-	id -= 5;
+	int i = 0, xkoor = 60, ilarapos;
 	while (id - (i + 1) * 13 > 0) i++;
 	ilarapos = id - i * 13;
 	xkoor += ilarapos * 40;
@@ -917,8 +912,7 @@ int aurkituXKoordenatuak(int id)
 }
 int aurkituYKoordenatuak(int id)
 {
-	int i = 1, ykoor = 30;
-	id -= 5;
+	int i = 1, ykoor = 50;
 	while (id - i * 13 > 0) i++;
 	ykoor += i * 20;
 	return ykoor;
