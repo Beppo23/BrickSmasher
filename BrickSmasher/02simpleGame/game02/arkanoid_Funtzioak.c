@@ -541,8 +541,6 @@ EGOERA jokatu(void)
 						if (pilota.pos.y == Blokeak[id].pos.y + 20) goian = 1;
 
 						Blokeak[id].apurtuta = 1;
-						Blokeak[id].pos.x = 4000;
-						Blokeak[id].pos.y = 4000;
 						irudiaKendu(id + 6);
 						kontScore += 10;
 						markagailua(kontScore, zenbakiak, zenbakiArray);
@@ -550,7 +548,7 @@ EGOERA jokatu(void)
 						if (pwUP == 0)
 						{
 							random = rng(4);
-							switch (3)
+							switch (random)
 							{
 							case 1:
 								pwUP = 1;

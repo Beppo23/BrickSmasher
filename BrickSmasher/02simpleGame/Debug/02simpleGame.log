@@ -2,7 +2,7 @@
   arkanoid_Funtzioak.c
 c:\users\usuario\desktop\mondragon\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(399): warning C4013: 'irudiaAldatu' sin definir; se supone que extern devuelve como resultado int
 c:\users\usuario\desktop\mondragon\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(445): warning C4013: 'tiroaPuxkatu' sin definir; se supone que extern devuelve como resultado int
-c:\users\usuario\desktop\mondragon\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(1034): warning C4101: 'idAudioGame': variable local sin referencia
+c:\users\usuario\desktop\mondragon\popbl\bricksmasher\bricksmasher\02simplegame\game02\arkanoid_funtzioak.c(1032): warning C4101: 'idAudioGame': variable local sin referencia
   arkanoid_Main.c
   text.c
   soinua.c
