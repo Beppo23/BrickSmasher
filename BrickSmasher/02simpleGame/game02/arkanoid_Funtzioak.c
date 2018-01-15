@@ -324,7 +324,7 @@ EGOERA jokatu(void)
 	int rebote = 0;
 	int goian = 0;
 	int bizitza = 3, bihotzArray[3];
-	int kontScore = 0, zenbakiArray[2];
+	int kontScore = 0, zenbakiArray[3];
 	int random;
 	int zeinTiro = 0;
 	int biak = 0;
@@ -340,7 +340,7 @@ EGOERA jokatu(void)
 	TIROA_ELEMENTUA  tiroa;
 	POSIZIOA aux;
 	LAUKIZUZENA_ELEMENTUA Blokeak[130];
-	TIROA_ELEMENTUA Tiroak[6];
+	TIROA_ELEMENTUA Tiroak[7];
 
 	jokalaria.pos.x = 280;
 	jokalaria.pos.y = 400;
@@ -439,6 +439,8 @@ EGOERA jokatu(void)
 			pwUP = 0;
 			tiroakSortu(tiroa, Tiroak);
 			zeinTiro = 0;
+			pwUP = 0;
+			powerupak[1].zein = 0;
 		}
 		if ((Tiroak[zeinTiro].pos.y >= 50) && (Tiroak[zeinTiro].pos.y <= 250) && (Tiroak[zeinTiro].pos.x >= 60) && (Tiroak[zeinTiro].pos.x <= 580) && Tiroak[zeinTiro].puxkatu != 1)
 		{
@@ -607,18 +609,19 @@ EGOERA jokatu(void)
 								irudiaAldatu(barra.id, 0);
 								pwUP = 0;
 								powerupak[0].zein = 0;
+								irudiaMugitu(powerupak[0].id, 4000, -4000);
+								powerupak[0].pos.x = 4000;
+								powerupak[0].pos.y = -4000;
 							}
 						}
 						else if (powerupak[1].zein == 1)
 						{
 							if (((powerupak[1].pos.x > jokalaria.pos.x) && (powerupak[1].pos.x < (jokalaria.pos.x + 106))) /*|| ((powerupak[1].pos.x+29 > jokalaria.pos.x) && (powerupak[1].pos.x+29 < (jokalaria.pos.x + 106)))*/)
 							{
-
-								//irudiaMugitu(powerupak[1].id, 4000, 4000);
+								irudiaMugitu(powerupak[1].id, 4000, -4000);
+								powerupak[1].pos.x = 4000;
+								powerupak[1].pos.y = -4000;
 								jokalaria.egoera = TIROAK;
-								irudiaKendu(powerupak[1].id);
-						
-
 							}
 						}
 						else if (powerupak[2].zein == 1)
@@ -628,6 +631,9 @@ EGOERA jokatu(void)
 								irudiaAldatu(barra.id, 0);
 								pwUP = 0;
 								powerupak[2].zein = 0;
+								irudiaMugitu(powerupak[2].id, 4000, -4000);
+								powerupak[2].pos.x = 4000;
+								powerupak[2].pos.y = -4000;
 							}
 						}
 					}
@@ -711,6 +717,7 @@ EGOERA jokatu(void)
 			jokalaria.pos.y = 400;
 			pilota.pos.x = jokalaria.pos.x + 38;
 			pilota.pos.y = jokalaria.pos.y - 23;
+			zeinTiro = 6;
 			for (int i = 0; i < 3; i++)
 			{
 				powerupak[i].pos.x = 1000;
@@ -979,7 +986,7 @@ POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEGOI(POSIZIOA posizioa)
 
 POSIZIOA ERREALITATE_FISIKOA_mugimenduaPOWERUP(POSIZIOA posizioa)
 {
-	posizioa.y = posizioa.y + 1;
+	posizioa.y = posizioa.y + 2;
 	return posizioa;
 }
 POSIZIOA ERREALITATE_FISIKOA_mugimenduaTIROA(POSIZIOA posizioa)
