@@ -66,8 +66,6 @@ int JOKOA_jokalariaIrudiaSortu();
 int JOKOA_barraIrudiaSortu();
 int BihotzakMarraztu(posx, posy);
 int zifra(int posizioax, int posizioay, int kontScore);
-//int aurkituYKoordenatuak(int id);
-//int aurkituXKoordenatuak(int id);
 int JOKOA_LaukizuzenaIrudiaSortu(int posx, int posy, int zein);
 int JOKOA_fondoaSortu();
 int JOKOA_itzuli();
@@ -80,6 +78,7 @@ int JOKOA_jokatu();
 int JOKOA_tutoriala();
 int JOKOA_kreditoak();
 int JOKOA_itxi();
+int JOKOA_q();
 int JOKOA_pilotaIrudiaSortu();
 void bihotzaKendu(int bizitza, int bihotzArray[]);
 int JOKOA_SYPowerUPIrudiaSortu(POWERUP_ELEMENTUA pow, POWERUP_ELEMENTUA powerupak[]);
@@ -88,7 +87,7 @@ void scoreBorratu(int kontScore, int zenbakiArray[]);
 void puntuazioaMarraztu();
 int tiroaPuxkatu(TIROA_ELEMENTUA tiroa, LAUKIZUZENA_ELEMENTUA Blokeak[], int kontScore, int lehenlaukia);
 
-EGOERA JOKOA_egoera(JOKALARIA_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bizitza);
+EGOERA JOKOA_egoera(JOKALARIA_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bizitza, int hutsik);
 int zeinPOWER(JOKO_ELEMENTUA zein, int posx, int posy);
 int zeinPOWERY(JOKO_ELEMENTUA zein, int posx, int posy);
 int rng(int zenb);
@@ -104,7 +103,7 @@ void powerupSortu(POWERUP_ELEMENTUA pow, POWERUP_ELEMENTUA powerupak[]);
 int BUKAERA_irudiaBistaratu(int scoreArray[]);
 void finalScore(int scoreArray[]);
 
-void jokoaAurkeztu(void)
+int jokoaAurkeztu()
 {
 	int ebentu = 0, saguaclick = 0, barruan = 0;
 	POSIZIOA pos;
@@ -172,9 +171,10 @@ void jokoaAurkeztu(void)
 			JOKOA_itzuli();
 			pantailaBerriztu();
 			break;
-		case 4:sgItxi();
+		case 4:
 			audioTerminate();
 			saguaclick = 0;
+			return 0;
 			break;
 		case 5:
 			saguaclick = 0;
@@ -183,6 +183,7 @@ void jokoaAurkeztu(void)
 			break;
 		}
 	} while (saguaclick != 999);
+	return 1;
 }
 
 void sarreraMezuaIdatzi()
@@ -346,6 +347,7 @@ EGOERA jokatu(int scoreArray[])
 	int biak = 0;
 	int id = 0;
 	int lehenLaukizuzen = 0;
+	int hutsik = 0;
 
 	EGOERA  egoera = JOLASTEN;
 	int ebentu = 0;
@@ -404,6 +406,7 @@ EGOERA jokatu(int scoreArray[])
 		Sleep(10);
 		pantailaGarbitu();
 		arkatzKoloreaEzarri(0, 0, 0xFF);
+		hutsik = 0;
 
 		if (hasi) irudiaMugitu(pilota.id, pilota.pos.x, pilota.pos.y);
 
@@ -497,7 +500,8 @@ EGOERA jokatu(int scoreArray[])
 		}
 		if (hasi == 0)
 		{
-			if (mugitu) {
+			if (mugitu) 
+			{
 				aux = ERREALITATE_FISIKOA_mugimendua(jokalaria.pos);
 				jokalaria.pos.x = aux.x;
 			}
@@ -746,7 +750,8 @@ EGOERA jokatu(int scoreArray[])
 			pwUP = 0;
 		}
 		///////////////////////////////////////////////////////////////BIZITZAK
-		egoera = JOKOA_egoera(jokalaria, pilota, bizitza);
+		while (Blokeak[hutsik].apurtuta && hutsik < 129) hutsik++;
+		egoera = JOKOA_egoera(jokalaria, pilota, bizitza, hutsik);
 	} while (egoera == JOLASTEN);
 	irudiaKendu(jokalaria.id);
 	toggleMusic();
@@ -756,11 +761,11 @@ EGOERA jokatu(int scoreArray[])
 	return egoera;
 }
 /////////////////////////////////////////////////////////////////////////JOKOAREN AMAIERA
-EGOERA JOKOA_egoera(JOKALARIA_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bizitza) {
+EGOERA JOKOA_egoera(JOKALARIA_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bizitza, int hutsik)
+{
   EGOERA  ret = JOLASTEN;
-  if (jokalaria.pos.x >pilota.pos.x - 20 && jokalaria.pos.x <pilota.pos.x + 20 && jokalaria.pos.y >pilota.pos.y - 20 && jokalaria.pos.y <pilota.pos.y + 20) {
-    //ret = IRABAZI;
-  }
+  if (hutsik == 129) ret = IRABAZI;
+  
   else if (bizitza == 0) 
   {
 	  ret = GALDU;
@@ -771,7 +776,6 @@ EGOERA JOKOA_egoera(JOKALARIA_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bi
 }
 
 /////////////////////////////////////////////////////////////////////////JOKOAREN AMAIERA
-
 int JOKOA_jokalariaIrudiaSortu() 
 {
   int barraId = -1;
@@ -930,21 +934,6 @@ int Id_aurkitu(int x, int y)
 	}
 	return id;
 }
-//int aurkituXKoordenatuak(int id)
-//{
-//	int i = 0, xkoor = 60, ilarapos;
-//	while (id - (i + 1) * 13 > 0) i++;
-//	ilarapos = id - i * 13;
-//	xkoor += ilarapos * 40;
-//	return xkoor;
-//}
-//int aurkituYKoordenatuak(int id)
-//{
-//	int i = 1, ykoor = 50;
-//	while (id - i * 13 > 0) i++;
-//	ykoor += i * 20;
-//	return ykoor;
-//}
 //////////////////////////////////////7 bihotzak
 void bihotzakEzarri(JOKO_ELEMENTUA bihotzak, int bizitza, int bihotzArray[])
 {
@@ -1100,7 +1089,8 @@ void markagailua(int kontScore[], JOKO_ELEMENTUA zenbakiak, int zenbakiArray[])
 	i = kontScore[0];
 	scoreBorratu(i, zenbakiArray);
 
-	if (i >= 1000) {
+	if (i >= 1000) 
+	{
 		i /= 1000;
 		zenbakiak.id = zifra(posizioax, posizioay, i);
 		zenbakiArray[0] = zenbakiak.id;
@@ -1109,7 +1099,8 @@ void markagailua(int kontScore[], JOKO_ELEMENTUA zenbakiak, int zenbakiArray[])
 	}
 	posizioax += 16;
 
-	if (i >= 100) {
+	if (i >= 100) 
+	{
 		i /= 100;
 		zenbakiak.id = zifra(posizioax, posizioay, i);
 		zenbakiArray[1] = zenbakiak.id;
@@ -1118,7 +1109,8 @@ void markagailua(int kontScore[], JOKO_ELEMENTUA zenbakiak, int zenbakiArray[])
 	}
 	posizioax += 16;
 
-	if (i >= 10) {
+	if (i >= 10) 
+	{
 		i /= 10;
 		zenbakiak.id = zifra(posizioax, posizioay, i);
 		zenbakiArray[2] = zenbakiak.id;
@@ -1127,15 +1119,11 @@ void markagailua(int kontScore[], JOKO_ELEMENTUA zenbakiak, int zenbakiArray[])
 }
 void scoreBorratu(int kontScore, int zenbakiArray[])
 {
-	if (kontScore > 1000) {
-		irudiaKendu(zenbakiArray[0]);
-	}
-	else if (kontScore > 100) {
-		irudiaKendu(zenbakiArray[1]);
-	}
-	else if (kontScore > 10) {
-		irudiaKendu(zenbakiArray[2]);
-	}
+	if (kontScore > 1000) irudiaKendu(zenbakiArray[0]);
+	
+	else if (kontScore > 100) irudiaKendu(zenbakiArray[1]);
+	
+	else if (kontScore > 10) irudiaKendu(zenbakiArray[2]);
 }
 void puntuazioaMarraztu() 
 {
@@ -1199,7 +1187,8 @@ void finalScore(int scoreArray[])
 	int i, posizioax = 280, posizioay = 210;
 	i = scoreArray[0];
 
-	if (i >= 1000) {
+	if (i >= 1000) 
+	{
 		i /= 1000;
 		scoreArray[0] = zifra(posizioax, posizioay, i);
 		i = scoreArray[0] - i * 1000;
@@ -1207,7 +1196,8 @@ void finalScore(int scoreArray[])
 	}
 	posizioax += 16;
 
-	if (i >= 100) {
+	if (i >= 100) 
+	{
 		i /= 100;
 		scoreArray[1] = zifra(posizioax, posizioay, i);
 		i = scoreArray[1] - i * 100;
@@ -1215,7 +1205,8 @@ void finalScore(int scoreArray[])
 	}
 	posizioax += 16;
 
-	if (i >= 10) {
+	if (i >= 10) 
+	{
 		i /= 10;
 		scoreArray[2] = zifra(posizioax, posizioay, i);
 	}

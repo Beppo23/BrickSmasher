@@ -3,7 +3,7 @@
 
 #include "ourTypes.h"
 
-void jokoaAurkeztu(void);
+int jokoaAurkeztu();
 EGOERA jokatu(int scoreArray[]);
 int laukizuzenakEzarri(LAUKIZUZENA_ELEMENTUA Laukizuzenak, LAUKIZUZENA_ELEMENTUA blokeak[]);
 void tiroakSortu(TIROA_ELEMENTUA  tiroa, TIROA_ELEMENTUA  Tiroak[]);
