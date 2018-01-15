@@ -14,6 +14,9 @@
 #define NOLA1_JOKATU "Ezkerrera joateko gezi hau erabiltzen duzu:"
 #define NOLA2_JOKATU "Pilota barratik jaurtitzeko <space> teklari eman."
 #define NOLA3_JOKATU "Eskumara joateko gezi hau erabiltzen duzu:"
+#define NOLA4_JOKATU "Power up morea jasotzen duzunean 6 tiro dituzu."
+#define NOLA5_JOKATU "Hau gauzatzeko tekla hau erabili:"
+#define TECLA_Q ".\\img\\qtecla.bmp"
 #define KREDITUAK ".\\img\\kredituak.bmp"
 #define KREDITOAK_IMAGE ".\\img\\krekre.bmp"
 #define ITXI ".\\img\\itxijokua.bmp"
@@ -154,10 +157,13 @@ void jokoaAurkeztu(void)
 			JOKOA_teclaEzkerra();
 			JOKOA_teclaEskuma();
 			JOKOA_barra();
-			textuaIdatzi(50, 100, NOLA_JOKATU);
-			textuaIdatzi(50, 170, NOLA1_JOKATU);
-			textuaIdatzi(50, 230, NOLA3_JOKATU);
-			textuaIdatzi(50, 300, NOLA2_JOKATU);
+			JOKOA_q();
+			textuaIdatzi(50, 50, NOLA_JOKATU);
+			textuaIdatzi(50, 120, NOLA1_JOKATU);
+			textuaIdatzi(50, 170, NOLA3_JOKATU);
+			textuaIdatzi(50, 230, NOLA2_JOKATU);
+			textuaIdatzi(50, 280, NOLA4_JOKATU);
+			textuaIdatzi(50, 320, NOLA5_JOKATU);
 			pantailaBerriztu();
 			break;
 		case 3:pantailaGarbitu();
@@ -256,7 +262,7 @@ int JOKOA_teclaEzkerra()
 {
 	int teclaId = -1;
 	teclaId = irudiaKargatu(TECLA_EZKERRA);
-	irudiaMugitu(teclaId, 360, 140);
+	irudiaMugitu(teclaId, 360, 88);
 	pantailaGarbitu();
 	irudiakMarraztu();
 	pantailaBerriztu();
@@ -266,7 +272,17 @@ int JOKOA_teclaEskuma()
 {
 	int teclaId = -1;
 	teclaId = irudiaKargatu(TECLA_ESKUMA);
-	irudiaMugitu(teclaId, 360, 200);
+	irudiaMugitu(teclaId, 360, 150);
+	pantailaGarbitu();
+	irudiakMarraztu();
+	pantailaBerriztu();
+	return teclaId;
+}
+int JOKOA_q()
+{
+	int teclaId = -1;
+	teclaId = irudiaKargatu(TECLA_Q);
+	irudiaMugitu(teclaId, 300, 320);
 	pantailaGarbitu();
 	irudiakMarraztu();
 	pantailaBerriztu();
@@ -276,7 +292,7 @@ int JOKOA_barra()
 {
 	int barraId = -1;
 	barraId = irudiaKargatu(TECLA_BARRA);
-	irudiaMugitu(barraId, 300, 340);
+	irudiaMugitu(barraId, 400, 230);
 	pantailaGarbitu();
 	irudiakMarraztu();
 	pantailaBerriztu();

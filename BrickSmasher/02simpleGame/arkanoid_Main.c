@@ -19,7 +19,7 @@
 
 
 int main(int argc, char * str[]) {
-	int jarraitu = 0, scoreArray[1];
+	int jarraitu = 0, scoreArray[2];
 	EGOERA egoera;
  
   if (sgHasieratu() == -1) 
