@@ -19,8 +19,8 @@
 
 
 int main(int argc, char * str[]) {
-  int jarraitu = 0;
-  EGOERA egoera;
+	int jarraitu = 0, scoreArray[1];
+	EGOERA egoera;
  
   if (sgHasieratu() == -1) 
   {
@@ -31,8 +31,8 @@ int main(int argc, char * str[]) {
   do
   {
     jokoaAurkeztu();
-    egoera = jokatu();
-    jarraitu = jokoAmaierakoa(egoera);
+	egoera = jokatu(scoreArray);
+	jarraitu = jokoAmaierakoa(egoera, scoreArray);
   } while (jarraitu);
   sgItxi();
   return 0;

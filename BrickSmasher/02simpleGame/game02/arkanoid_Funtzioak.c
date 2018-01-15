@@ -43,7 +43,6 @@
 #define ZENBAKIA_7 ".\\img\\7zenbakia.bmp"
 #define ZENBAKIA_8 ".\\img\\8zenbakia.bmp"
 #define ZENBAKIA_9 ".\\img\\9zenbakia.bmp"
-#define FINAL_SCORE "SCORE XD"
 
 #define BOTON_MENU ".\\img\\joan.bmp"
 #define LAUKIZUZENA1_1BMP ".\\img\\Bloke1_1.bmp"
@@ -99,8 +98,8 @@ POSIZIOA ERREALITATE_FISIKOA_mugimenduaTIROA(POSIZIOA posizioa);
 POSIZIOA ERREALITATE_FISIKOA_mugimenduaPOWERUP(POSIZIOA posizioa);
 void powerupSortu(POWERUP_ELEMENTUA pow, POWERUP_ELEMENTUA powerupak[]);
 //int  BUKAERA_menua(EGOERA egoera);
-int BUKAERA_irudiaBistaratu();
-void finalScore();
+int BUKAERA_irudiaBistaratu(int scoreArray[]);
+void finalScore(int scoreArray[]);
 
 void jokoaAurkeztu(void)
 {
@@ -294,7 +293,6 @@ int JOKOA_barra()
 //	return menuraId;
 //}
 
-
 int JOKOA_backSortu()
 {
 	int backId = -1;
@@ -316,7 +314,7 @@ int JOKOA_KreditoakSortu()
 	return kredId;
 }
 
-EGOERA jokatu(void)
+EGOERA jokatu(int scoreArray[])
 {
 	int mugitu = 0;
 	int mugituEZK = 0;
@@ -546,7 +544,8 @@ EGOERA jokatu(void)
 						Blokeak[id].apurtuta = 1;
 						irudiaKendu(id + 6);
 						kontScore += 10;
-						markagailua(kontScore, zenbakiak, zenbakiArray);
+						scoreArray[0] = kontScore;
+						markagailua(scoreArray, zenbakiak, zenbakiArray);
 
 						if (pwUP == 0)
 						{
@@ -1035,7 +1034,7 @@ POSIZIOA ERREALITATE_FISIKOA_mugimenduaTIROA(POSIZIOA posizioa)
 //}
 
 
-int  jokoAmaierakoa(EGOERA egoera)
+int  jokoAmaierakoa(EGOERA egoera, int scoreArray[])
 {
 	int ebentu = 0, id;
 	/*int idAudioGame;*/
@@ -1049,7 +1048,7 @@ int  jokoAmaierakoa(EGOERA egoera)
 	idAudioGame = loadSound(JOKOA_SOUND_LOOSE);
 	playSound(idAudioGame);
 	}*/
-	id = BUKAERA_irudiaBistaratu();
+	id = BUKAERA_irudiaBistaratu(scoreArray);
 	do
 	{
 		ebentu = ebentuaJasoGertatuBada();
@@ -1059,7 +1058,7 @@ int  jokoAmaierakoa(EGOERA egoera)
 	return (ebentu != TECLA_RETURN) ? 1 : 0;
 }
 
-int BUKAERA_irudiaBistaratu()
+int BUKAERA_irudiaBistaratu(int scoreArray[])
 {
 	int id = -1;
 	id = irudiaKargatu(BUKAERA_IMAGE);
@@ -1068,7 +1067,7 @@ int BUKAERA_irudiaBistaratu()
 	irudiakMarraztu();
 	/*JOKOA_menu();*/
 	/*JOKOA_itxi2();*/
-	finalScore();
+	finalScore(scoreArray);
 	/*textuaIdatzi(50, 340, HASIERATU);*/
 	pantailaBerriztu();
 	return id;
@@ -1076,39 +1075,39 @@ int BUKAERA_irudiaBistaratu()
 
 //////////////////////////////////////////////////score
 
-void markagailua(int kontScore, JOKO_ELEMENTUA zenbakiak, int zenbakiArray[])
+void markagailua(int kontScore[], JOKO_ELEMENTUA zenbakiak, int zenbakiArray[])
 {
-	int i, posizioay = 450;
-	i = kontScore;
-	scoreBorratu(kontScore, zenbakiArray);
+	int i, posizioax = 500, posizioay = 450;
+
+	i = kontScore[0];
+	scoreBorratu(i, zenbakiArray);
+
 	if (i >= 1000) {
 		i /= 1000;
-		zenbakiak.id = zifra(500, posizioay, i);
+		zenbakiak.id = zifra(posizioax, posizioay, i);
 		zenbakiArray[0] = zenbakiak.id;
-		i = kontScore - i * 1000;
-		zifra(516, posizioay, 0);
+		i = kontScore[0] - i * 1000;
+		zifra(posizioax + 16, posizioay, 0);
 	}
-
+	posizioax += 16;
 
 	if (i >= 100) {
 		i /= 100;
-		zenbakiak.id = zifra(516, posizioay, i);
+		zenbakiak.id = zifra(posizioax, posizioay, i);
 		zenbakiArray[1] = zenbakiak.id;
-		i = kontScore - i * 100;
-		zifra(532, posizioay, 0);
+		i = kontScore[0] - i * 100;
+		zifra(posizioax + 16, posizioay, 0);
 	}
-
+	posizioax += 16;
 
 	if (i >= 10) {
 		i /= 10;
-		zenbakiak.id = zifra(532, posizioay, i);
+		zenbakiak.id = zifra(posizioax, posizioay, i);
 		zenbakiArray[2] = zenbakiak.id;
-		i = kontScore - i * 10;
+		i = kontScore[0] - i * 10;
 	}
-
-
 }
-void scoreBorratu(int kontScore, int zenbakiArray[]) 
+void scoreBorratu(int kontScore, int zenbakiArray[])
 {
 	if (kontScore > 1000) {
 		irudiaKendu(zenbakiArray[0]);
@@ -1177,9 +1176,34 @@ int zifra(int posizioax, int posizioay, int kontScore)
 //
 //}
 
-void finalScore()
+void finalScore(int scoreArray[])
 {
-	textuaIdatzi(280, 210, FINAL_SCORE);
+	int i, posizioax = 280, posizioay = 210;
+	i = scoreArray[0];
+
+	if (i >= 1000) {
+		i /= 1000;
+		scoreArray[0] = zifra(posizioax, posizioay, i);
+		i = scoreArray[0] - i * 1000;
+		zifra(posizioax + 16, posizioay, 0);
+	}
+	posizioax += 16;
+
+	if (i >= 100) {
+		i /= 100;
+		scoreArray[1] = zifra(posizioax, posizioay, i);
+		i = scoreArray[1] - i * 100;
+		zifra(posizioax + 16, posizioay, 0);
+	}
+	posizioax += 16;
+
+	if (i >= 10) {
+		i /= 10;
+		scoreArray[2] = zifra(posizioax, posizioay, i);
+	}
+
+	posizioax += 16;
+	zifra(posizioax, posizioay, 0);
 }
 
 //////////////////////////////////////////////////score
