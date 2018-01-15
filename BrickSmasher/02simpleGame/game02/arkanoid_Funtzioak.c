@@ -97,7 +97,6 @@ POSIZIOA ERREALITATE_FISIKOA_mugimenduaPOWERUP(POSIZIOA posizioa);
 void powerupSortu(POWERUP_ELEMENTUA pow, POWERUP_ELEMENTUA powerupak[]);
 //int  BUKAERA_menua(EGOERA egoera);
 int BUKAERA_irudiaBistaratu();
-void scoreKendu(JOKO_ELEMENTUA zenbakiak);
 void finalScore();
 
 void jokoaAurkeztu(void)
@@ -378,10 +377,7 @@ EGOERA jokatu(void)
 	jokalaria.id = JOKOA_jokalariaIrudiaSortu();
 	pilota.id = JOKOA_pilotaIrudiaSortu();
 	barra.id = JOKOA_barraIrudiaSortu();
-	zifra(548, 450, 0);
-	zifra(532, 450, 0);
-	zifra(516, 450, 0);
-	zifra(500, 450, 0);
+	puntuazioaMarraztu();
 	powerupSortu(powerup, powerupak);
 	tiroakSortu(tiroa, Tiroak);
 
@@ -537,7 +533,7 @@ EGOERA jokatu(void)
 				else if (goian && !rebote) id = Id_aurkitu((pilota.pos.x + 24), (pilota.pos.y + 24));
 				else if (goian && rebote) id = Id_aurkitu(pilota.pos.x, (pilota.pos.y + 24));
 
-				if (id >= 0 && id <= 130) 
+				if (id >= 0 && id <= 129) 
 				{
 					if (Blokeak[id].apurtuta != 1)
 					{
@@ -1078,26 +1074,29 @@ int BUKAERA_irudiaBistaratu()
 }
 
 //////////////////////////////////////////////////score
+
 void markagailua(int kontScore, JOKO_ELEMENTUA zenbakiak, int zenbakiArray[])
 {
 	int i, posizioay = 450;
 	i = kontScore;
-
+	scoreBorratu(kontScore, zenbakiArray);
 	if (i >= 1000) {
 		i /= 1000;
 		zenbakiak.id = zifra(500, posizioay, i);
 		zenbakiArray[0] = zenbakiak.id;
 		i = kontScore - i * 1000;
+		zifra(516, posizioay, 0);
 	}
-	else zifra(500, posizioay, 0);
+
 
 	if (i >= 100) {
 		i /= 100;
 		zenbakiak.id = zifra(516, posizioay, i);
 		zenbakiArray[1] = zenbakiak.id;
 		i = kontScore - i * 100;
+		zifra(532, posizioay, 0);
 	}
-	else zifra(516, posizioay, 0);
+
 
 	if (i >= 10) {
 		i /= 10;
@@ -1105,10 +1104,26 @@ void markagailua(int kontScore, JOKO_ELEMENTUA zenbakiak, int zenbakiArray[])
 		zenbakiArray[2] = zenbakiak.id;
 		i = kontScore - i * 10;
 	}
-	else zifra(532, posizioay, 0);
+
 
 }
-
+scoreBorratu(int kontScore, int zenbakiArray[]) {
+	if (kontScore > 1000) {
+		irudiaKendu(zenbakiArray[0]);
+	}
+	else if (kontScore > 100) {
+		irudiaKendu(zenbakiArray[1]);
+	}
+	else if (kontScore > 10) {
+		irudiaKendu(zenbakiArray[2]);
+	}
+}
+puntuazioaMarraztu() {
+	zifra(548, 450, 0);
+	zifra(532, 450, 0);
+	zifra(516, 450, 0);
+	zifra(500, 450, 0);
+}
 int zifra(int posizioax, int posizioay, int kontScore)
 {
 	int zenbakia = -1;
@@ -1152,11 +1167,12 @@ int zifra(int posizioax, int posizioay, int kontScore)
 	return zenbakia;
 }
 
-void scoreKendu(JOKO_ELEMENTUA zenbakiak)
-{
-	int i;
-	for (i = 0; i < 3; i++) irudiaMugitu(zenbakiak.id, 1000, 1000);
-}
+//void scoreKendu(JOKO_ELEMENTUA zenbakiak)
+//{
+//	int i;
+//	for (i = 0; i < 3; i++) irudiaMugitu(zenbakiak.id, 1000, 1000);
+//
+//}
 
 void finalScore()
 {
