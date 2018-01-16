@@ -35,6 +35,7 @@
 #define JOKOA_SOUND_LOOSE ".\\sound\\you_lose.wav" 
 #define BUKAERA_SOUND_1 ".\\sound\\arkanoid_audio.wav"
 #define BUKAERA_IMAGE ".\\img\\gameOver_3.bmp"
+#define IRABAZI_IMAGE ".\\img\\IRABAZI.bmp"
 #define TIROA_SOUND ".\\sound\\Tiro.wav"
 
 #define ZENBAKIA_0 ".\\img\\0zenbakia.bmp"
@@ -103,6 +104,7 @@ POSIZIOA ERREALITATE_FISIKOA_mugimenduaPOWERUP(POSIZIOA posizioa);
 void powerupSortu(POWERUP_ELEMENTUA pow, POWERUP_ELEMENTUA powerupak[]);
 //int  BUKAERA_menua(EGOERA egoera);
 int BUKAERA_irudiaBistaratu(int scoreArray[]);
+int IRABAZI_irudiaBistaratu(int scoreArray[]);
 void finalScore(int scoreArray[]);
 
 int jokoaAurkeztu()
@@ -780,16 +782,22 @@ EGOERA jokatu(int scoreArray[])
 /////////////////////////////////////////////////////////////////////////JOKOAREN AMAIERA
 EGOERA JOKOA_egoera(JOKALARIA_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bizitza, int hutsik)
 {
-  EGOERA  ret = JOLASTEN;
-  if (hutsik == 129) ret = IRABAZI;
-  
-  else if (bizitza == 0) 
-  {
-	  ret = GALDU;
-	  irudiaKendu(jokalaria.id);
-	  irudiaKendu(pilota.id);		
-  }
-  return ret;
+	EGOERA  ret = JOLASTEN;
+	if (hutsik == 129)
+	{
+		ret = IRABAZI;
+		pilota.pos.x = 20;
+		pilota.pos.y = 20;
+		irudiaKendu(jokalaria.id);
+		irudiaKendu(pilota.id);
+	}
+	else if (bizitza == 0)
+	{
+		ret = GALDU;
+		irudiaKendu(jokalaria.id);
+		irudiaKendu(pilota.id);
+	}
+	return ret;
 }
 
 /////////////////////////////////////////////////////////////////////////JOKOAREN AMAIERA
@@ -1063,18 +1071,18 @@ POSIZIOA ERREALITATE_FISIKOA_mugimenduaTIROA(POSIZIOA posizioa)
 int  jokoAmaierakoa(EGOERA egoera, int scoreArray[])
 {
 	int ebentu = 0, id;
-	/*int idAudioGame;*/
+	int idAudioGame;
 
-	/* loadTheMusic(BUKAERA_SOUND_1);
 	if (egoera == IRABAZI) {
-	idAudioGame = loadSound(JOKOA_SOUND_WIN);
-	playSound(idAudioGame);
+		idAudioGame = loadSound(JOKOA_SOUND_WIN);
+		playSound(idAudioGame);
+		id = IRABAZI_irudiaBistaratu(scoreArray);
 	}
 	else {
-	idAudioGame = loadSound(JOKOA_SOUND_LOOSE);
-	playSound(idAudioGame);
-	}*/
-	id = BUKAERA_irudiaBistaratu(scoreArray);
+		idAudioGame = loadSound(JOKOA_SOUND_LOOSE);
+		playSound(idAudioGame);
+		id = BUKAERA_irudiaBistaratu(scoreArray);
+	}
 	do
 	{
 		ebentu = ebentuaJasoGertatuBada();
@@ -1084,6 +1092,18 @@ int  jokoAmaierakoa(EGOERA egoera, int scoreArray[])
 	return (ebentu != TECLA_RETURN) ? 1 : 0;
 }
 
+int IRABAZI_irudiaBistaratu(int scoreArray[])
+{
+	int id = -1;
+	id = irudiaKargatu(IRABAZI_IMAGE);
+	irudiaMugitu(id, 0, 0);
+	pantailaGarbitu();
+	irudiakMarraztu();
+	/*JOKOA_itxi2();*/
+	pantailaBerriztu();
+	return id;
+}
+
 int BUKAERA_irudiaBistaratu(int scoreArray[])
 {
 	int id = -1;
@@ -1091,10 +1111,8 @@ int BUKAERA_irudiaBistaratu(int scoreArray[])
 	irudiaMugitu(id, 0, 0);
 	pantailaGarbitu();
 	irudiakMarraztu();
-	/*JOKOA_menu();*/
 	/*JOKOA_itxi2();*/
 	finalScore(scoreArray);
-	/*textuaIdatzi(50, 340, HASIERATU);*/
 	pantailaBerriztu();
 	return id;
 }
