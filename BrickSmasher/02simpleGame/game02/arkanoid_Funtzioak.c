@@ -825,7 +825,7 @@ int JOKOA_TiroaIrudiaSortu()
 int tiroaPuxkatu(TIROA_ELEMENTUA tiroa, LAUKIZUZENA_ELEMENTUA Blokeak[], int lehenlauki) 
 {
 	int id = 0, apurtu = 0;
-	id = Id_aurkitu(tiroa.pos.x, tiroa.pos.y);
+	id = Id_aurkitu(tiroa.pos.x+3, tiroa.pos.y);
 
 	if (id >= 0 && id <= 130) 
 	{
@@ -1190,41 +1190,36 @@ int zifra(int posizioax, int posizioay, int kontScore)
 	return zenbakia;
 }
 
-//void scoreKendu(JOKO_ELEMENTUA zenbakiak)
-//{
-//	int i;
-//	for (i = 0; i < 3; i++) irudiaMugitu(zenbakiak.id, 1000, 1000);
-//
-//}
-
 void finalScore(int scoreArray[])
 {
 	int i, j, posizioax = 280, posizioay = 210;
 	i = scoreArray[0];
 
-	if (i >= 1000) 
+	if (i >= 1000)
 	{
+		j = i;
 		i /= 1000;
-		scoreArray[0] = zifra(posizioax, posizioay, i);
-		i = scoreArray[0] - i * 1000;
+		zifra(posizioax, posizioay, i);
+		j -= 1000;
+		i = j;
 		zifra(posizioax + 16, posizioay, 0);
 	}
 	posizioax += 16;
 
-	if (i >= 100) 
+	if (i >= 100)
 	{
 		j = i;
 		i /= 100;
-		scoreArray[1] = zifra(posizioax, posizioay, i);
+		zifra(posizioax, posizioay, i);
 		i = j - i * 100;
 		zifra(posizioax + 16, posizioay, 0);
 	}
 	posizioax += 16;
 
-	if (i >= 10) 
+	if (i >= 10)
 	{
 		i /= 10;
-		scoreArray[2] = zifra(posizioax, posizioay, i);
+		zifra(posizioax, posizioay, i);
 	}
 
 	posizioax += 16;
