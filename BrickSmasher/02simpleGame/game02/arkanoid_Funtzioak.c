@@ -937,6 +937,8 @@ int Id_aurkitu(int x, int y)
 {
 	int id = 0, xtxiki = 60, ytxikia = 50;
 
+	if (x < 60 || x > 580 || y < 50 || y > 250) id = 1000;
+
 	while ((x<xtxiki || x > xtxiki + 40) && (xtxiki < 600))
 	{
 		xtxiki += 40;
