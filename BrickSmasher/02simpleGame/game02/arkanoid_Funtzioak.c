@@ -86,7 +86,7 @@ int JOKOA_SYPowerUPIrudiaSortu(POWERUP_ELEMENTUA pow, POWERUP_ELEMENTUA powerupa
 int Id_aurkitu(int x, int y);
 void scoreBorratu(int kontScore, int zenbakiArray[]);
 void puntuazioaMarraztu();
-int tiroaPuxkatu(TIROA_ELEMENTUA tiroa, LAUKIZUZENA_ELEMENTUA Blokeak[], int kontScore, int lehenlaukia);
+int tiroaPuxkatu(TIROA_ELEMENTUA tiroa, LAUKIZUZENA_ELEMENTUA Blokeak[], int lehenlaukia);
 
 EGOERA JOKOA_egoera(JOKALARIA_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bizitza, int hutsik);
 int zeinPOWER(JOKO_ELEMENTUA zein, int posx, int posy);
@@ -462,7 +462,7 @@ EGOERA jokatu(int scoreArray[])
 		}
 		if ((Tiroak[zeinTiro].pos.y >= 50) && (Tiroak[zeinTiro].pos.y <= 250) && (Tiroak[zeinTiro].pos.x >= 60) && (Tiroak[zeinTiro].pos.x <= 580) && Tiroak[zeinTiro].puxkatu != 1)
 		{
-			apurtu = tiroaPuxkatu(Tiroak[zeinTiro], Blokeak, kontScore, lehenLaukizuzen);
+			apurtu = tiroaPuxkatu(Tiroak[zeinTiro], Blokeak, lehenLaukizuzen);
 			if (apurtu == 1)
 			{
 				zeinTiro++;
@@ -650,12 +650,11 @@ EGOERA jokatu(int scoreArray[])
 						{
 							if ((powerupak[2].pos.x > jokalaria.pos.x) && (powerupak[2].pos.x < (jokalaria.pos.x + 106)))
 							{
-								irudiaAldatu(barra.id, 0);
-								pwUP = 0;
-								powerupak[2].zein = 0;
+
 								irudiaMugitu(powerupak[2].id, 4000, -4000);
 								powerupak[2].pos.x = 4000;
 								powerupak[2].pos.y = -4000;
+								jokalaria.egoera = ITSATSITA;
 							}
 						}
 					}
@@ -670,6 +669,23 @@ EGOERA jokatu(int scoreArray[])
 						biak = 0;
 						zeinTiro = 0;
 						jokalaria.egoera = NORMAL;
+					}
+					if (jokalaria.egoera == ITSATSITA)
+					{
+						irudiaAldatu(barra.id, 0);
+						powerupak[2].zein = 0;
+						if ((pilota.pos.y == 377) && (pilota.pos.x > jokalaria.pos.x - 15) && (pilota.pos.x < (jokalaria.pos.x + 106)))
+						{
+							hasi = 0;
+							rebote = 0;
+							goian = 0;
+							pwUP = 0;
+							jokalaria.egoera = NORMAL;
+						}
+						if (pilota.pos.y == 480) {
+							jokalaria.egoera = NORMAL;
+							pwUP = 0;
+						}
 					}
 			}
 			else
@@ -806,7 +822,7 @@ int JOKOA_TiroaIrudiaSortu()
 	pantailaBerriztu();
 	return tiroaID;
 }
-int tiroaPuxkatu(TIROA_ELEMENTUA tiroa, LAUKIZUZENA_ELEMENTUA Blokeak[], int kontScore, int lehenlauki) 
+int tiroaPuxkatu(TIROA_ELEMENTUA tiroa, LAUKIZUZENA_ELEMENTUA Blokeak[], int lehenlauki) 
 {
 	int id = 0, apurtu = 0;
 	id = Id_aurkitu(tiroa.pos.x, tiroa.pos.y);
