@@ -42,6 +42,15 @@
     <ClCompile Include="arkanoid_Main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="score_funtzioak.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bizitza_funtzioak.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="errealitate_fisikoak.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\simpleSdlWrapper\ebentoak.h">
@@ -63,6 +72,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="game02\arkanoid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="score.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bizitzak.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="errealitateak.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
