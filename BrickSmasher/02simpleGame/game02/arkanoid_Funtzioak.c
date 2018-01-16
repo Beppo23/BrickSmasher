@@ -61,6 +61,7 @@ int posy = 0;
 int zein = 1;
 int pwUP = 0;
 int apurtu = 0;
+int irten = 0;
 void sarreraMezuaIdatzi();
 int JOKOA_jokalariaIrudiaSortu();
 int JOKOA_barraIrudiaSortu();
@@ -173,8 +174,8 @@ int jokoaAurkeztu()
 			break;
 		case 4:
 			audioTerminate();
-			saguaclick = 0;
-			return 0;
+			saguaclick = 999;
+			irten = 1;
 			break;
 		case 5:
 			saguaclick = 0;
@@ -183,7 +184,7 @@ int jokoaAurkeztu()
 			break;
 		}
 	} while (saguaclick != 999);
-	return 1;
+	return (irten != 1) ? 1 : 0;
 }
 
 void sarreraMezuaIdatzi()
@@ -403,7 +404,7 @@ EGOERA jokatu(int scoreArray[])
 
 	do
 	{
-		Sleep(10);
+		Sleep(8);
 		pantailaGarbitu();
 		arkatzKoloreaEzarri(0, 0, 0xFF);
 		hutsik = 0;
@@ -670,8 +671,6 @@ EGOERA jokatu(int scoreArray[])
 						zeinTiro = 0;
 						jokalaria.egoera = NORMAL;
 					}
-
-				if (ebentu == TECLA_SPACE)	irudiaAldatu(barra.id, 1);
 			}
 			else
 			{
@@ -1001,7 +1000,7 @@ POSIZIOA ERREALITATE_FISIKOA_mugimenduaPOWERUP(POSIZIOA posizioa)
 }
 POSIZIOA ERREALITATE_FISIKOA_mugimenduaTIROA(POSIZIOA posizioa)
 {
-	posizioa.y = posizioa.y - 1;
+	posizioa.y = posizioa.y - 2;
 	return posizioa;
 }
 /////////////////////////////////////////////////////////////////////////BARRA + PILOTA mugimenduak
