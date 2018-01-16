@@ -35,6 +35,7 @@
 #define JOKOA_SOUND_LOOSE ".\\sound\\you_lose.wav" 
 #define BUKAERA_SOUND_1 ".\\sound\\arkanoid_audio.wav"
 #define BUKAERA_IMAGE ".\\img\\gameOver_3.bmp"
+#define TIROA_SOUND ".\\sound\\Tiro.wav"
 
 #define ZENBAKIA_0 ".\\img\\0zenbakia.bmp"
 #define ZENBAKIA_1 ".\\img\\1zenbakia.bmp"
@@ -349,6 +350,7 @@ EGOERA jokatu(int scoreArray[])
 	int id = 0;
 	int lehenLaukizuzen = 0;
 	int hutsik = 0;
+	int tiroaid;
 
 	EGOERA  egoera = JOLASTEN;
 	int ebentu = 0;
@@ -391,6 +393,7 @@ EGOERA jokatu(int scoreArray[])
 
 	audioInit();
 	loadTheMusic(JOKOA_SOUND);
+	tiroaid = loadSound(TIROA_SOUND);
 	//playMusic();    /////////////////////////Comentado para que no de la brasa durante el testeo, quitar para la publicación final
 	fondoa.id = JOKOA_fondoaSortu();
 	lehenLaukizuzen = laukizuzenakEzarri(Laukizuzena, Blokeak);
@@ -442,7 +445,7 @@ EGOERA jokatu(int scoreArray[])
 		/////////////////////////////////////////////////////////////////////////////TIROAK
 		if (ebentu == TECLA_q && Tiroak[zeinTiro].jaurti == 0)
 		{
-
+			playSound(tiroaid);
 			Tiroak[zeinTiro].pos.x = jokalaria.pos.x + 45;
 			Tiroak[zeinTiro].pos.y = jokalaria.pos.y - 12;
 			Tiroak[zeinTiro].jaurti = 1;
@@ -469,14 +472,12 @@ EGOERA jokatu(int scoreArray[])
 			}
 
 		}
-		/*if (Tiroak[zeinTiro].pos.y == 0)
+		else if (Tiroak[zeinTiro].pos.y == 0)
 		{
-			tiroa.pos.x = 4000;
-			tiroa.pos.y = 4000;
-			irudiaKendu(tiroa.id);
-			tiroa.puxkatu = 1;
+			irudiaKendu(Tiroak[zeinTiro].id);
+			zeinTiro++;
 			apurtu = 1;
-		}*/
+		}
 		/////////////////////////////////////////////////////////////////////////////TIROAK
 		////////////////////////////////////////////////////////////////////MUGIMENDUA LIMITATUA
 
@@ -755,6 +756,7 @@ EGOERA jokatu(int scoreArray[])
 			jokalaria.pos.y = 400;
 			pilota.pos.x = jokalaria.pos.x + 38;
 			pilota.pos.y = jokalaria.pos.y - 23;
+			irudiaKendu(Tiroak[zeinTiro].id);
 			zeinTiro = 6;
 			for (int i = 0; i < 3; i++)
 			{
