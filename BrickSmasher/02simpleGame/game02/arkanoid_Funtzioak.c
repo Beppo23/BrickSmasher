@@ -6,9 +6,6 @@
 #include "soinua.h"
 #include <stdio.h>
 #include <windows.h>
-#include "score.h"
-#include "bizitzak.h"
-#include "errealitateak.h"
 
 #define BOTON_ITZULI ".\\img\\itzuli.bmp"
 #define JOKATU ".\\img\\joka.bmp"
@@ -30,6 +27,7 @@
 #define JOKOA_SOUND ".\\sound\\arkanoid_audio.wav"
 #define JOKOA_PLAYER_IMAGE ".\\img\\barra1.bmp"
 #define JOKOA_PELOTA_IMAGE ".\\img\\pelota.bmp"
+#define JOKOA_BIHOTZAK_IMAGE ".\\img\\bihotza.bmp"
 #define JOKOA_BACKGROUND_IMAGE ".\\img\\arkanoid_fondo.bmp"
 #define JOKOA_ENERGIA_IMAGE ".\\img\\barra_energia.bmp"
 #define JOKOA_TIROA_IMAGE ".\\img\\Tiroa.bmp"
@@ -39,6 +37,17 @@
 #define BUKAERA_IMAGE ".\\img\\gameOver_3.bmp"
 #define IRABAZI_IMAGE ".\\img\\IRABAZI.bmp"
 #define TIROA_SOUND ".\\sound\\Tiro.wav"
+
+#define ZENBAKIA_0 ".\\img\\0zenbakia.bmp"
+#define ZENBAKIA_1 ".\\img\\1zenbakia.bmp"
+#define ZENBAKIA_2 ".\\img\\2zenbakia.bmp"
+#define ZENBAKIA_3 ".\\img\\3zenbakia.bmp"
+#define ZENBAKIA_4 ".\\img\\4zenbakia.bmp"
+#define ZENBAKIA_5 ".\\img\\5zenbakia.bmp"
+#define ZENBAKIA_6 ".\\img\\6zenbakia.bmp"
+#define ZENBAKIA_7 ".\\img\\7zenbakia.bmp"
+#define ZENBAKIA_8 ".\\img\\8zenbakia.bmp"
+#define ZENBAKIA_9 ".\\img\\9zenbakia.bmp"
 
 #define BOTON_MENU ".\\img\\joan.bmp"
 #define LAUKIZUZENA1_1BMP ".\\img\\Bloke1_1.bmp"
@@ -58,6 +67,8 @@ int irten = 0;
 void sarreraMezuaIdatzi();
 int JOKOA_jokalariaIrudiaSortu();
 int JOKOA_barraIrudiaSortu();
+int BihotzakMarraztu(posx, posy);
+int zifra(int posizioax, int posizioay, int kontScore);
 int JOKOA_LaukizuzenaIrudiaSortu(int posx, int posy, int zein);
 int JOKOA_fondoaSortu();
 int JOKOA_itzuli();
@@ -72,8 +83,11 @@ int JOKOA_kreditoak();
 int JOKOA_itxi();
 int JOKOA_q();
 int JOKOA_pilotaIrudiaSortu();
+void bihotzaKendu(int bizitza, int bihotzArray[]);
 int JOKOA_SYPowerUPIrudiaSortu(POWERUP_ELEMENTUA pow, POWERUP_ELEMENTUA powerupak[]);
 int Id_aurkitu(int x, int y);
+void scoreBorratu(int kontScore, int zenbakiArray[]);
+void puntuazioaMarraztu();
 int tiroaPuxkatu(TIROA_ELEMENTUA tiroa, LAUKIZUZENA_ELEMENTUA Blokeak[], int lehenlaukia);
 
 EGOERA JOKOA_egoera(JOKALARIA_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bizitza, int hutsik);
@@ -91,6 +105,7 @@ void powerupSortu(POWERUP_ELEMENTUA pow, POWERUP_ELEMENTUA powerupak[]);
 //int  BUKAERA_menua(EGOERA egoera);
 int BUKAERA_irudiaBistaratu(int scoreArray[]);
 int IRABAZI_irudiaBistaratu(int scoreArray[]);
+void finalScore(int scoreArray[]);
 
 int jokoaAurkeztu()
 {
@@ -946,7 +961,77 @@ int Id_aurkitu(int x, int y)
 	}
 	return id;
 }
+//////////////////////////////////////7 bihotzak
+void bihotzakEzarri(JOKO_ELEMENTUA bihotzak, int bizitza, int bihotzArray[])
+{
+	int i, posy = 430, posx = 30;
+	for (i = 0; i < bizitza; i++) 
+	{
+		bihotzak.id = BihotzakMarraztu(posx, posy);
+		bihotzArray[i] = bihotzak.id;
+		posx += 30;
+	}
+}
 
+int BihotzakMarraztu(int posizioax, int posizioay)
+{
+	int bihotzId = -1;
+	bihotzId = irudiaKargatu(JOKOA_BIHOTZAK_IMAGE);
+	irudiaMugitu(bihotzId, posizioax, posizioay);
+	pantailaGarbitu();
+	irudiakMarraztu();
+	pantailaBerriztu();
+	return bihotzId;
+}
+
+void bihotzaKendu(int bizitza, int bihotzArray[])
+{
+	if (bizitza == 2) irudiaKendu(bihotzArray[2]);
+	else irudiaKendu(bihotzArray[1]);
+}
+
+//////////////////////////////////////7 bihotzak
+
+/////////////////////////////////////////////////////////////////////////BARRA + PILOTA mugimenduak
+POSIZIOA ERREALITATE_FISIKOA_mugimendua(POSIZIOA posizioa) 
+{
+  posizioa.x = posizioa.x + 15;
+  return posizioa;
+}
+POSIZIOA ERREALITATE_FISIKOA_mugimenduaEZK(POSIZIOA posizioa) 
+{
+	posizioa.x = posizioa.x - 15;
+	return posizioa;
+}
+POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTA(POSIZIOA posizioa) 
+{
+	posizioa.y = posizioa.y - 1;
+	posizioa.x = posizioa.x + 1;
+	return posizioa;
+}
+POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEESK(POSIZIOA posizioa) 
+{
+	posizioa.y = posizioa.y - 1;
+	posizioa.x = posizioa.x - 1;
+	return posizioa;
+}
+POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEGOI(POSIZIOA posizioa) 
+{
+	posizioa.y = posizioa.y + 1;
+	posizioa.x = posizioa.x + 1;
+	return posizioa;
+}
+POSIZIOA ERREALITATE_FISIKOA_mugimenduaPOWERUP(POSIZIOA posizioa)
+{
+	posizioa.y = posizioa.y + 2;
+	return posizioa;
+}
+POSIZIOA ERREALITATE_FISIKOA_mugimenduaTIROA(POSIZIOA posizioa)
+{
+	posizioa.y = posizioa.y - 2;
+	return posizioa;
+}
+/////////////////////////////////////////////////////////////////////////BARRA + PILOTA mugimenduak
 //void jokoabukatu(void)
 //{
 //	int eben = 0, saguaclik = 0, barru = 0;
@@ -1031,6 +1116,139 @@ int BUKAERA_irudiaBistaratu(int scoreArray[])
 	pantailaBerriztu();
 	return id;
 }
+
+//////////////////////////////////////////////////score
+
+void markagailua(int kontScore[], JOKO_ELEMENTUA zenbakiak, int zenbakiArray[])
+{
+	int i, j, posizioax = 500, posizioay = 450;
+
+	i = kontScore[0];
+	scoreBorratu(i, zenbakiArray);
+
+	if (i >= 1000) 
+	{
+		i /= 1000;
+		zenbakiak.id = zifra(posizioax, posizioay, i);
+		zenbakiArray[0] = zenbakiak.id;
+		i = kontScore[0] - i * 1000;
+		zifra(posizioax + 16, posizioay, 0);
+	}
+	posizioax += 16;
+
+	if (i >= 100) 
+	{
+		j = i;
+		i /= 100;
+		zenbakiak.id = zifra(posizioax, posizioay, i);
+		zenbakiArray[1] = zenbakiak.id;
+		i = j - i * 100;
+		zifra(posizioax + 16, posizioay, 0);
+	}
+	posizioax += 16;
+
+	if (i >= 10) 
+	{
+		i /= 10;
+		zenbakiak.id = zifra(posizioax, posizioay, i);
+		zenbakiArray[2] = zenbakiak.id;
+	}
+}
+void scoreBorratu(int kontScore, int zenbakiArray[])
+{
+	if (kontScore > 1000) irudiaKendu(zenbakiArray[0]);
+	
+	else if (kontScore > 100) irudiaKendu(zenbakiArray[1]);
+	
+	else if (kontScore > 10) irudiaKendu(zenbakiArray[2]);
+}
+void puntuazioaMarraztu() 
+{
+	zifra(548, 450, 0);
+	zifra(532, 450, 0);
+	zifra(516, 450, 0);
+	zifra(500, 450, 0);
+}
+int zifra(int posizioax, int posizioay, int kontScore)
+{
+	int zenbakia = -1;
+	switch (kontScore)
+	{
+	case 1:
+		zenbakia = irudiaKargatu(ZENBAKIA_1);
+		break;
+	case 2:
+		zenbakia = irudiaKargatu(ZENBAKIA_2);
+		break;
+	case 3:
+		zenbakia = irudiaKargatu(ZENBAKIA_3);
+		break;
+	case 4:
+		zenbakia = irudiaKargatu(ZENBAKIA_4);
+		break;
+	case 5:
+		zenbakia = irudiaKargatu(ZENBAKIA_5);
+		break;
+	case 6:
+		zenbakia = irudiaKargatu(ZENBAKIA_6);
+		break;
+	case 7:
+		zenbakia = irudiaKargatu(ZENBAKIA_7);
+		break;
+	case 8:
+		zenbakia = irudiaKargatu(ZENBAKIA_8);
+		break;
+	case 9:
+		zenbakia = irudiaKargatu(ZENBAKIA_9);
+		break;
+	default:
+		zenbakia = irudiaKargatu(ZENBAKIA_0);
+		break;
+	}
+	irudiaMugitu(zenbakia, posizioax, posizioay);
+	pantailaGarbitu();
+	irudiakMarraztu();
+	pantailaBerriztu();
+	return zenbakia;
+}
+
+void finalScore(int scoreArray[])
+{
+	int i, j, posizioax = 280, posizioay = 210;
+	i = scoreArray[0];
+
+	if (i >= 1000)
+	{
+		j = i;
+		i /= 1000;
+		zifra(posizioax, posizioay, i);
+		j -= 1000;
+		i = j;
+		zifra(posizioax + 16, posizioay, 0);
+	}
+	posizioax += 16;
+
+	if (i >= 100)
+	{
+		j = i;
+		i /= 100;
+		zifra(posizioax, posizioay, i);
+		i = j - i * 100;
+		zifra(posizioax + 16, posizioay, 0);
+	}
+	posizioax += 16;
+
+	if (i >= 10)
+	{
+		i /= 10;
+		zifra(posizioax, posizioay, i);
+	}
+
+	posizioax += 16;
+	zifra(posizioax, posizioay, 0);
+}
+
+//////////////////////////////////////////////////score
 
 ////////////////////////////////////////////////////PowerUp
 int zeinPOWER(JOKO_ELEMENTUA zein, int posx, int posy)

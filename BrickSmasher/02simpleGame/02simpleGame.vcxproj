@@ -152,10 +152,7 @@
     <ClCompile Include="..\simpleSdlWrapper\soinua.c" />
     <ClCompile Include="..\simpleSdlWrapper\text.c" />
     <ClCompile Include="arkanoid_Main.c" />
-    <ClCompile Include="bizitza_funtzioak.c" />
-    <ClCompile Include="errealitate_fisikoak.c" />
     <ClCompile Include="game02\arkanoid_Funtzioak.c" />
-    <ClCompile Include="score_funtzioak.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\simpleSdlWrapper\ebentoak.h" />
@@ -163,11 +160,8 @@
     <ClInclude Include="..\simpleSdlWrapper\imagen.h" />
     <ClInclude Include="..\simpleSdlWrapper\soinua.h" />
     <ClInclude Include="..\simpleSdlWrapper\text.h" />
-    <ClInclude Include="bizitzak.h" />
-    <ClInclude Include="errealitateak.h" />
     <ClInclude Include="game02\arkanoid.h" />
     <ClInclude Include="OurTypes.h" />
-    <ClInclude Include="score.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
