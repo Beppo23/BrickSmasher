@@ -105,11 +105,15 @@ EGOERA jokatu(int scoreArray[])
 	TIROA_ELEMENTUA  tiroa;
 	POSIZIOA aux;
 	LAUKIZUZENA_ELEMENTUA Blokeak[130];
-	TIROA_ELEMENTUA Tiroak[7];
+	TIROA_ELEMENTUA Tiroak[8];
 
 	jokalaria.pos.x = 280;
 	jokalaria.pos.y = 400;
 	jokalaria.egoera = NORMAL;
+
+	multiballa.pos.x = 4000;
+	multiballa.pos.y = 4000;
+
 	
 	Laukizuzena.pos.x = 280;
 	Laukizuzena.pos.y = 400;
@@ -204,7 +208,7 @@ EGOERA jokatu(int scoreArray[])
 			aux = ERREALITATE_FISIKOA_mugimenduaTIROA(Tiroak[zeinTiro].pos);
 			Tiroak[zeinTiro].pos.y = aux.y;
 		}
-		if (zeinTiro == 6) {
+		if (zeinTiro == 7) {
 			pwUP = 0;
 			tiroakSortu(tiroa, Tiroak);
 			zeinTiro = 0;
@@ -340,6 +344,7 @@ EGOERA jokatu(int scoreArray[])
 								powerupak[1].pos.x = Blokeak[id].pos.x + 20;
 								powerupak[1].pos.y = Blokeak[id].pos.y + 10;
 								powerupak[1].zein = 1;
+								zeinTiro = 1;
 								break;
 							}
 						}
@@ -392,6 +397,10 @@ EGOERA jokatu(int scoreArray[])
 								powerupak[1].pos.x = 4000;
 								powerupak[1].pos.y = -4000;
 								jokalaria.egoera = TIROAK;
+								for (int i = 1; i <= 6; i++)
+								{
+									Tiroak[i].jaurti = 0;
+								}
 							}
 						}
 						else if (powerupak[2].zein == 1)
@@ -410,12 +419,11 @@ EGOERA jokatu(int scoreArray[])
 					{
 						irudiaAldatu(barra.id, 0);
 						powerupak[1].zein = 0;
-						for (int i = 0; i < 6; i++)
+						for (int i = 1; i <= 6; i++)
 						{
 							Tiroak[i].jaurti = 0;
 						}
 						biak = 0;
-						zeinTiro = 0;
 						jokalaria.egoera = NORMAL;
 					}
 					if (jokalaria.egoera == ITSATSITA)
@@ -658,6 +666,13 @@ EGOERA jokatu(int scoreArray[])
 			pilota.pos.x = jokalaria.pos.x + 38;
 			pilota.pos.y = jokalaria.pos.y - 23;
 			irudiaKendu(Tiroak[zeinTiro].id);
+			for (int j = 1; j <= 6; j++)
+			{
+				Tiroak[j].pos.x = 4000;
+				Tiroak[j].pos.y = 4000;
+				Tiroak[j].jaurti = 1;
+				irudiaMugitu(Tiroak[j].id, Tiroak[j].pos.x, Tiroak[j].pos.y);
+			}
 			zeinTiro = 6;
 			for (int i = 0; i < 3; i++)
 			{
@@ -746,7 +761,10 @@ int tiroaPuxkatu(TIROA_ELEMENTUA tiroa, LAUKIZUZENA_ELEMENTUA Blokeak[], int leh
 			Blokeak[id].pos.x = 4000;
 			Blokeak[id].pos.y = 4000;
 			irudiaKendu(id + lehenlauki);
-			irudiaKendu(tiroa.id);
+			//irudiaKendu(tiroa.id);
+			tiroa.pos.x = 4000;
+			tiroa.pos.y = 4000;
+			irudiaMugitu(tiroa.id, tiroa.pos.x, tiroa.pos.y);
 			tiroa.puxkatu = 1;
 			apurtu = 1;
 		}
@@ -768,13 +786,13 @@ int JOKOA_pilotaIrudiaSortu()
 void tiroakSortu(TIROA_ELEMENTUA  tiroa, TIROA_ELEMENTUA  Tiroak[])
 {
 	int i, posy = 430, posx = 30;
-	for (i = 1; i <= 6; i++) 
+	for (i = 1; i <= 7; i++) 
 	{
 		tiroa.id = JOKOA_TiroaIrudiaSortu();
 		tiroa.jaurti = 1;
 		tiroa.zein = i;
 		tiroa.puxkatu = 0;
-		Tiroak[i - 1] = tiroa;
+		Tiroak[i] = tiroa;
 	}
 }
 int Id_aurkitu(int x, int y) 
