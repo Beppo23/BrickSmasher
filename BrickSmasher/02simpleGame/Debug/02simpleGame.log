@@ -12,4 +12,5 @@
   graphics.c
   ebentoak.c
   Generando código...
-  02simpleGame.vcxproj -> C:\Users\USUARIO\Desktop\Mondragon\POPBL\BrickSmasher\BrickSmasher\Debug\Arkanoid.exe
+  LINK : no se encontró C:\POPBL\BrickSmasher\BrickSmasher\Debug\Arkanoid.exe o no lo generó el último vínculo incremental; ejecutando vínculo completo
+  02simpleGame.vcxproj -> C:\POPBL\BrickSmasher\BrickSmasher\Debug\Arkanoid.exe

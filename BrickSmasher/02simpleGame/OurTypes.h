@@ -5,7 +5,7 @@
 
 typedef enum { JOLASTEN, GALDU, IRABAZI }EGOERA;
 typedef enum { IRUDIA, MARGOA, TESTUA } MOTA;
-typedef enum { NORMAL, TIROAK, ITSATSITA}PWUP_EGOERA;
+typedef enum { NORMAL, TIROAK, ITSATSITA, MULTIBALL }PWUP_EGOERA;
 typedef enum { HORIA, MOREA, BERDEA } KOLOREA;
 
 typedef struct
