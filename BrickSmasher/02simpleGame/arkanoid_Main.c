@@ -10,6 +10,7 @@
 #include "ebentoak.h"
 #include "text.h"
 #include "soinua.h"
+#include "menua.h"
 //---------------------------------------------------------------------------------
 
 #include <stdio.h>

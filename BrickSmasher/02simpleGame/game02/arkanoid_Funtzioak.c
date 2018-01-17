@@ -6,29 +6,16 @@
 #include "soinua.h"
 #include <stdio.h>
 #include <windows.h>
+#include "score.h"
+#include "errealitateak.h"
+#include "bizitza.h"
+#include "menua.h"
+#include "blokeak.h"
 
-#define BOTON_ITZULI ".\\img\\itzuli.bmp"
-#define JOKATU ".\\img\\joka.bmp"
-#define TUTORIALA ".\\img\\noljoka.bmp"
-#define NOLA_JOKATU "Barra bat daukazu, hau mugitzeko geziak erabiltzen dira. "
-#define NOLA1_JOKATU "Ezkerrera joateko gezi hau erabiltzen duzu:"
-#define NOLA2_JOKATU "Pilota barratik jaurtitzeko <space> teklari eman."
-#define NOLA3_JOKATU "Eskumara joateko gezi hau erabiltzen duzu:"
-#define NOLA4_JOKATU "Power up morea jasotzen duzunean 6 tiro dituzu."
-#define NOLA5_JOKATU "Hau gauzatzeko tekla hau erabili:"
-#define TECLA_Q ".\\img\\qtecla.bmp"
-#define KREDITUAK ".\\img\\kredituak.bmp"
-#define KREDITOAK_IMAGE ".\\img\\krekre.bmp"
-#define ITXI ".\\img\\itxijokua.bmp"
 #define MENU_BACKGROUD_IMAGE ".\\img\\men.bmp"
-#define TECLA_BARRA ".\\img\\espacio.bmp"
-#define TECLA_EZKERRA ".\\img\\ezkerra.bmp"
-#define TECLA_ESKUMA ".\\img\\eskuma.bmp"
 #define JOKOA_SOUND ".\\sound\\arkanoid_audio.wav"
 #define JOKOA_PLAYER_IMAGE ".\\img\\barra1.bmp"
 #define JOKOA_PELOTA_IMAGE ".\\img\\pelota.bmp"
-#define JOKOA_BIHOTZAK_IMAGE ".\\img\\bihotza.bmp"
-#define JOKOA_BACKGROUND_IMAGE ".\\img\\arkanoid_fondo.bmp"
 #define JOKOA_ENERGIA_IMAGE ".\\img\\barra_energia.bmp"
 #define JOKOA_TIROA_IMAGE ".\\img\\Tiroa.bmp"
 #define JOKOA_SOUND_WIN ".\\sound\\you_win.wav"
@@ -37,211 +24,32 @@
 #define BUKAERA_IMAGE ".\\img\\gameOver_3.bmp"
 #define IRABAZI_IMAGE ".\\img\\IRABAZI.bmp"
 #define TIROA_SOUND ".\\sound\\Tiro.wav"
-
-#define ZENBAKIA_0 ".\\img\\0zenbakia.bmp"
-#define ZENBAKIA_1 ".\\img\\1zenbakia.bmp"
-#define ZENBAKIA_2 ".\\img\\2zenbakia.bmp"
-#define ZENBAKIA_3 ".\\img\\3zenbakia.bmp"
-#define ZENBAKIA_4 ".\\img\\4zenbakia.bmp"
-#define ZENBAKIA_5 ".\\img\\5zenbakia.bmp"
-#define ZENBAKIA_6 ".\\img\\6zenbakia.bmp"
-#define ZENBAKIA_7 ".\\img\\7zenbakia.bmp"
-#define ZENBAKIA_8 ".\\img\\8zenbakia.bmp"
-#define ZENBAKIA_9 ".\\img\\9zenbakia.bmp"
-
-#define BOTON_MENU ".\\img\\joan.bmp"
-#define LAUKIZUZENA1_1BMP ".\\img\\Bloke1_1.bmp"
-#define LAUKIZUZENA1_2BMP ".\\img\\Bloke1_2.bmp"
-#define LAUKIZUZENA1_3BMP ".\\img\\Bloke1_3.bmp"
-#define MENU_AUDIO ".\\sound\\menu_audio.wav"
 #define S_YELLOW_POWERUP ".\\img\\s_Yellow.bmp"
 #define X_PURPLE_POWERUP ".\\img\\x_Purple.bmp"
 #define N_GREEN_POWERUP ".\\img\\n_Green.bmp"
 
-int posx = 0;
-int posy = 0;
 int zein = 1;
 int pwUP = 0;
 int apurtu = 0;
 int irten = 0;
-void sarreraMezuaIdatzi();
 int JOKOA_jokalariaIrudiaSortu();
 int JOKOA_barraIrudiaSortu();
-int BihotzakMarraztu(posx, posy);
 int zifra(int posizioax, int posizioay, int kontScore);
-int JOKOA_LaukizuzenaIrudiaSortu(int posx, int posy, int zein);
-int JOKOA_fondoaSortu();
-int JOKOA_itzuli();
-int JOKOA_teclaEzkerra();
-int JOKOA_teclaEskuma();
-int JOKOA_barra();
-int JOKOA_KreditoakSortu();
-int JOKOA_backSortu();
-int JOKOA_jokatu();
-int JOKOA_tutoriala();
-int JOKOA_kreditoak();
-int JOKOA_itxi();
-int JOKOA_q();
 int JOKOA_pilotaIrudiaSortu();
-void bihotzaKendu(int bizitza, int bihotzArray[]);
 int JOKOA_SYPowerUPIrudiaSortu(POWERUP_ELEMENTUA pow, POWERUP_ELEMENTUA powerupak[]);
 int Id_aurkitu(int x, int y);
-void scoreBorratu(int kontScore, int zenbakiArray[]);
-void puntuazioaMarraztu();
 int tiroaPuxkatu(TIROA_ELEMENTUA tiroa, LAUKIZUZENA_ELEMENTUA Blokeak[], int lehenlaukia);
 
 EGOERA JOKOA_egoera(JOKALARIA_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bizitza, int hutsik);
 int zeinPOWER(JOKO_ELEMENTUA zein, int posx, int posy);
 int zeinPOWERY(JOKO_ELEMENTUA zein, int posx, int posy);
 int rng(int zenb);
-POSIZIOA ERREALITATE_FISIKOA_mugimendua(POSIZIOA posizioa);
-POSIZIOA ERREALITATE_FISIKOA_mugimenduaEZK(POSIZIOA posizioa);
-POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTA(POSIZIOA posizioa);
-POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEESK(POSIZIOA posizioa);
-POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEGOI(POSIZIOA posizioa);
-POSIZIOA ERREALITATE_FISIKOA_mugimenduaTIROA(POSIZIOA posizioa);
-POSIZIOA ERREALITATE_FISIKOA_mugimenduaPOWERUP(POSIZIOA posizioa);
 void powerupSortu(POWERUP_ELEMENTUA pow, POWERUP_ELEMENTUA powerupak[]);
 //int  BUKAERA_menua(EGOERA egoera);
 int BUKAERA_irudiaBistaratu(int scoreArray[]);
 int IRABAZI_irudiaBistaratu(int scoreArray[]);
-void finalScore(int scoreArray[]);
 
-int jokoaAurkeztu()
-{
-	int ebentu = 0, saguaclick = 0, barruan = 0;
-	POSIZIOA pos;
-	audioInit();
-	loadTheMusic(MENU_AUDIO);
-	playMusic();
-	sarreraMezuaIdatzi();
 
-	do
-	{
-		pos = saguarenPosizioa();
-		ebentu = ebentuaJasoGertatuBada();
-		if (ebentu == SAGU_BOTOIA_EZKERRA && (pos.x >= 260) && (pos.x <= 375) && (pos.y >= 120) && (pos.y <= 153) && barruan == 0)
-		{
-			saguaclick = 1;
-			barruan = 1;
-		}
-		if (ebentu == SAGU_BOTOIA_EZKERRA && (pos.x >= 260) && (pos.x <= 375) && (pos.y >= 210) && (pos.y <= 243) && barruan == 0)
-		{
-			saguaclick = 2;
-			barruan = 1;
-		}
-		if (ebentu == SAGU_BOTOIA_EZKERRA && (pos.x >= 260) && (pos.x <= 375) && (pos.y >= 300) && (pos.y <= 333) && barruan == 0)
-		{
-			saguaclick = 3;
-			barruan = 1;
-		}
-		if (ebentu == SAGU_BOTOIA_EZKERRA && (pos.x >= 260) && (pos.x <= 375) && (pos.y >= 390) && (pos.y <= 423) && barruan == 0)
-		{
-			saguaclick = 4;
-			barruan = 1;
-		}
-		if (ebentu == SAGU_BOTOIA_EZKERRA && (pos.x >= 50) && (pos.x <= 175) && (pos.y >= 370) && (pos.y <= 423) && barruan == 1)
-		{
-			saguaclick = 5;
-			barruan = 0;
-		}
-		switch (saguaclick)
-		{
-		case 1:
-			saguaclick = 999;
-			toggleMusic();
-			audioTerminate();
-			break;
-
-		case 2:pantailaGarbitu();
-			saguaclick = 0;
-			JOKOA_fondoaSortu();
-			JOKOA_itzuli();
-			JOKOA_teclaEzkerra();
-			JOKOA_teclaEskuma();
-			JOKOA_barra();
-			JOKOA_q();
-			textuaIdatzi(50, 50, NOLA_JOKATU);
-			textuaIdatzi(50, 120, NOLA1_JOKATU);
-			textuaIdatzi(50, 170, NOLA3_JOKATU);
-			textuaIdatzi(50, 230, NOLA2_JOKATU);
-			textuaIdatzi(50, 280, NOLA4_JOKATU);
-			textuaIdatzi(50, 320, NOLA5_JOKATU);
-			pantailaBerriztu();
-			break;
-		case 3:pantailaGarbitu();
-			saguaclick = 0;
-			JOKOA_KreditoakSortu();
-			JOKOA_itzuli();
-			pantailaBerriztu();
-			break;
-		case 4:
-			audioTerminate();
-			saguaclick = 999;
-			irten = 1;
-			break;
-		case 5:
-			saguaclick = 0;
-			barruan = 0;
-			sarreraMezuaIdatzi();
-			break;
-		}
-	} while (saguaclick != 999);
-	return (irten != 1) ? 1 : 0;
-}
-
-void sarreraMezuaIdatzi()
-{
-	pantailaGarbitu();
-	JOKOA_backSortu();
-	JOKOA_jokatu();
-	JOKOA_tutoriala();
-	JOKOA_kreditoak();
-	JOKOA_itxi();
-
-	pantailaBerriztu();
-}
-int JOKOA_jokatu()
-{
-	int jokatuId = -1;
-	jokatuId = irudiaKargatu(JOKATU);
-	irudiaMugitu(jokatuId, 260, 120);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return jokatuId;
-}
-int JOKOA_tutoriala()
-{
-	int tutoId = -1;
-	tutoId = irudiaKargatu(TUTORIALA);
-	irudiaMugitu(tutoId, 260, 210);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return tutoId;
-}
-int JOKOA_kreditoak()
-{
-	int kreId = -1;
-	kreId = irudiaKargatu(KREDITUAK);
-	irudiaMugitu(kreId, 260, 300);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return kreId;
-}
-
-int JOKOA_itxi()
-{
-	int itxId = -1;
-	itxId = irudiaKargatu(ITXI);
-	irudiaMugitu(itxId, 260, 390);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return itxId;
-}
 //int JOKOA_itxi2()
 //{
 //	int itxId = -1;
@@ -253,56 +61,6 @@ int JOKOA_itxi()
 //	return itxId;
 //
 //}
-int JOKOA_itzuli()
-{
-	int itzulId = -1;
-	itzulId = irudiaKargatu(BOTON_ITZULI);
-	irudiaMugitu(itzulId, 50, 370);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return itzulId;
-}
-int JOKOA_teclaEzkerra()
-{
-	int teclaId = -1;
-	teclaId = irudiaKargatu(TECLA_EZKERRA);
-	irudiaMugitu(teclaId, 360, 88);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return teclaId;
-}
-int JOKOA_teclaEskuma()
-{
-	int teclaId = -1;
-	teclaId = irudiaKargatu(TECLA_ESKUMA);
-	irudiaMugitu(teclaId, 360, 150);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return teclaId;
-}
-int JOKOA_q()
-{
-	int teclaId = -1;
-	teclaId = irudiaKargatu(TECLA_Q);
-	irudiaMugitu(teclaId, 300, 320);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return teclaId;
-}
-int JOKOA_barra()
-{
-	int barraId = -1;
-	barraId = irudiaKargatu(TECLA_BARRA);
-	irudiaMugitu(barraId, 400, 230);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return barraId;
-}
 //int JOKOA_menu()
 //{
 //	int menuraId = -1;
@@ -313,27 +71,6 @@ int JOKOA_barra()
 //	pantailaBerriztu();
 //	return menuraId;
 //}
-
-int JOKOA_backSortu()
-{
-	int backId = -1;
-	backId = irudiaKargatu(MENU_BACKGROUD_IMAGE);
-	irudiaMugitu(backId, 0, 0);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return backId;
-}
-int JOKOA_KreditoakSortu()
-{
-	int kredId = -1;
-	kredId = irudiaKargatu(KREDITOAK_IMAGE);
-	irudiaMugitu(kredId, 0, 0);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return kredId;
-}
 
 EGOERA jokatu(int scoreArray[])
 {
@@ -854,29 +591,6 @@ int tiroaPuxkatu(TIROA_ELEMENTUA tiroa, LAUKIZUZENA_ELEMENTUA Blokeak[], int leh
 	}
 	return apurtu;
 }
-int JOKOA_LaukizuzenaIrudiaSortu(int posizioax, int posizioay, int zein)
-{
-	int Laukizuzena = -1;
-	switch (zein)
-	{
-	case 1:
-		Laukizuzena = irudiaKargatu(LAUKIZUZENA1_1BMP);
-		break;
-	case 2:
-		Laukizuzena = irudiaKargatu(LAUKIZUZENA1_2BMP);
-		break;
-	case 3:
-		Laukizuzena = irudiaKargatu(LAUKIZUZENA1_3BMP);
-		break;
-	default:
-		break;
-	}
-	irudiaMugitu(Laukizuzena, posizioax, posizioay);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return Laukizuzena;
-}
 
 int JOKOA_pilotaIrudiaSortu()
 {
@@ -889,48 +603,6 @@ int JOKOA_pilotaIrudiaSortu()
 	return pilotaId;
 }
 
-int JOKOA_fondoaSortu()
-{
-	int fondoaId = -1;
-	fondoaId = irudiaKargatu(JOKOA_BACKGROUND_IMAGE);
-	irudiaMugitu(fondoaId, 0, 0);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return fondoaId;
-}
-
-int laukizuzenakEzarri(LAUKIZUZENA_ELEMENTUA Laukizuzena, LAUKIZUZENA_ELEMENTUA blokeak[]) {
-	int r = 1, maximoa = 0, j = 0;
-
-	for (int i = 0; i < 10; i++)
-	{
-		if (i == 0)	posy = 50;
-
-		for (int t = 0; t < 13; t++)
-		{
-			if (t == 0)	posx = 60;
-			Laukizuzena.id = JOKOA_LaukizuzenaIrudiaSortu(posx, posy, r);
-			Laukizuzena.apurtuta = 0;
-			Laukizuzena.pos.x = posx;
-			Laukizuzena.pos.y = posy;
-			Laukizuzena.apurtuta = 0;
-			Laukizuzena.mota = IRUDIA;
-			blokeak[j] = Laukizuzena;
-			posx += 40;
-			j++;
-		}
-		posy += 20;
-		if (r == 3)	maximoa = 1;
-
-		else if (r == 1) maximoa = 0;
-
-		if (maximoa == 1) r--;
-
-		else r++;
-	}
-	return blokeak[0].id;
-}
 void tiroakSortu(TIROA_ELEMENTUA  tiroa, TIROA_ELEMENTUA  Tiroak[])
 {
 	int i, posy = 430, posx = 30;
@@ -961,112 +633,6 @@ int Id_aurkitu(int x, int y)
 	}
 	return id;
 }
-//////////////////////////////////////7 bihotzak
-void bihotzakEzarri(JOKO_ELEMENTUA bihotzak, int bizitza, int bihotzArray[])
-{
-	int i, posy = 430, posx = 30;
-	for (i = 0; i < bizitza; i++) 
-	{
-		bihotzak.id = BihotzakMarraztu(posx, posy);
-		bihotzArray[i] = bihotzak.id;
-		posx += 30;
-	}
-}
-
-int BihotzakMarraztu(int posizioax, int posizioay)
-{
-	int bihotzId = -1;
-	bihotzId = irudiaKargatu(JOKOA_BIHOTZAK_IMAGE);
-	irudiaMugitu(bihotzId, posizioax, posizioay);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return bihotzId;
-}
-
-void bihotzaKendu(int bizitza, int bihotzArray[])
-{
-	if (bizitza == 2) irudiaKendu(bihotzArray[2]);
-	else irudiaKendu(bihotzArray[1]);
-}
-
-//////////////////////////////////////7 bihotzak
-
-/////////////////////////////////////////////////////////////////////////BARRA + PILOTA mugimenduak
-POSIZIOA ERREALITATE_FISIKOA_mugimendua(POSIZIOA posizioa) 
-{
-  posizioa.x = posizioa.x + 15;
-  return posizioa;
-}
-POSIZIOA ERREALITATE_FISIKOA_mugimenduaEZK(POSIZIOA posizioa) 
-{
-	posizioa.x = posizioa.x - 15;
-	return posizioa;
-}
-POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTA(POSIZIOA posizioa) 
-{
-	posizioa.y = posizioa.y - 1;
-	posizioa.x = posizioa.x + 1;
-	return posizioa;
-}
-POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEESK(POSIZIOA posizioa) 
-{
-	posizioa.y = posizioa.y - 1;
-	posizioa.x = posizioa.x - 1;
-	return posizioa;
-}
-POSIZIOA ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEGOI(POSIZIOA posizioa) 
-{
-	posizioa.y = posizioa.y + 1;
-	posizioa.x = posizioa.x + 1;
-	return posizioa;
-}
-POSIZIOA ERREALITATE_FISIKOA_mugimenduaPOWERUP(POSIZIOA posizioa)
-{
-	posizioa.y = posizioa.y + 2;
-	return posizioa;
-}
-POSIZIOA ERREALITATE_FISIKOA_mugimenduaTIROA(POSIZIOA posizioa)
-{
-	posizioa.y = posizioa.y - 2;
-	return posizioa;
-}
-/////////////////////////////////////////////////////////////////////////BARRA + PILOTA mugimenduak
-//void jokoabukatu(void)
-//{
-//	int eben = 0, saguaclik = 0, barru = 0;
-//	POSIZIOA pos;
-//	sarreraMezuaIdatzi();
-//	do
-//	{
-//		pos = saguarenPosizioa();
-//		eben = ebentuaJasoGertatuBada();
-//		if (eben == SAGU_BOTOIA_EZKERRA && (pos.x >= 50) && (pos.x <= 175) && (pos.y >= 370) && (pos.y <= 403) && barru == 0)
-//		{
-//			saguaclik = 1;
-//			barru = 1;
-//		}
-//		if (eben == SAGU_BOTOIA_EZKERRA && (pos.x >= 440) && (pos.x <= 565) && (pos.y >= 370) && (pos.y <= 403) && barru == 0)
-//		{
-//			saguaclik = 2;
-//			barru = 1;
-//
-//		}
-//		switch (saguaclik)
-//		{
-//		case 1:
-//			jokoaAurkeztu();
-//			break;
-//
-//		case 2:
-//			saguaclik = 0;
-//			sgItxi();
-//			break;
-//		}
-//	} while (saguaclik != 999);
-//
-//}
-
 
 int  jokoAmaierakoa(EGOERA egoera, int scoreArray[])
 {
@@ -1117,139 +683,6 @@ int BUKAERA_irudiaBistaratu(int scoreArray[])
 	return id;
 }
 
-//////////////////////////////////////////////////score
-
-void markagailua(int kontScore[], JOKO_ELEMENTUA zenbakiak, int zenbakiArray[])
-{
-	int i, j, posizioax = 500, posizioay = 450;
-
-	i = kontScore[0];
-	scoreBorratu(i, zenbakiArray);
-
-	if (i >= 1000) 
-	{
-		i /= 1000;
-		zenbakiak.id = zifra(posizioax, posizioay, i);
-		zenbakiArray[0] = zenbakiak.id;
-		i = kontScore[0] - i * 1000;
-		zifra(posizioax + 16, posizioay, 0);
-	}
-	posizioax += 16;
-
-	if (i >= 100) 
-	{
-		j = i;
-		i /= 100;
-		zenbakiak.id = zifra(posizioax, posizioay, i);
-		zenbakiArray[1] = zenbakiak.id;
-		i = j - i * 100;
-		zifra(posizioax + 16, posizioay, 0);
-	}
-	posizioax += 16;
-
-	if (i >= 10) 
-	{
-		i /= 10;
-		zenbakiak.id = zifra(posizioax, posizioay, i);
-		zenbakiArray[2] = zenbakiak.id;
-	}
-}
-void scoreBorratu(int kontScore, int zenbakiArray[])
-{
-	if (kontScore > 1000) irudiaKendu(zenbakiArray[0]);
-	
-	else if (kontScore > 100) irudiaKendu(zenbakiArray[1]);
-	
-	else if (kontScore > 10) irudiaKendu(zenbakiArray[2]);
-}
-void puntuazioaMarraztu() 
-{
-	zifra(548, 450, 0);
-	zifra(532, 450, 0);
-	zifra(516, 450, 0);
-	zifra(500, 450, 0);
-}
-int zifra(int posizioax, int posizioay, int kontScore)
-{
-	int zenbakia = -1;
-	switch (kontScore)
-	{
-	case 1:
-		zenbakia = irudiaKargatu(ZENBAKIA_1);
-		break;
-	case 2:
-		zenbakia = irudiaKargatu(ZENBAKIA_2);
-		break;
-	case 3:
-		zenbakia = irudiaKargatu(ZENBAKIA_3);
-		break;
-	case 4:
-		zenbakia = irudiaKargatu(ZENBAKIA_4);
-		break;
-	case 5:
-		zenbakia = irudiaKargatu(ZENBAKIA_5);
-		break;
-	case 6:
-		zenbakia = irudiaKargatu(ZENBAKIA_6);
-		break;
-	case 7:
-		zenbakia = irudiaKargatu(ZENBAKIA_7);
-		break;
-	case 8:
-		zenbakia = irudiaKargatu(ZENBAKIA_8);
-		break;
-	case 9:
-		zenbakia = irudiaKargatu(ZENBAKIA_9);
-		break;
-	default:
-		zenbakia = irudiaKargatu(ZENBAKIA_0);
-		break;
-	}
-	irudiaMugitu(zenbakia, posizioax, posizioay);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return zenbakia;
-}
-
-void finalScore(int scoreArray[])
-{
-	int i, j, posizioax = 280, posizioay = 210;
-	i = scoreArray[0];
-
-	if (i >= 1000)
-	{
-		j = i;
-		i /= 1000;
-		zifra(posizioax, posizioay, i);
-		j -= 1000;
-		i = j;
-		zifra(posizioax + 16, posizioay, 0);
-	}
-	posizioax += 16;
-
-	if (i >= 100)
-	{
-		j = i;
-		i /= 100;
-		zifra(posizioax, posizioay, i);
-		i = j - i * 100;
-		zifra(posizioax + 16, posizioay, 0);
-	}
-	posizioax += 16;
-
-	if (i >= 10)
-	{
-		i /= 10;
-		zifra(posizioax, posizioay, i);
-	}
-
-	posizioax += 16;
-	zifra(posizioax, posizioay, 0);
-}
-
-//////////////////////////////////////////////////score
-
 ////////////////////////////////////////////////////PowerUp
 int zeinPOWER(JOKO_ELEMENTUA zein, int posx, int posy)
 {
@@ -1276,7 +709,6 @@ void powerupSortu(POWERUP_ELEMENTUA pow, POWERUP_ELEMENTUA powerupak[])
 		pow.id = JOKOA_SYPowerUPIrudiaSortu(pow, powerupak);
 	}
 }
-
 int JOKOA_SYPowerUPIrudiaSortu(POWERUP_ELEMENTUA pwup, POWERUP_ELEMENTUA powerupak[])
 {
 	int balio = 0;
