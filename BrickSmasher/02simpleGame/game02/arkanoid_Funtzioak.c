@@ -26,12 +26,13 @@
 #define BUKAERA_IMAGE ".\\img\\gameOver_3.bmp"
 #define IRABAZI_IMAGE ".\\img\\IRABAZI.bmp"
 #define TIROA_SOUND ".\\sound\\Tiro.wav"
-
+#define MEZUA "Jokoa bukatzeko return eman."
 
 int zein = 1;
 int pwUP = 0;
 int apurtu = 0;
 int irten = 0;
+
 int JOKOA_jokalariaIrudiaSortu();
 int JOKOA_barraIrudiaSortu();
 int JOKOA_pilotaIrudiaSortu();
@@ -760,6 +761,7 @@ int IRABAZI_irudiaBistaratu(int scoreArray[])
 	pantailaGarbitu();
 	irudiakMarraztu();
 	/*JOKOA_itxi2();*/
+	textuaIdatzi(50, 400, MEZUA);
 	pantailaBerriztu();
 	return id;
 }
@@ -773,6 +775,7 @@ int BUKAERA_irudiaBistaratu(int scoreArray[])
 	irudiakMarraztu();
 	/*JOKOA_itxi2();*/
 	finalScore(scoreArray);
+	textuaIdatzi(50, 400, MEZUA);
 	pantailaBerriztu();
 	return id;
 }
