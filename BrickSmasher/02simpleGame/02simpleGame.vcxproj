@@ -156,7 +156,9 @@
     <ClCompile Include="blokeak_funtzioak.c" />
     <ClCompile Include="errealitate_fisikoak.c" />
     <ClCompile Include="game02\arkanoid_Funtzioak.c" />
+    <ClCompile Include="kolisioak_funtzioak.c" />
     <ClCompile Include="menua_funtzioak.c" />
+    <ClCompile Include="powerup_funtzioak.c" />
     <ClCompile Include="score_funtzioak.c" />
   </ItemGroup>
   <ItemGroup>
@@ -169,8 +171,10 @@
     <ClInclude Include="blokeak.h" />
     <ClInclude Include="errealitateak.h" />
     <ClInclude Include="game02\arkanoid.h" />
+    <ClInclude Include="kolisioak.h" />
     <ClInclude Include="menua.h" />
     <ClInclude Include="OurTypes.h" />
+    <ClInclude Include="powerup.h" />
     <ClInclude Include="score.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
