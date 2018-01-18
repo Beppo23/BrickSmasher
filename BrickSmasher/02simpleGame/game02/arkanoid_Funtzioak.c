@@ -552,8 +552,8 @@ EGOERA jokatu(int scoreArray[])
 			}
 
 			////BARRAREN ALDEAN ERREBOTEA
-			if ((pilota.pos.x == jokalaria.pos.x) && (pilota.pos.y > 400) && (pilota.pos.y < 427)) rebote = 1;
-			if ((pilota.pos.x == jokalaria.pos.x + 106) && (pilota.pos.y > 400) && (pilota.pos.y < 427)) rebote = 0;
+			if ((pilota.pos.x+24 == jokalaria.pos.x) && (pilota.pos.y > 400) && (pilota.pos.y < 423)) rebote = 1;
+			if ((pilota.pos.x == jokalaria.pos.x + 106) && (pilota.pos.y > 400) && (pilota.pos.y < 423)) rebote = 0;
 			////////////////////////////LO MISMO CON MULTIBALL
 			if ((multiballa.pos.x == jokalaria.pos.x) && (multiballa.pos.y > 400) && (multiballa.pos.y < 427)) rebotemulti = 1;
 			if ((multiballa.pos.x == jokalaria.pos.x + 106) && (multiballa.pos.y > 400) && (multiballa.pos.y < 427)) rebotemulti = 0;

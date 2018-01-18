@@ -10,7 +10,7 @@ int jokalariaErrebote(POSIZIOA pilota, POSIZIOA jokalaria)
 }
 int jokalariaErreboteNoranzkoa(POSIZIOA pilota, POSIZIOA jokalaria, int rebote)
 {
-	if ((pilota.x > jokalaria.x - 15) && (pilota.x < (jokalaria.x + 106)))
+	if ((pilota.x > jokalaria.x - 20) && (pilota.x < (jokalaria.x + 106)))
 	{
 		if (pilota.x + 12 >= jokalaria.x + 53) rebote = 0;
 		if (pilota.x + 12 < jokalaria.x + 53) rebote = 1;
