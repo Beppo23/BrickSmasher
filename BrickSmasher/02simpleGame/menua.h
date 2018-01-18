@@ -31,6 +31,8 @@
 #define X_PURPLE_POWERUP ".\\img\\x_Purple.bmp"
 #define N_GREEN_POWERUP ".\\img\\n_Green.bmp"
 #define S_RED_POWERUP ".\\img\\s_red.bmp"
+#define MUTE "Mute->M"
+#define PAUSA "Pausa->ESC"
 
 int JOKOA_fondoaSortu();
 int JOKOA_itzuli();
