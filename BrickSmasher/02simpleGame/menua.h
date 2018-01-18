@@ -47,4 +47,5 @@ int powermorea();
 int powerberdea();
 int powerhoria();
 void sarreraMezuaIdatzi();
+int jokoaAurkeztu();
 #endif

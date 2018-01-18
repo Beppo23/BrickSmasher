@@ -59,8 +59,16 @@ int laukizuzenakEzarri(LAUKIZUZENA_ELEMENTUA Laukizuzena, LAUKIZUZENA_ELEMENTUA 
 	}
 	return blokeak[0].id;
 }
-int Id_aurkitu(int x, int y)
+int Id_aurkitu(int x, int y, int goian, int rebote)
 {
+	if (!goian && !rebote) x += 24;
+	else if (goian && !rebote)
+	{
+		x += 24;
+		y += 24;
+	}
+	else if (goian && rebote) y += 24;
+
 	int id = 0, xtxiki = 60, ytxikia = 50;
 
 	if (x < 60 || x > 580 || y < 50 || y > 250) id = 1000;

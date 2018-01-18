@@ -78,7 +78,6 @@ EGOERA jokatu(int scoreArray[])
 	int goianmulti = 0;
 	int bizitza = 3, bihotzArray[3];
 	int kontScore = 0, zenbakiArray[3];
-	int random;
 	int zeinTiro = 0;
 	int biak = 0;
 	int id = 0;
@@ -251,43 +250,11 @@ EGOERA jokatu(int scoreArray[])
 		}
 		else
 		{
-			if (goian == 1)
-			{
-				aux = ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEGOI(pilota.pos);
-				pilota.pos.y = aux.y;
+			pilota.pos = pilotaMugitu(goian, rebote, pilota.pos, aux);
 
-				if (rebote == 0)
-				{
-					aux = ERREALITATE_FISIKOA_mugimenduaPILOTA(pilota.pos);
-					pilota.pos.x = aux.x;
-				}
-				else if (rebote == 1)
-				{
-					aux = ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEESK(pilota.pos);
-					pilota.pos.x = aux.x;
-				}
-			}
-			else
-			{
-				if (rebote == 0)
-				{
-					aux = ERREALITATE_FISIKOA_mugimenduaPILOTA(pilota.pos);
-					pilota.pos.y = aux.y;
-					pilota.pos.x = aux.x;
-				}
-				else if (rebote == 1)
-				{
-					aux = ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEESK(pilota.pos);
-					pilota.pos.y = aux.y;
-					pilota.pos.x = aux.x;
-				}
-			}
 			if ((pilota.pos.y + 24 >= 50) && (pilota.pos.y <= 250) && (pilota.pos.x + 24 >= 60) && (pilota.pos.x <= 580))
-			{				
-				if (!goian && rebote) id = Id_aurkitu(pilota.pos.x, pilota.pos.y);
-				else if (!goian && !rebote) id = Id_aurkitu((pilota.pos.x + 24), pilota.pos.y);
-				else if (goian && !rebote && (pilota.pos.x + 24 <= 580)) id = Id_aurkitu((pilota.pos.x + 24), (pilota.pos.y + 24));
-				else if (goian && rebote) id = Id_aurkitu(pilota.pos.x, (pilota.pos.y + 24));
+			{		
+				id = Id_aurkitu(pilota.pos.x, pilota.pos.y, goian, rebote);
 
 				if (id >= 0 && id <= 129) 
 				{
@@ -304,32 +271,8 @@ EGOERA jokatu(int scoreArray[])
 						scoreArray[0] = kontScore;
 						markagailua(scoreArray, zenbakiak, zenbakiArray);
 
-						if (pwUP == 0)
-						{
-							random = rng(4);
-							switch (random)
-							{
-							case 1:
-								pwUP = 1;
-								powerupak[2].pos.x = Blokeak[id].pos.x + 20;
-								powerupak[2].pos.y = Blokeak[id].pos.y + 10;
-								powerupak[2].zein = 1;
-								break;
-							case 2:
-								pwUP = 1;
-								powerupak[0].pos.x = Blokeak[id].pos.x + 20;
-								powerupak[0].pos.y = Blokeak[id].pos.y + 10;
-								powerupak[0].zein = 1;
-								break;
-							case 3:
-								pwUP = 1;
-								powerupak[1].pos.x = Blokeak[id].pos.x + 20;
-								powerupak[1].pos.y = Blokeak[id].pos.y + 10;
-								powerupak[1].zein = 1;
-								zeinTiro = 1;
-								break;
-							}
-						}
+						if (pwUP == 0) pwUP = powerupaErabaki(pwUP, powerupak, Blokeak, id);
+						if (powerupak[1].zein == 1) zeinTiro = 1;
 					}
 				}
 			}
@@ -464,43 +407,12 @@ EGOERA jokatu(int scoreArray[])
 								rebotemulti = 0;
 							}
 						}
-						if (goianmulti == 1)
-						{
-							aux = ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEGOI(multiballa.pos);
-							multiballa.pos.y = aux.y;
+						
+						multiballa.pos = pilotaMugitu(goianmulti, rebotemulti, multiballa.pos, aux);
 
-							if (rebotemulti == 0)
-							{
-								aux = ERREALITATE_FISIKOA_mugimenduaPILOTA(multiballa.pos);
-								multiballa.pos.x = aux.x;
-							}
-							else if (rebotemulti == 1)
-							{
-								aux = ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEESK(multiballa.pos);
-								multiballa.pos.x = aux.x;
-							}
-						}
-						else
-						{
-							if (rebotemulti == 0)
-							{
-								aux = ERREALITATE_FISIKOA_mugimenduaPILOTA(multiballa.pos);
-								multiballa.pos.y = aux.y;
-								multiballa.pos.x = aux.x;
-							}
-							else if (rebotemulti == 1)
-							{
-								aux = ERREALITATE_FISIKOA_mugimenduaPILOTAREBOTEESK(multiballa.pos);
-								multiballa.pos.y = aux.y;
-								multiballa.pos.x = aux.x;
-							}
-						}
 						if ((multiballa.pos.y + 24 >= 50) && (multiballa.pos.y <= 250) && (multiballa.pos.x + 24 >= 60) && (multiballa.pos.x <= 580))
 						{
-							if (!goianmulti && rebotemulti) id = Id_aurkitu(multiballa.pos.x, multiballa.pos.y);
-							else if (!goianmulti && !rebotemulti) id = Id_aurkitu((multiballa.pos.x + 24), multiballa.pos.y);
-							else if (goianmulti && !rebotemulti && (multiballa.pos.x + 24 <= 580)) id = Id_aurkitu((multiballa.pos.x + 24), (multiballa.pos.y + 24));
-							else if (goianmulti && rebotemulti) id = Id_aurkitu(multiballa.pos.x, (multiballa.pos.y + 24));
+							id = Id_aurkitu(multiballa.pos.x, multiballa.pos.y, goianmulti, rebotemulti);
 
 							if (id >= 0 && id <= 129)
 							{
@@ -522,25 +434,26 @@ EGOERA jokatu(int scoreArray[])
 							}
 						}
 						//REBOTE ENTRE PELOTAS
-						if ((pilota.pos.x == multiballa.pos.x + 24) && (((pilota.pos.y <= multiballa.pos.y + 24) && (pilota.pos.y >= multiballa.pos.y)) || ((pilota.pos.y + 24 >= multiballa.pos.y) && (pilota.pos.y + 24 <= multiballa.pos.y + 24))))
+						if ((pilota.pos.x >= multiballa.pos.x + 21) && (pilota.pos.x <= multiballa.pos.x + 27) && (((pilota.pos.y <= multiballa.pos.y + 24) && (pilota.pos.y >= multiballa.pos.y)) || ((pilota.pos.y + 24 >= multiballa.pos.y) && (pilota.pos.y + 24 <= multiballa.pos.y + 24))))
 						{
 							rebotemulti = 1;
 							rebote = 0;
 						}
-						else if ((multiballa.pos.x == pilota.pos.x + 24) && (((multiballa.pos.y <= pilota.pos.y + 24) && (multiballa.pos.y >= pilota.pos.y)) || ((multiballa.pos.y + 24 >= pilota.pos.y) && (multiballa.pos.y + 24 <= pilota.pos.y + 24)))) {
+						else if ((multiballa.pos.x >= pilota.pos.x + 21) && (multiballa.pos.x <= pilota.pos.x + 27) && (((multiballa.pos.y <= pilota.pos.y + 24) && (multiballa.pos.y >= pilota.pos.y)) || ((multiballa.pos.y + 24 >= pilota.pos.y) && (multiballa.pos.y + 24 <= pilota.pos.y + 24)))) {
 							rebotemulti = 0;
 							rebote = 1;
 						}
 						//BIEN
-						else if ((pilota.pos.y == multiballa.pos.y + 24) && (((pilota.pos.x <= multiballa.pos.x + 24) && (pilota.pos.x >= multiballa.pos.x)) || ((pilota.pos.x + 24 >= multiballa.pos.x) && (pilota.pos.x + 24 <= multiballa.pos.x + 24))))
+						else if ((pilota.pos.y >= multiballa.pos.y + 21) && (pilota.pos.y <= multiballa.pos.y + 27) && (((pilota.pos.x <= multiballa.pos.x + 24) && (pilota.pos.x >= multiballa.pos.x)) || ((pilota.pos.x + 24 >= multiballa.pos.x) && (pilota.pos.x + 24 <= multiballa.pos.x + 24))))
 						{
 							goian = 1;
 							goianmulti = 0;
 						}
-						else if ((multiballa.pos.y == pilota.pos.y + 24) && (((multiballa.pos.x <= pilota.pos.x + 24) && (multiballa.pos.x >= pilota.pos.x)) || ((multiballa.pos.x + 24 >= pilota.pos.x) && (multiballa.pos.x + 24 <= pilota.pos.x + 24)))) {
+						else if ((multiballa.pos.y >= pilota.pos.y + 21) && (multiballa.pos.y <= pilota.pos.y + 27) && (((multiballa.pos.x <= pilota.pos.x + 24) && (multiballa.pos.x >= pilota.pos.x)) || ((multiballa.pos.x + 24 >= pilota.pos.x) && (multiballa.pos.x + 24 <= pilota.pos.x + 24)))) {
 							goian = 0;
 							goianmulti = 1;
 						}
+
 						if (multiballa.pos.x > 595) rebotemulti = 1;
 
 						if (multiballa.pos.y < 15) goianmulti = 1;
@@ -714,19 +627,6 @@ int JOKOA_pilotaIrudiaSortu()
 	irudiakMarraztu();
 	pantailaBerriztu();
 	return pilotaId;
-}
-
-void tiroakSortu(TIROA_ELEMENTUA  tiroa, TIROA_ELEMENTUA  Tiroak[])
-{
-	int i, posy = 430, posx = 30;
-	for (i = 1; i <= 7; i++) 
-	{
-		tiroa.id = JOKOA_TiroaIrudiaSortu();
-		tiroa.jaurti = 1;
-		tiroa.zein = i;
-		tiroa.puxkatu = 0;
-		Tiroak[i] = tiroa;
-	}
 }
 
 int  jokoAmaierakoa(EGOERA egoera, int scoreArray[])

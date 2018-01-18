@@ -65,7 +65,7 @@ int rng(int zenb)
 int tiroaPuxkatu(TIROA_ELEMENTUA tiroa, LAUKIZUZENA_ELEMENTUA Blokeak[], int lehenlauki)
 {
 	int id = 0, apurtu = 0;
-	id = Id_aurkitu(tiroa.pos.x + 3, tiroa.pos.y);
+	id = Id_aurkitu(tiroa.pos.x + 3, tiroa.pos.y, 0, 1);
 
 	if (id >= 0 && id <= 130)
 	{
@@ -86,4 +86,44 @@ int tiroaPuxkatu(TIROA_ELEMENTUA tiroa, LAUKIZUZENA_ELEMENTUA Blokeak[], int leh
 		}
 	}
 	return apurtu;
+}
+int powerupaErabaki(int pwUP, POWERUP_ELEMENTUA powerupak[], LAUKIZUZENA_ELEMENTUA Blokeak[], int id)
+{
+	int random;
+
+	random = rng(4);
+	switch (random)
+	{
+	case 1:
+		pwUP = 1;
+		powerupak[2].pos.x = Blokeak[id].pos.x + 20;
+		powerupak[2].pos.y = Blokeak[id].pos.y + 10;
+		powerupak[2].zein = 1;
+		break;
+	case 2:
+		pwUP = 1;
+		powerupak[0].pos.x = Blokeak[id].pos.x + 20;
+		powerupak[0].pos.y = Blokeak[id].pos.y + 10;
+		powerupak[0].zein = 1;
+		break;
+	case 3:
+		pwUP = 1;
+		powerupak[1].pos.x = Blokeak[id].pos.x + 20;
+		powerupak[1].pos.y = Blokeak[id].pos.y + 10;
+		powerupak[1].zein = 1;
+		break;
+	}
+	return pwUP;
+}
+void tiroakSortu(TIROA_ELEMENTUA  tiroa, TIROA_ELEMENTUA  Tiroak[])
+{
+	int i, posy = 430, posx = 30;
+	for (i = 1; i <= 7; i++)
+	{
+		tiroa.id = JOKOA_TiroaIrudiaSortu();
+		tiroa.jaurti = 1;
+		tiroa.zein = i;
+		tiroa.puxkatu = 0;
+		Tiroak[i] = tiroa;
+	}
 }
