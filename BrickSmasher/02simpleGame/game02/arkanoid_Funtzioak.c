@@ -591,7 +591,6 @@ EGOERA jokatu(int scoreArray[])
 			jokalaria.pos.y = 400;
 			pilota.pos.x = jokalaria.pos.x + 38;
 			pilota.pos.y = jokalaria.pos.y - 23;
-			irudiaKendu(Tiroak[zeinTiro].id);
 			for (int j = 1; j <= 6; j++)
 			{
 				Tiroak[j].pos.x = 4000;

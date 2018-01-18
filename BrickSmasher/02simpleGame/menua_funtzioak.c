@@ -51,13 +51,13 @@ int jokoaAurkeztu()
 			barruan = 1;
 		}
 		////BOTON ITZULI
-		if (ebentu == SAGU_BOTOIA_EZKERRA && (pos.x >= 50) && (pos.x <= 175) && (pos.y >= 370) && (pos.y <= 413) && barruan == 1)
+		if (ebentu == SAGU_BOTOIA_EZKERRA && (pos.x >= 50) && (pos.x <= 175) && (pos.y >= 430) && (pos.y <= 463) && barruan == 1)
 		{
 			saguaclick = 5;
 			barruan = 0;
 		}
 		////BOTON HURRENGO TUTORIALA POWER UP
-		if (ebentu == SAGU_BOTOIA_EZKERRA && (pos.x >= 440) && (pos.x <= 565) && (pos.y >= 370) && (pos.y <= 403) && barruan == 1 && bar == 2) ////BOTON DE HU
+		if (ebentu == SAGU_BOTOIA_EZKERRA && (pos.x >= 440) && (pos.x <= 565) && (pos.y >= 430) && (pos.y <= 463) && barruan == 1 && bar == 2) ////BOTON DE HU
 		{
 			saguaclick = 6;
 			barruan = 0;
@@ -72,23 +72,25 @@ int jokoaAurkeztu()
 			audioTerminate();
 			/*jokatu;*/
 			break;
-
 		case 2:pantailaGarbitu();
-			saguaclick = 0;
-			barruan = 1;
-			bar = 2;
-			JOKOA_fondoaSortu();
-			JOKOA_teclaEzkerra();
-			JOKOA_teclaEskuma();
-			JOKOA_barra();
-			JOKOA_power();
-			JOKOA_itzuli();
-			textuaIdatzi(50, 70, NOLA_JOKATU);
-			textuaIdatzi(50, 140, NOLA1_JOKATU);
-			textuaIdatzi(50, 190, NOLA3_JOKATU);
-			textuaIdatzi(50, 250, NOLA2_JOKATU);
-			pantailaBerriztu();
-			break;
+		saguaclick = 0;
+		barruan = 1;
+		bar = 2;
+		JOKOA_fondoaSortu();
+		JOKOA_teclaEzkerra();
+		JOKOA_teclaEskuma();
+		JOKOA_barra();
+		JOKOA_power();
+		JOKOA_itzuli();
+		powergorria();
+		textuaIdatzi(50, 70, NOLA_JOKATU);
+		textuaIdatzi(50, 140, NOLA1_JOKATU);
+		textuaIdatzi(50, 190, NOLA3_JOKATU);
+		textuaIdatzi(50, 250, NOLA2_JOKATU);
+		textuaIdatzi(50, 330, NOLA10_JOKATU);
+
+		pantailaBerriztu();
+		break;
 		case 3:pantailaGarbitu();
 			saguaclick = 0;
 			JOKOA_KreditoakSortu();
@@ -122,7 +124,7 @@ int jokoaAurkeztu()
 			textuaIdatzi(50, 185, NOLA6_JOKATU);
 			textuaIdatzi(50, 219, NOLA7_JOKATU);
 			textuaIdatzi(50, 278, NOLA8_JOKATU);
-			textuaIdatzi(50, 328, NOLA9_JOKATU);
+			textuaIdatzi(50, 320, NOLA9_JOKATU);
 			pantailaBerriztu();
 			break;
 		}
@@ -232,11 +234,21 @@ int powerhoria()
 	pantailaBerriztu();
 	return powId;
 }
+int powergorria()
+{
+	int powId = -1;
+	powId = irudiaKargatu(S_RED_POWERUP);
+	irudiaMugitu(powId, 50, 310);
+	pantailaGarbitu();
+	irudiakMarraztu();
+	pantailaBerriztu();
+	return powId;
+}
 int JOKOA_power()
 {
 	int powId = -1;
 	powId = irudiaKargatu(HURRENGOA);
-	irudiaMugitu(powId, 440, 370);
+	irudiaMugitu(powId, 440, 430);
 	pantailaGarbitu();
 	irudiakMarraztu();
 	pantailaBerriztu();
@@ -247,7 +259,7 @@ int JOKOA_itzuli()
 {
 	int itzulId = -1;
 	itzulId = irudiaKargatu(BOTON_ITZULI);
-	irudiaMugitu(itzulId, 50, 370);
+	irudiaMugitu(itzulId, 50, 430);
 	pantailaGarbitu();
 	irudiakMarraztu();
 	pantailaBerriztu();
