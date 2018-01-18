@@ -20,6 +20,10 @@ int jokoaAurkeztu()
 
 	do
 	{
+		if (ebentu == TECLA_m)
+		{
+			toggleMusic();
+		}
 		pos = saguarenPosizioa();
 		ebentu = ebentuaJasoGertatuBada();
 		////BOTON DE JOKATU

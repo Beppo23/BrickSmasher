@@ -18,13 +18,15 @@ int zeinPOWERY(JOKO_ELEMENTUA zein, int posx, int posy)
 }
 void powerupSortu(POWERUP_ELEMENTUA pow, POWERUP_ELEMENTUA powerupak[])
 {
-	for (int i = 1; i <= 3; i++)
+	for (int i = 1; i <= 4; i++)
 	{
 		if (i == 1)	pow.koloreak = HORIA;
 
 		else if (i == 2) pow.koloreak = MOREA;
 
 		else if (i == 3) pow.koloreak = BERDEA;
+
+		else if (i == 4) pow.koloreak = GORRIA;
 
 		pow.id = JOKOA_SYPowerUPIrudiaSortu(pow, powerupak);
 	}
@@ -48,7 +50,11 @@ int JOKOA_SYPowerUPIrudiaSortu(POWERUP_ELEMENTUA pwup, POWERUP_ELEMENTUA powerup
 		pwup.id = irudiaKargatu(N_GREEN_POWERUP);
 		powerupak[2] = pwup;
 	}
-
+	else if (pwup.koloreak == GORRIA)
+	{
+		pwup.id = irudiaKargatu(S_RED_POWERUP);
+		powerupak[3] = pwup;
+	}
 	irudiaMugitu(pwup.id, 1000, 1000);
 	pantailaGarbitu();
 	irudiakMarraztu();
@@ -91,7 +97,7 @@ int powerupaErabaki(int pwUP, POWERUP_ELEMENTUA powerupak[], LAUKIZUZENA_ELEMENT
 {
 	int random;
 
-	random = rng(4);
+	random = rng(5);
 	switch (random)
 	{
 	case 1:
@@ -111,6 +117,12 @@ int powerupaErabaki(int pwUP, POWERUP_ELEMENTUA powerupak[], LAUKIZUZENA_ELEMENT
 		powerupak[1].pos.x = Blokeak[id].pos.x + 20;
 		powerupak[1].pos.y = Blokeak[id].pos.y + 10;
 		powerupak[1].zein = 1;
+		break;
+	case 4:
+		pwUP = 1;
+		powerupak[3].pos.x = Blokeak[id].pos.x + 20;
+		powerupak[3].pos.y = Blokeak[id].pos.y + 10;
+		powerupak[3].zein = 1;
 		break;
 	}
 	return pwUP;
