@@ -127,7 +127,7 @@ EGOERA jokatu(int scoreArray[])
 
 	do
 	{
-		Sleep(8);
+		Sleep(6);
 		pantailaGarbitu();
 		arkatzKoloreaEzarri(0, 0, 0xFF);
 		hutsik = 0;

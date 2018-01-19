@@ -97,8 +97,8 @@ int powerupaErabaki(int pwUP, POWERUP_ELEMENTUA powerupak[], LAUKIZUZENA_ELEMENT
 {
 	int random;
 
-	random = rng(5);
-	switch (2)
+	random = rng(40);
+	switch (random)
 	{
 	case 1:
 		pwUP = 1;
