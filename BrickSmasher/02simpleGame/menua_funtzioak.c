@@ -139,8 +139,8 @@ void sarreraMezuaIdatzi()
 	JOKOA_tutoriala();
 	JOKOA_kreditoak();
 	JOKOA_itxi();
-	textuaIdatzi(50, 130, MUTE);
-	textuaIdatzi(50, 100, PAUSA);
+	textuaIdatzi(15, 5, MUTE);
+	textuaIdatzi(530, 5, PAUSA);
 	pantailaBerriztu();
 }
 int JOKOA_fondoaSortu()

@@ -26,7 +26,7 @@
 #define BUKAERA_IMAGE ".\\img\\gameOver_3.bmp"
 #define IRABAZI_IMAGE ".\\img\\IRABAZI.bmp"
 #define TIROA_SOUND ".\\sound\\Tiro.wav"
-#define MEZUA "Jokoa bukatzeko return eman."
+#define MEZUA "Sakatu return jokoa amaitzeko."
 
 int zein = 1;
 int pwUP = 0;
@@ -42,17 +42,6 @@ int BUKAERA_irudiaBistaratu(int scoreArray[]);
 int IRABAZI_irudiaBistaratu(int scoreArray[]);
 
 
-int JOKOA_itxi2()
-{
-	int itxId = -1;
-	itxId = irudiaKargatu(ITXI);
-	irudiaMugitu(itxId, 300, 370);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return itxId;
-
-}
 
 
 EGOERA jokatu(int scoreArray[])
@@ -711,7 +700,6 @@ int IRABAZI_irudiaBistaratu(int scoreArray[])
 	irudiaMugitu(id, 0, 0);
 	pantailaGarbitu();
 	irudiakMarraztu();
-	JOKOA_itxi2();
 	textuaIdatzi(50, 400, MEZUA);
 	pantailaBerriztu();
 	return id;
@@ -724,7 +712,6 @@ int BUKAERA_irudiaBistaratu(int scoreArray[])
 	irudiaMugitu(id, 0, 0);
 	pantailaGarbitu();
 	irudiakMarraztu();
-	JOKOA_itxi2();
 	finalScore(scoreArray);
 	textuaIdatzi(50, 400, MEZUA);
 	pantailaBerriztu();
