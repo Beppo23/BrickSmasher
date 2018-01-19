@@ -1,2 +1,6 @@
 #TargetFrameworkVersion=v4.0:PlatformToolSet=v141:EnableManagedIncrementalBuild=false:VCToolArchitecture=Native32Bit:WindowsTargetPlatformVersion=8.1
-Debug|Win32|C:\Users\Markel Gonzalez\Desktop\BrickSmasher\|
+<<<<<<< HEAD
+Debug|Win32|C:\Users\benat\Desktop\popbl probak\level2\BrickSmasher\BrickSmasher\|
+=======
+Debug|Win32|C:\POPBL\Brick Smasher\BrickSmasher\BrickSmasher\BrickSmasher\|
+>>>>>>> 901c9f73477c65283d28d6d330c14f26ce37c061

@@ -17,5 +17,5 @@ void markagailua(int kontScore[], JOKO_ELEMENTUA zenbakiak, int zenbakiArray[]);
 void scoreBorratu(int kontScore, int zenbakiArray[]);
 void puntuazioaMarraztu();
 int zifra(int posizioax, int posizioay, int kontScore);
-void finalScore(int scoreArray[]);
+void finalScore(int scoreArray[], int posizioax, int posizioay);
 #endif
