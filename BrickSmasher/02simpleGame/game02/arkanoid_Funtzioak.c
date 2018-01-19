@@ -364,6 +364,10 @@ EGOERA jokatu(int scoreArray[])
 
 							}
 						}
+						for (int i = 0; i <= 4; i++)
+						{
+							irudiaMugitu(powerupak[i].id, 4000, -4000);
+						}
 
 					}
 					if (jokalaria.egoera == TIROAK) 
@@ -700,6 +704,7 @@ int IRABAZI_irudiaBistaratu(int scoreArray[])
 	irudiaMugitu(id, 0, 0);
 	pantailaGarbitu();
 	irudiakMarraztu();
+	finalScore(scoreArray, 288, 360);
 	textuaIdatzi(50, 400, MEZUA);
 	pantailaBerriztu();
 	return id;
@@ -712,7 +717,7 @@ int BUKAERA_irudiaBistaratu(int scoreArray[])
 	irudiaMugitu(id, 0, 0);
 	pantailaGarbitu();
 	irudiakMarraztu();
-	finalScore(scoreArray);
+	finalScore(scoreArray, 280, 210);
 	textuaIdatzi(50, 400, MEZUA);
 	pantailaBerriztu();
 	return id;
