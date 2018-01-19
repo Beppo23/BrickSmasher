@@ -7,7 +7,7 @@
 #include "soinua.h"
 #include <stdio.h>
 #include <windows.h>
-
+#include "irudiaksortu.h"
 
 int jokoaAurkeztu()
 {
@@ -131,209 +131,26 @@ int jokoaAurkeztu()
 	} while (saguaclick != 999);
 	return (irten != 1) ? 1 : 0;
 }
-void sarreraMezuaIdatzi()
+int  jokoAmaierakoa(EGOERA egoera, int scoreArray[])
 {
-	pantailaGarbitu();
-	JOKOA_backSortu();
-	JOKOA_jokatu();
-	JOKOA_tutoriala();
-	JOKOA_kreditoak();
-	JOKOA_itxi();
-	textuaIdatzi(15, 5, MUTE);
-	textuaIdatzi(530, 5, PAUSA);
-	pantailaBerriztu();
-}
-int JOKOA_fondoaSortu()
-{
-	int fondoaId = -1;
-	fondoaId = irudiaKargatu(JOKOA_BACKGROUND_IMAGE);
-	irudiaMugitu(fondoaId, 0, 0);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return fondoaId;
-}
-int JOKOA_jokatu()
-{
-	int jokatuId = -1;
-	jokatuId = irudiaKargatu(JOKATU);
-	irudiaMugitu(jokatuId, 260, 120);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return jokatuId;
-}
-int JOKOA_tutoriala()
-{
-	int tutoId = -1;
-	tutoId = irudiaKargatu(TUTORIALA);
-	irudiaMugitu(tutoId, 260, 210);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return tutoId;
-}
-int JOKOA_kreditoak()
-{
-	int kreId = -1;
-	kreId = irudiaKargatu(KREDITUAK);
-	irudiaMugitu(kreId, 260, 300);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return kreId;
-}
+	int ebentu = 0, id;
+	int idAudioGame;
 
-int JOKOA_itxi()
-{
-	int itxId = -1;
-	itxId = irudiaKargatu(ITXI);
-	irudiaMugitu(itxId, 260, 390);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return itxId;
-}
-//int JOKOA_itxi2()
-//{
-//	int itxId = -1;
-//	itxId = irudiaKargatu(ITXI);
-//	irudiaMugitu(itxId, 440, 370);
-//	pantailaGarbitu();
-//	irudiakMarraztu();
-//	pantailaBerriztu();
-//	return itxId;
-//
-//}
-int powermorea()
-{
-	int powId = -1;
-	powId = irudiaKargatu(X_PURPLE_POWERUP);
-	irudiaMugitu(powId, 50, 40);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return powId;
-}
-int powerberdea()
-{
-	int powId = -1;
-	powId = irudiaKargatu(N_GREEN_POWERUP);
-	irudiaMugitu(powId, 50, 160);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return powId;
-}
-int powerhoria()
-{
-	int powId = -1;
-	powId = irudiaKargatu(S_YELLOW_POWERUP);
-	irudiaMugitu(powId, 50, 250);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return powId;
-}
-int powergorria()
-{
-	int powId = -1;
-	powId = irudiaKargatu(S_RED_POWERUP);
-	irudiaMugitu(powId, 50, 310);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return powId;
-}
-int JOKOA_power()
-{
-	int powId = -1;
-	powId = irudiaKargatu(HURRENGOA);
-	irudiaMugitu(powId, 440, 430);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return powId;
-}
-
-int JOKOA_itzuli()
-{
-	int itzulId = -1;
-	itzulId = irudiaKargatu(BOTON_ITZULI);
-	irudiaMugitu(itzulId, 50, 430);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return itzulId;
-}
-int JOKOA_teclaEzkerra()
-{
-	int teclaId = -1;
-	teclaId = irudiaKargatu(TECLA_EZKERRA);
-	irudiaMugitu(teclaId, 360, 108);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return teclaId;
-}
-int JOKOA_teclaEskuma()
-{
-	int teclaId = -1;
-	teclaId = irudiaKargatu(TECLA_ESKUMA);
-	irudiaMugitu(teclaId, 360, 170);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return teclaId;
-}
-int JOKOA_q()
-{
-	int teclaId = -1;
-	teclaId = irudiaKargatu(TECLA_Q);
-	irudiaMugitu(teclaId, 300, 115);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return teclaId;
-}
-int JOKOA_barra()
-{
-	int barraId = -1;
-	barraId = irudiaKargatu(TECLA_BARRA);
-	irudiaMugitu(barraId, 400, 250);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return barraId;
-}
-//int JOKOA_menu()
-//{
-//	int menuraId = -1;
-//	menuraId = irudiaKargatu(BOTON_MENU);
-//	irudiaMugitu(menuraId, 50, 370);
-//	pantailaGarbitu();
-//	irudiakMarraztu();
-//	pantailaBerriztu();
-//	return menuraId;
-//}
-
-int JOKOA_backSortu()
-{
-	int backId = -1;
-	backId = irudiaKargatu(MENU_BACKGROUD_IMAGE);
-	irudiaMugitu(backId, 0, 0);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return backId;
-}
-int JOKOA_KreditoakSortu()
-{
-	int kredId = -1;
-	kredId = irudiaKargatu(KREDITOAK_IMAGE);
-	irudiaMugitu(kredId, 0, 0);
-	pantailaGarbitu();
-	irudiakMarraztu();
-	pantailaBerriztu();
-	return kredId;
+	if (egoera == IRABAZI) {
+		idAudioGame = loadSound(JOKOA_SOUND_WIN);
+		playSound(idAudioGame);
+		id = IRABAZI_irudiaBistaratu(scoreArray);
+	}
+	else {
+		idAudioGame = loadSound(JOKOA_SOUND_LOSE);
+		playSound(idAudioGame);
+		id = BUKAERA_irudiaBistaratu(scoreArray);
+	}
+	do
+	{
+		ebentu = ebentuaJasoGertatuBada();
+	} while ((ebentu != TECLA_RETURN) && (ebentu != SAGU_BOTOIA_ESKUMA));
+	/*audioTerminate();*/
+	irudiaKendu(id);
+	return (ebentu != TECLA_RETURN) ? 1 : 0;
 }

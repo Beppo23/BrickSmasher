@@ -63,6 +63,9 @@
     <ClCompile Include="kolisioak_funtzioak.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="irudiaksortu_funtzioak.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\simpleSdlWrapper\ebentoak.h">
@@ -105,6 +108,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="kolisioak.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="irudiaksortu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

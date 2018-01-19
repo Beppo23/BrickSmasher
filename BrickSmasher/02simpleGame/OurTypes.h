@@ -13,6 +13,7 @@ typedef struct
   POSIZIOA pos;
   int id;
   MOTA mota;
+  NORA nora;
 }JOKO_ELEMENTUA;
 typedef struct
 {

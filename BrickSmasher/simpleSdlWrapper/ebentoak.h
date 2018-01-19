@@ -8,6 +8,11 @@ typedef struct S_POSIZIOA
   int y;
 } POSIZIOA;
 
+typedef struct S_NORANZKOA
+{
+	int behera;
+	int ezkerrera;
+} NORA;
 /*
   Helburua: Funztio hau tekla bat sakatu arte zain dago, 
   eta ondoren zenbaki oso baten bitartez zein sakatu den adieraziko digu.

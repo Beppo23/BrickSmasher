@@ -3,6 +3,7 @@
 #include "graphics.h"
 #include "imagen.h"
 #include <windows.h>
+#include "irudiaksortu.h"
 
 int zeinPOWER(JOKO_ELEMENTUA zein, int posx, int posy)
 {
