@@ -286,7 +286,7 @@ EGOERA jokatu(int scoreArray[])
 					}
 				}
 			}
-			if (powerupak[0].pos.y > 500 || powerupak[1].pos.y > 500 || powerupak[2].pos.y > 500)
+			if (powerupak[0].pos.y > 500 || powerupak[1].pos.y > 500 || powerupak[2].pos.y > 500 || powerupak[3].pos.y > 500)
 			{
 				pwUP = 0;
 				powerupak[0].zein = 0;
@@ -318,7 +318,7 @@ EGOERA jokatu(int scoreArray[])
 						powerupak[3].pos.y = aux.y;
 					}
 					//amarillo 0 morado 1 berde 2 COJER EL PWUP
-					if ((powerupak[0].pos.y >= 390) || (powerupak[1].pos.y == 390) || (powerupak[2].pos.y == 390) || (powerupak[3].pos.y == 390))
+					if ((powerupak[0].pos.y == 390) || (powerupak[1].pos.y == 390) || (powerupak[2].pos.y == 390) || (powerupak[3].pos.y == 390))
 					{
 						if (powerupak[0].zein == 1)
 						{
