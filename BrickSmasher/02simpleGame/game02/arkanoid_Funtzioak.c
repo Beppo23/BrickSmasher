@@ -27,6 +27,7 @@
 #define IRABAZI_IMAGE ".\\img\\IRABAZI.bmp"
 #define TIROA_SOUND ".\\sound\\Tiro.wav"
 #define MEZUA "Sakatu return jokoa amaitzeko."
+#define PAUSA2 ".\\img\\pause.bmp"
 
 int zein = 1;
 int pwUP = 0;
@@ -36,6 +37,7 @@ int irten = 0;
 int JOKOA_jokalariaIrudiaSortu();
 int JOKOA_barraIrudiaSortu();
 int JOKOA_pilotaIrudiaSortu();
+int jokoa_pause();
 EGOERA JOKOA_egoera(JOKALARIA_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bizitza, int hutsik);
 //int  BUKAERA_menua(EGOERA egoera);
 int BUKAERA_irudiaBistaratu(int scoreArray[]);
@@ -66,6 +68,7 @@ EGOERA jokatu(int scoreArray[])
 	int tiroaid;
 	int multiballon = 0;
 	int pause = 0;
+	int pauseid;
 
 	EGOERA  egoera = JOLASTEN;
 	int ebentu = 0;
@@ -161,15 +164,19 @@ EGOERA jokatu(int scoreArray[])
 		ebentu = ebentuaJasoGertatuBada();
 		if (ebentu == TECLA_ESCAPE)
 		{
+			pauseid = jokoa_pause();
 			do
 			{
+
 				ebentu = 0;
 				ebentu = ebentuaJasoGertatuBada();
 				if (ebentu == TECLA_ESCAPE)
 				{
 					pause = 1;
 				}
+
 			} while (pause != 1);
+			irudiaKendu(pauseid);
 			pause = 0;
 		}
 		/////////////////////////////////////////////////////////////////////PILOTA JAURTI DA
@@ -656,6 +663,16 @@ int JOKOA_TiroaIrudiaSortu()
 	irudiakMarraztu();
 	pantailaBerriztu();
 	return tiroaID;
+}
+int jokoa_pause()
+{
+	int pilotaId = -1;
+	pilotaId = irudiaKargatu(PAUSA2);
+	irudiaMugitu(pilotaId, 130, 240);
+	pantailaGarbitu();
+	irudiakMarraztu();
+	pantailaBerriztu();
+	return pilotaId;
 }
 
 int JOKOA_pilotaIrudiaSortu()
