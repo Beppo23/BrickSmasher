@@ -15,7 +15,6 @@ void markagailua(int kontScore[], JOKO_ELEMENTUA zenbakiak, int zenbakiArray[])
 		zenbakiak.id = zifra(posizioax, posizioay, i);
 		zenbakiArray[0] = zenbakiak.id;
 		i = kontScore[0] - i * 1000;
-		zifra(posizioax + 16, posizioay, 0);
 	}
 	posizioax += 16;
 
@@ -26,8 +25,9 @@ void markagailua(int kontScore[], JOKO_ELEMENTUA zenbakiak, int zenbakiArray[])
 		zenbakiak.id = zifra(posizioax, posizioay, i);
 		zenbakiArray[1] = zenbakiak.id;
 		i = j - i * 100;
-		zifra(posizioax + 16, posizioay, 0);
 	}
+	else 	zifra(posizioax, posizioay, 0);
+
 	posizioax += 16;
 
 	if (i >= 10)
@@ -36,6 +36,7 @@ void markagailua(int kontScore[], JOKO_ELEMENTUA zenbakiak, int zenbakiArray[])
 		zenbakiak.id = zifra(posizioax, posizioay, i);
 		zenbakiArray[2] = zenbakiak.id;
 	}
+	else 	zifra(posizioax, posizioay, 0);
 }
 void scoreBorratu(int kontScore, int zenbakiArray[])
 {
@@ -95,9 +96,9 @@ int zifra(int posizioax, int posizioay, int kontScore)
 	return zenbakia;
 }
 
-void finalScore(int scoreArray[])
+void finalScore(int scoreArray[], int posizioax, int posizioay)
 {
-	int i, j, posizioax = 280, posizioay = 210;
+	int i, j;
 	i = scoreArray[0];
 
 	if (i >= 1000)
