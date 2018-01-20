@@ -162,6 +162,10 @@ EGOERA jokatu(int scoreArray[])
 
 				ebentu = 0;
 				ebentu = ebentuaJasoGertatuBada();
+				if (ebentu == TECLA_m)
+				{
+					toggleMusic();
+				}
 				if (ebentu == TECLA_ESCAPE)
 				{
 					pause = 1;
