@@ -283,31 +283,17 @@ EGOERA jokatu(int scoreArray[])
 				{
 					aux = ERREALITATE_FISIKOA_mugimenduaPOWERUP(powerupak[0].pos);
 					powerupak[0].pos.y = aux.y;
+					if (powerupak[0].pos.y == 390)
+					{
+						powerupak[0] = powerupJaso(powerupak[0], jokalaria.pos);
+						if (powerupak[0].pos.x == 4000) jokalaria.egoera = MULTIBALL;
+					}
 				}
 				if (powerupak[1].zein == 1)
 				{
 					aux = ERREALITATE_FISIKOA_mugimenduaPOWERUP(powerupak[1].pos);
 					powerupak[1].pos.y = aux.y;
-				}
-				if (powerupak[2].zein == 1)
-				{
-					aux = ERREALITATE_FISIKOA_mugimenduaPOWERUP(powerupak[2].pos);
-					powerupak[2].pos.y = aux.y;
-				}
-				if (powerupak[3].zein == 1)
-				{
-					aux = ERREALITATE_FISIKOA_mugimenduaPOWERUP(powerupak[3].pos);
-					powerupak[3].pos.y = aux.y;
-				}
-				//amarillo 0 morado 1 berde 2 rojo 3 COJER EL PWUP
-				if ((powerupak[0].pos.y == 390) || (powerupak[1].pos.y == 390) || (powerupak[2].pos.y == 390) || (powerupak[3].pos.y == 390))
-				{
-					if (powerupak[0].zein == 1)
-					{
-						powerupak[0] = powerupJaso(powerupak[0], jokalaria.pos);
-						if (powerupak[0].pos.x == 4000) jokalaria.egoera = MULTIBALL;
-					}
-					else if (powerupak[1].zein == 1)
+					if (powerupak[1].pos.y == 390)
 					{
 						powerupak[1] = powerupJaso(powerupak[1], jokalaria.pos);/*|| ((powerupak[1].pos.x+29 > jokalaria.pos.x) && (powerupak[1].pos.x+29 < (jokalaria.pos.x + 106)))*/
 						if (powerupak[1].pos.x == 4000)
@@ -316,12 +302,22 @@ EGOERA jokatu(int scoreArray[])
 							for (int i = 1; i <= 6; i++) Tiroak[i].jaurti = 0;
 						}
 					}
-					else if (powerupak[2].zein == 1)
+				}
+				if (powerupak[2].zein == 1)
+				{
+					aux = ERREALITATE_FISIKOA_mugimenduaPOWERUP(powerupak[2].pos);
+					powerupak[2].pos.y = aux.y;
+					if (powerupak[2].pos.y == 390)
 					{
 						powerupak[2] = powerupJaso(powerupak[2], jokalaria.pos);
 						if (powerupak[2].pos.x == 4000) jokalaria.egoera = ITSATSITA;
 					}
-					else if (powerupak[3].zein == 1)
+				}
+				if (powerupak[3].zein == 1)
+				{
+					aux = ERREALITATE_FISIKOA_mugimenduaPOWERUP(powerupak[3].pos);
+					powerupak[3].pos.y = aux.y;
+					if (powerupak[3].pos.y == 390)
 					{
 						powerupak[3] = powerupJaso(powerupak[3], jokalaria.pos);
 						if (powerupak[3].pos.x == 4000)
@@ -332,6 +328,7 @@ EGOERA jokatu(int scoreArray[])
 						}
 					}
 				}
+				//amarillo 0 morado 1 berde 2 rojo 3 COJER EL PWUP
 					if (jokalaria.egoera == TIROAK) 
 					{
 						irudiaAldatu(barra.id, 0);
