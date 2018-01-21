@@ -31,7 +31,7 @@ int apurtu = 0;
 int irten = 0;
 
 int jokoa_pause();
-EGOERA JOKOA_egoera(JOKALARIA_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bizitza, int hutsik);
+
 //int  BUKAERA_menua(EGOERA egoera);
 
 EGOERA jokatu(int scoreArray[])
@@ -304,45 +304,30 @@ EGOERA jokatu(int scoreArray[])
 				{
 					if (powerupak[0].zein == 1)
 					{
-						if ((powerupak[0].pos.x > jokalaria.pos.x) && (powerupak[0].pos.x < (jokalaria.pos.x + 106)))
-						{
-							irudiaMugitu(powerupak[0].id, 4000, -4000);
-							powerupak[0].pos.x = 4000;
-							powerupak[0].pos.y = -4000;
-							jokalaria.egoera = MULTIBALL;
-						}
+						powerupak[0] = powerupJaso(powerupak[0], jokalaria.pos);
+						if (powerupak[0].pos.x == 4000) jokalaria.egoera = MULTIBALL;
 					}
 					else if (powerupak[1].zein == 1)
 					{
-						if (((powerupak[1].pos.x > jokalaria.pos.x) && (powerupak[1].pos.x < (jokalaria.pos.x + 106))))
+						powerupak[1] = powerupJaso(powerupak[1], jokalaria.pos);/*|| ((powerupak[1].pos.x+29 > jokalaria.pos.x) && (powerupak[1].pos.x+29 < (jokalaria.pos.x + 106)))*/
+						if (powerupak[1].pos.x == 4000)
 						{
-							irudiaMugitu(powerupak[1].id, 4000, -4000);
-							powerupak[1].pos.x = 4000;
-							powerupak[1].pos.y = -4000;
 							jokalaria.egoera = TIROAK;
 							for (int i = 1; i <= 6; i++) Tiroak[i].jaurti = 0;
 						}
 					}
 					else if (powerupak[2].zein == 1)
 					{
-						if ((powerupak[2].pos.x > jokalaria.pos.x) && (powerupak[2].pos.x < (jokalaria.pos.x + 106)))
-						{
-							irudiaMugitu(powerupak[2].id, 4000, -4000);
-							powerupak[2].pos.x = 4000;
-							powerupak[2].pos.y = -4000;
-							jokalaria.egoera = ITSATSITA;
-						}
+						powerupak[2] = powerupJaso(powerupak[2], jokalaria.pos);
+						if (powerupak[2].pos.x == 4000) jokalaria.egoera = ITSATSITA;
 					}
 					else if (powerupak[3].zein == 1)
 					{
-						if ((powerupak[3].pos.x > jokalaria.pos.x) && (powerupak[3].pos.x < (jokalaria.pos.x + 106)))
+						powerupak[3] = powerupJaso(powerupak[3], jokalaria.pos);
+						if (powerupak[3].pos.x == 4000)
 						{
-							irudiaMugitu(powerupak[3].id, 4000, -4000);
-							powerupak[3].pos.x = 4000;
-							powerupak[3].pos.y = -4000;
-
 							if (pilota.pos.y >= 250 && pilota.nora.behera == 1) jokalaria.egoera = GODON;
-							
+
 							else jokalaria.egoera = GOD;
 						}
 					}
@@ -568,24 +553,3 @@ EGOERA jokatu(int scoreArray[])
 	pantailaBerriztu();
 	return egoera;
 }
-/////////////////////////////////////////////////////////////////////////JOKOAREN AMAIERA
-EGOERA JOKOA_egoera(JOKALARIA_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bizitza, int hutsik)
-{
-	EGOERA  ret = JOLASTEN;
-	if (hutsik == 129)
-	{
-		ret = IRABAZI;
-		pilota.pos.x = 20;
-		pilota.pos.y = 20;
-		irudiaKendu(jokalaria.id);
-		irudiaKendu(pilota.id);
-	}
-	else if (bizitza == 0)
-	{
-		ret = GALDU;
-		irudiaKendu(jokalaria.id);
-		irudiaKendu(pilota.id);
-	}
-	return ret;
-}
-/////////////////////////////////////////////////////////////////////////JOKOAREN AMAIERA

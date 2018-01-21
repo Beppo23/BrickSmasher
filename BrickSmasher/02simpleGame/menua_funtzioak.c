@@ -154,3 +154,22 @@ int  jokoAmaierakoa(EGOERA egoera, int scoreArray[])
 	irudiaKendu(id);
 	return (ebentu != TECLA_RETURN) ? 1 : 0;
 }
+EGOERA JOKOA_egoera(JOKALARIA_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bizitza, int hutsik)
+{
+	EGOERA  ret = JOLASTEN;
+	if (hutsik == 129)
+	{
+		ret = IRABAZI;
+		pilota.pos.x = 20;
+		pilota.pos.y = 20;
+		irudiaKendu(jokalaria.id);
+		irudiaKendu(pilota.id);
+	}
+	else if (bizitza == 0)
+	{
+		ret = GALDU;
+		irudiaKendu(jokalaria.id);
+		irudiaKendu(pilota.id);
+	}
+	return ret;
+}

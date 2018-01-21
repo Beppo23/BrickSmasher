@@ -1,4 +1,5 @@
 #include "kolisioak.h"
+#include "imagen.h"
 
 int jokalariaErrebote(POSIZIOA pilota, POSIZIOA jokalaria)
 {
@@ -16,4 +17,15 @@ int jokalariaErreboteNoranzkoa(POSIZIOA pilota, POSIZIOA jokalaria, int rebote)
 		if (pilota.x + 12 < jokalaria.x + 53) rebote = 1;
 	}
 	return rebote;
+}
+POWERUP_ELEMENTUA powerupJaso(POWERUP_ELEMENTUA powerupak, POSIZIOA jokalaria)
+{
+	if ((powerupak.pos.x > jokalaria.x) && (powerupak.pos.x < (jokalaria.x + 106)))
+	{
+
+		irudiaMugitu(powerupak.id, 4000, -4000);
+		powerupak.pos.x = 4000;
+		powerupak.pos.y = -4000;
+	}
+	return powerupak;
 }
