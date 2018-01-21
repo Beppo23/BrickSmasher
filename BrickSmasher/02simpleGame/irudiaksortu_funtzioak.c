@@ -49,7 +49,7 @@ int JOKOA_pilotaIrudiaSortu()
 {
 	int pilotaId = -1;
 	pilotaId = irudiaKargatu(JOKOA_PELOTA_IMAGE);
-	irudiaMugitu(pilotaId, 10, 239);
+	irudiaMugitu(pilotaId, 4000, -4000);
 	pantailaGarbitu();
 	irudiakMarraztu();
 	pantailaBerriztu();

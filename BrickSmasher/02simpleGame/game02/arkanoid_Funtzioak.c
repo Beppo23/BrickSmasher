@@ -138,7 +138,11 @@ EGOERA jokatu(int scoreArray[])
 		else
 		{
 			irudiaMugitu(pilota.id, jokalaria.pos.x + 38, jokalaria.pos.y - 23);
-			irudiaMugitu(multiBall.id, multiBall.pos.x, multiBall.pos.y);
+			if (multiballon == 1)
+			{
+				irudiaMugitu(multiBall.id, multiBall.pos.x, multiBall.pos.y);
+			}
+			
 			irudiaAldatu(barra.id, 2);
 		}
 		irudiaMugitu(jokalaria.id, jokalaria.pos.x, jokalaria.pos.y);
@@ -294,7 +298,7 @@ EGOERA jokatu(int scoreArray[])
 						aux = ERREALITATE_FISIKOA_mugimenduaPOWERUP(powerupak[3].pos);
 						powerupak[3].pos.y = aux.y;
 					}
-					//amarillo 0 morado 1 berde 2 COJER EL PWUP
+					//amarillo 0 morado 1 berde 2 rojo 3 COJER EL PWUP
 					if ((powerupak[0].pos.y == 390) || (powerupak[1].pos.y == 390) || (powerupak[2].pos.y == 390) || (powerupak[3].pos.y == 390))
 					{
 						if (powerupak[0].zein == 1)
@@ -310,7 +314,7 @@ EGOERA jokatu(int scoreArray[])
 						}
 						else if (powerupak[1].zein == 1)
 						{
-							if (((powerupak[1].pos.x > jokalaria.pos.x) && (powerupak[1].pos.x < (jokalaria.pos.x + 106))) /*|| ((powerupak[1].pos.x+29 > jokalaria.pos.x) && (powerupak[1].pos.x+29 < (jokalaria.pos.x + 106)))*/)
+							if (((powerupak[1].pos.x > jokalaria.pos.x) && (powerupak[1].pos.x < (jokalaria.pos.x + 106))))
 							{
 								irudiaMugitu(powerupak[1].id, 4000, -4000);
 								powerupak[1].pos.x = 4000;
@@ -383,14 +387,10 @@ EGOERA jokatu(int scoreArray[])
 						}
 					}
 					if (jokalaria.egoera == MULTIBALL) {
-						//pwUP = 0;
-						//irudiaAldatu(barra.id, 0);
 						multiballon = 1;
 						multiballhasi = 0;
 						powerupak[0].zein = 0;
 						irudiaMugitu(multiBall.id, pilota.pos.x + 24, pilota.pos.y);
-						/*multiBall.pos.x = pilota.pos.x+24;
-						multiBall.pos.x = pilota.pos.y;*/
 						jokalaria.egoera = NORMAL;
 					}
 					//MULTIBALL ACTIVADO
@@ -487,10 +487,9 @@ EGOERA jokatu(int scoreArray[])
 							multiBall.pos.y = 4000;					
 							pwUP = 0;
 							multiballon = 0;
-							if (rebotemulti == 1) rebote = 1;
-							if (rebotemulti == 0) rebote = 0;
-							if (goianmulti == 1) goian = 1;
-							if (goianmulti == 0) goian = 0;
+							rebote = rebotemulti;
+							goian = goianmulti;
+
 						}
 					}
 			}
