@@ -538,7 +538,6 @@ EGOERA jokatu2(int scoreArray[], int bizitza)
 	int pause = 0;
 	int pauseid;
 	int itxid;
-	int musicid;
 
 	EGOERA  egoera = JOLASTEN;
 	int ebentu = 0;
@@ -587,7 +586,7 @@ EGOERA jokatu2(int scoreArray[], int bizitza)
 
 	audioInit();
 	loadTheMusic(JOKOALVL2_SOUND);
-	playMusic(musicid);
+	playMusic();
 	tiroaid = loadSound(TIROA_SOUND);
 	//playMusic();    /////////////////////////Comentado para que no de la brasa durante el testeo, quitar para la publicación final
 	fondoa.id = JOKOA_fondoaSortu2();
@@ -692,7 +691,7 @@ EGOERA jokatu2(int scoreArray[], int bizitza)
 			pwUP = 0;
 			powerupak[1].zein = 0;
 		}
-		if ((Tiroak[zeinTiro].pos.y >= 50) && (Tiroak[zeinTiro].pos.y <= 250) && (Tiroak[zeinTiro].pos.x >= 60) && (Tiroak[zeinTiro].pos.x <= 580) && Tiroak[zeinTiro].puxkatu != 1)
+		if ((Tiroak[zeinTiro].pos.y >= 50) && (Tiroak[zeinTiro].pos.y <= 290) && (Tiroak[zeinTiro].pos.x >= 60) && (Tiroak[zeinTiro].pos.x <= 540) && Tiroak[zeinTiro].puxkatu != 1)
 		{
 			apurtu = tiroaPuxkatu(Tiroak[zeinTiro], Blokeak, lehenLaukizuzen);
 			if (apurtu == 1)
@@ -731,7 +730,7 @@ EGOERA jokatu2(int scoreArray[], int bizitza)
 		{
 			pilota.pos = pilotaMugitu(pilota.nora.behera, pilota.nora.ezkerrera, pilota.pos, aux);
 
-			if ((pilota.pos.y + 24 >= 50) && (pilota.pos.y <= 250) && (pilota.pos.x + 24 >= 60) && (pilota.pos.x <= 580))
+			if ((pilota.pos.y + 24 >= 50) && (pilota.pos.y <= 290) && (pilota.pos.x + 24 >= 60) && (pilota.pos.x <= 540))
 			{
 				id = Id_aurkituLvl2(pilota.pos.x, pilota.pos.y, pilota.nora.behera, pilota.nora.ezkerrera);
 
@@ -739,13 +738,8 @@ EGOERA jokatu2(int scoreArray[], int bizitza)
 				{
 					if (Blokeak[id].apurtuta != 1)
 					{
-						if (jokalaria.egoera != GOD)
-						{
-							if ((pilota.pos.x + 21 <= Blokeak[id].pos.x) && (pilota.pos.x + 27 >= Blokeak[id].pos.x)) pilota.nora.ezkerrera = 1;
-							else if (pilota.pos.x == Blokeak[id].pos.x + 40) pilota.nora.ezkerrera = 0;
-							else if ((pilota.pos.y + 21 <= Blokeak[id].pos.y) && (pilota.pos.y + 27 >= Blokeak[id].pos.y)) pilota.nora.behera = 0;
-							else if (pilota.pos.y == Blokeak[id].pos.y + 20) pilota.nora.behera = 1;
-						}
+						if (jokalaria.egoera != GOD) pilota.nora = erreboteaKalkulatu(pilota, Blokeak[id].pos);
+						
 						Blokeak[id].apurtuta = 1;
 						irudiaKendu(id + lehenLaukizuzen);
 						scoreArray[0] += 10;
@@ -878,18 +872,15 @@ EGOERA jokatu2(int scoreArray[], int bizitza)
 
 					multiBall.pos = pilotaMugitu(multiBall.nora.behera, multiBall.nora.ezkerrera, multiBall.pos, aux);
 
-					if ((multiBall.pos.y + 24 >= 50) && (multiBall.pos.y <= 250) && (multiBall.pos.x + 24 >= 60) && (multiBall.pos.x <= 580))
+					if ((multiBall.pos.y + 24 >= 50) && (multiBall.pos.y <= 290) && (multiBall.pos.x + 24 >= 60) && (multiBall.pos.x <= 540))
 					{
 						id = Id_aurkituLvl2(multiBall.pos.x, multiBall.pos.y, multiBall.nora.behera, multiBall.nora.ezkerrera);
 
 						if (id >= 0 && id <= 77)
 						{
-							if (Blokeak[id].apurtuta != 1)
+							if (Blokeak[id].apurtuta != 1) 
 							{
-								if ((multiBall.pos.x + 21 <= Blokeak[id].pos.x) && (multiBall.pos.x + 27 >= Blokeak[id].pos.x)) multiBall.nora.ezkerrera = 1;
-								else if (multiBall.pos.x == Blokeak[id].pos.x + 40) multiBall.nora.ezkerrera = 0;
-								else if ((multiBall.pos.y + 21 <= Blokeak[id].pos.y) && (multiBall.pos.y + 27 >= Blokeak[id].pos.y)) multiBall.nora.behera = 0;
-								else if (multiBall.pos.y == Blokeak[id].pos.y + 20) multiBall.nora.behera = 1;
+								multiBall.nora = erreboteaKalkulatu(multiBall, Blokeak[id].pos);
 
 								Blokeak[id].apurtuta = 1;
 								irudiaKendu(id + lehenLaukizuzen);
