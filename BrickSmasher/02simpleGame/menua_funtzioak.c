@@ -9,6 +9,9 @@
 #include <windows.h>
 #include "irudiaksortu.h"
 
+#define WIN_SOUND ".\\sound\\WIN.wav"
+#define LOSE_SOUND ".\\sound\\LOSE.wav"
+
 int jokoaAurkeztu()
 {
 	int ebentu = 0, saguaclick = 0, barruan = 0, bar = 0, irten = 0;
@@ -135,6 +138,7 @@ int  jokoAmaierakoa(EGOERA egoera, int scoreArray[])
 {
 	int ebentu = 0, id;
 	int idAudioGame;
+	int idSoundGame;
 	int saguaclick = 0;
 	POSIZIOA pos;
 	if (egoera == ITXITA) {
@@ -143,11 +147,15 @@ int  jokoAmaierakoa(EGOERA egoera, int scoreArray[])
 	if (egoera == IRABAZI) {
 		idAudioGame = loadSound(JOKOA_SOUND_WIN);
 		playSound(idAudioGame);
+		loadTheMusic(WIN_SOUND);
+		playMusic();
 		id = IRABAZI_irudiaBistaratu(scoreArray);
 	}
 	else {
 		idAudioGame = loadSound(JOKOA_SOUND_LOSE);
 		playSound(idAudioGame);
+		loadTheMusic(LOSE_SOUND);
+		playMusic();
 		id = BUKAERA_irudiaBistaratu(scoreArray);
 	}
 	do

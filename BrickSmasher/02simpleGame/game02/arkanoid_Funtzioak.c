@@ -25,6 +25,7 @@
 #define IRABAZI_IMAGE ".\\img\\IRABAZI.bmp"
 #define TIROA_SOUND ".\\sound\\Tiro.wav"
 
+
 int zein = 1;
 int pwUP = 0;
 int apurtu = 0;
