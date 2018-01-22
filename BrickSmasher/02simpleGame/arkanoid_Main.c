@@ -22,6 +22,7 @@
 int main(int argc, char * str[]) {
 	int jarraitu = 0, scoreArray[2], itxi = 1;
 	EGOERA egoera;
+	scoreArray[0] = 0;
  
   if (sgHasieratu() == -1) 
   {
@@ -42,4 +43,3 @@ int main(int argc, char * str[]) {
   sgItxi();
   return 0;
 }
-

@@ -41,7 +41,7 @@ EGOERA jokatu(int scoreArray[])
 	int hasi = 0;
 	int multiballhasi = 0;
 	int bizitza = 3, bihotzArray[3];
-	int kontScore = 0, zenbakiArray[3];
+	int zenbakiArray[3];
 	int zeinTiro = 0;
 	int biak = 0;
 	int id = 0;
@@ -83,6 +83,8 @@ EGOERA jokatu(int scoreArray[])
 
 	pilota.pos.x = jokalaria.pos.x + 38;
 	pilota.pos.y = jokalaria.pos.y - 23;
+	pilota.nora.behera = 0;
+	pilota.nora.ezkerrera = 0;
 	barra.pos.x = jokalaria.pos.x;
 	barra.pos.y = jokalaria.pos.y + 23;
 
@@ -248,8 +250,7 @@ EGOERA jokatu(int scoreArray[])
 						}
 						Blokeak[id].apurtuta = 1;
 						irudiaKendu(id + lehenLaukizuzen);
-						kontScore += 10;
-						scoreArray[0] = kontScore;
+						scoreArray[0] += 10;
 						markagailua(scoreArray, zenbakiak, zenbakiArray);
 
 						if (pwUP == 0) pwUP = powerupaErabaki(pwUP, powerupak, Blokeak, id);
@@ -346,7 +347,6 @@ EGOERA jokatu(int scoreArray[])
 						if ((pilota.pos.y == 377) && (pilota.pos.x > jokalaria.pos.x - 15) && (pilota.pos.x < (jokalaria.pos.x + 106)))
 						{
 							hasi = 0;
-							pilota.nora.ezkerrera = 0;
 							pilota.nora.behera = 0;
 							pwUP = 0;
 							jokalaria.egoera = NORMAL;
@@ -415,8 +415,7 @@ EGOERA jokatu(int scoreArray[])
 
 									Blokeak[id].apurtuta = 1;
 									irudiaKendu(id + lehenLaukizuzen);
-									kontScore += 10;
-									scoreArray[0] = kontScore;
+									scoreArray[0] += 10;
 									markagailua(scoreArray, zenbakiak, zenbakiArray);
 								}
 							}
