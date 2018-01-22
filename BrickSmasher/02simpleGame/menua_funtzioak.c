@@ -135,7 +135,11 @@ int  jokoAmaierakoa(EGOERA egoera, int scoreArray[])
 {
 	int ebentu = 0, id;
 	int idAudioGame;
-
+	int saguaclick = 0;
+	POSIZIOA pos;
+	if (egoera == ITXITA) {
+		saguaclick = 1;
+	}
 	if (egoera == IRABAZI) {
 		idAudioGame = loadSound(JOKOA_SOUND_WIN);
 		playSound(idAudioGame);
@@ -148,11 +152,16 @@ int  jokoAmaierakoa(EGOERA egoera, int scoreArray[])
 	}
 	do
 	{
+		pos = saguarenPosizioa();
 		ebentu = ebentuaJasoGertatuBada();
-	} while ((ebentu != TECLA_RETURN) && (ebentu != SAGU_BOTOIA_ESKUMA));
+		if (ebentu == SAGU_BOTOIA_EZKERRA && (pos.x >= 243) && (pos.x <= 368) && (pos.y >= 408) && (pos.y <= 441))
+		{
+			saguaclick = 1;
+		}
+	} while (saguaclick != 1);
 	/*audioTerminate();*/
 	irudiaKendu(id);
-	return (ebentu != TECLA_RETURN) ? 1 : 0;
+	return (saguaclick != 1) ? 1 : 0;
 }
 EGOERA JOKOA_egoera(JOKALARIA_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bizitza, int hutsik)
 {

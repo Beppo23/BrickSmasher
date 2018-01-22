@@ -51,6 +51,7 @@ EGOERA jokatu(int scoreArray[])
 	int multiballon = 0;
 	int pause = 0;
 	int pauseid;
+	int itxid;
 
 	EGOERA  egoera = JOLASTEN;
 	int ebentu = 0;
@@ -153,11 +154,18 @@ EGOERA jokatu(int scoreArray[])
 		if (ebentu == TECLA_ESCAPE)
 		{
 			pauseid = jokoa_pause();
+			itxid = JOKOA_itxi();
 			do
 			{
 
 				ebentu = 0;
+				aux = saguarenPosizioa();
 				ebentu = ebentuaJasoGertatuBada();
+				if (ebentu == SAGU_BOTOIA_EZKERRA && (aux.x >= 260) && (aux.x <= 375) && (aux.y >= 390) && (aux.y <= 423))
+				{
+					egoera = ITXITA;
+					pause = 1;
+				}
 				if (ebentu == TECLA_m)
 				{
 					toggleMusic();
@@ -169,6 +177,7 @@ EGOERA jokatu(int scoreArray[])
 
 			} while (pause != 1);
 			irudiaKendu(pauseid);
+			irudiaKendu(itxid);
 			pause = 0;
 		}
 		/////////////////////////////////////////////////////////////////////PILOTA JAURTI DA
@@ -540,7 +549,10 @@ EGOERA jokatu(int scoreArray[])
 		}
 		///////////////////////////////////////////////////////////////BIZITZAK
 		while (Blokeak[hutsik].apurtuta && hutsik < 129) hutsik++;
-		egoera = JOKOA_egoera(jokalaria, pilota, bizitza, hutsik);
+		if (egoera != ITXITA)
+		{
+			egoera = JOKOA_egoera(jokalaria, pilota, bizitza, hutsik);
+		}
 	} while (egoera == JOLASTEN);
 	irudiaKendu(jokalaria.id);
 	toggleMusic();

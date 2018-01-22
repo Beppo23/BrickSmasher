@@ -3,7 +3,7 @@
 
 #include "ebentoak.h"
 
-typedef enum { JOLASTEN, GALDU, IRABAZI }EGOERA;
+typedef enum { JOLASTEN, GALDU, IRABAZI,ITXITA }EGOERA;
 typedef enum { IRUDIA, MARGOA, TESTUA } MOTA;
 typedef enum { NORMAL, TIROAK, ITSATSITA, MULTIBALL , GOD, GODON}PWUP_EGOERA;
 typedef enum { HORIA, MOREA, BERDEA, GORRIA } KOLOREA;

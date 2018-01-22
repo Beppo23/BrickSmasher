@@ -36,7 +36,10 @@ int main(int argc, char * str[]) {
 	if (itxi != 0)
 	{
 		egoera = jokatu(scoreArray);
-		jarraitu = jokoAmaierakoa(egoera, scoreArray);
+		if (egoera != 3)
+		{
+			jarraitu = jokoAmaierakoa(egoera, scoreArray);
+		}
 	}
 	else jarraitu = 0;
   } while (jarraitu);

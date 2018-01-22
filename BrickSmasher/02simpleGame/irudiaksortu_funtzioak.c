@@ -64,7 +64,6 @@ int IRABAZI_irudiaBistaratu(int scoreArray[])
 	pantailaGarbitu();
 	irudiakMarraztu();
 	finalScore(scoreArray, 288, 360);
-	textuaIdatzi(50, 400, MEZUA);
 	pantailaBerriztu();
 	return id;
 }
@@ -77,7 +76,6 @@ int BUKAERA_irudiaBistaratu(int scoreArray[])
 	pantailaGarbitu();
 	irudiakMarraztu();
 	finalScore(scoreArray, 280, 210);
-	textuaIdatzi(50, 400, MEZUA);
 	pantailaBerriztu();
 	return id;
 }

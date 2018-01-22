@@ -28,7 +28,6 @@
 #define PAUSA2 ".\\img\\pause.bmp"
 #define MUTE "Mute->M"
 #define PAUSA "Pausa->ESC"
-#define MEZUA "Sakatu return jokoa amaitzeko."
 
 int JOKOA_fondoaSortu();
 int JOKOA_itzuli();
