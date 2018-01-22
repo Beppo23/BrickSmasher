@@ -5,4 +5,5 @@
 int jokalariaErrebote(POSIZIOA pilota, POSIZIOA jokalaria);
 int jokalariaErreboteNoranzkoa(POSIZIOA pilota, POSIZIOA jokalaria, int rebote);
 POWERUP_ELEMENTUA powerupJaso(POWERUP_ELEMENTUA powerupak, POSIZIOA jokalaria);
+NORA erreboteaKalkulatu(JOKO_ELEMENTUA pilota, POSIZIOA blokea);
 #endif

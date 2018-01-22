@@ -29,3 +29,12 @@ POWERUP_ELEMENTUA powerupJaso(POWERUP_ELEMENTUA powerupak, POSIZIOA jokalaria)
 	}
 	return powerupak;
 }
+NORA erreboteaKalkulatu(JOKO_ELEMENTUA pilota, POSIZIOA blokea)
+{
+	if ((pilota.pos.x + 21 <= blokea.x) && (pilota.pos.x + 27 >= blokea.x)) pilota.nora.ezkerrera = 1;
+	else if (pilota.pos.x == blokea.x + 40) pilota.nora.ezkerrera = 0;
+	else if ((pilota.pos.y + 21 <= blokea.y) && (pilota.pos.y + 27 >= blokea.y)) pilota.nora.behera = 0;
+	else if (pilota.pos.y == blokea.y + 20) pilota.nora.behera = 1;
+
+	return pilota.nora;
+}

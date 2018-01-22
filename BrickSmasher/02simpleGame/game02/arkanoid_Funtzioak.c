@@ -162,14 +162,9 @@ EGOERA jokatu(int scoreArray[])
 					egoera = ITXITA;
 					pause = 1;
 				}
-				if (ebentu == TECLA_m)
-				{
-					toggleMusic();
-				}
-				if (ebentu == TECLA_ESCAPE)
-				{
-					pause = 1;
-				}
+				if (ebentu == TECLA_m) toggleMusic();
+				
+				if (ebentu == TECLA_ESCAPE) pause = 1;
 
 			} while (pause != 1);
 			irudiaKendu(pauseid);
@@ -192,7 +187,8 @@ EGOERA jokatu(int scoreArray[])
 			aux = ERREALITATE_FISIKOA_mugimenduaTIROA(Tiroak[zeinTiro].pos);
 			Tiroak[zeinTiro].pos.y = aux.y;
 		}
-		if (zeinTiro == 7) {
+		if (zeinTiro == 7) 
+		{
 			pwUP = 0;
 			tiroakSortu(tiroa, Tiroak);
 			zeinTiro = 0;
@@ -202,11 +198,7 @@ EGOERA jokatu(int scoreArray[])
 		if ((Tiroak[zeinTiro].pos.y >= 50) && (Tiroak[zeinTiro].pos.y <= 250) && (Tiroak[zeinTiro].pos.x >= 60) && (Tiroak[zeinTiro].pos.x <= 580) && Tiroak[zeinTiro].puxkatu != 1)
 		{
 			apurtu = tiroaPuxkatu(Tiroak[zeinTiro], Blokeak, lehenLaukizuzen);
-			if (apurtu == 1)
-			{
-				zeinTiro++;
-			}
-
+			if (apurtu == 1) zeinTiro++;
 		}
 		else if (Tiroak[zeinTiro].pos.y == 0)
 		{
@@ -246,13 +238,8 @@ EGOERA jokatu(int scoreArray[])
 				{
 					if (Blokeak[id].apurtuta != 1)
 					{
-						if (jokalaria.egoera != GOD)
-						{
-							if ((pilota.pos.x + 21 <= Blokeak[id].pos.x) && (pilota.pos.x + 27 >= Blokeak[id].pos.x)) pilota.nora.ezkerrera = 1;
-							else if (pilota.pos.x == Blokeak[id].pos.x + 40) pilota.nora.ezkerrera = 0;
-							else if ((pilota.pos.y + 21 <= Blokeak[id].pos.y) && (pilota.pos.y + 27 >= Blokeak[id].pos.y)) pilota.nora.behera = 0;
-							else if (pilota.pos.y == Blokeak[id].pos.y + 20) pilota.nora.behera = 1;
-						}
+						if (jokalaria.egoera != GOD) if (jokalaria.egoera != GOD) pilota.nora = erreboteaKalkulatu(pilota, Blokeak[id].pos);
+						
 						Blokeak[id].apurtuta = 1;
 						irudiaKendu(id + lehenLaukizuzen);
 						scoreArray[0] += 10;
@@ -381,26 +368,6 @@ EGOERA jokatu(int scoreArray[])
 
 							if (pilota.nora.ezkerrera) multiBall.nora.ezkerrera = 0;
 							else multiBall.nora.ezkerrera = 1;
-							////ARRIBA IZQUIERDA
-							//if (!pilota.nora.behera && pilota.nora.ezkerrera) {
-							//	multiBall.nora.behera = 1;
-							//	multiBall.nora.ezkerrera = 0;
-							//}
-							////ARRIBA DERECHAa
-							//else if (!pilota.nora.behera && !pilota.nora.ezkerrera) {
-							//	multiBall.nora.behera = 1;
-							//	multiBall.nora.ezkerrera = 1;
-							//}
-							////ABAJO DERECHA
-							//else if (pilota.nora.behera && !pilota.nora.ezkerrera) {
-							//	multiBall.nora.behera = 0;
-							//	multiBall.nora.ezkerrera = 1;
-							//}
-							////ABAJO IZQUIERDA
-							//else if (pilota.nora.behera && pilota.nora.ezkerrera) {
-							//	multiBall.nora.behera = 0;
-							//	multiBall.nora.ezkerrera = 0;
-							//}
 						}
 						
 						multiBall.pos = pilotaMugitu(multiBall.nora.behera, multiBall.nora.ezkerrera, multiBall.pos, aux);
@@ -413,10 +380,7 @@ EGOERA jokatu(int scoreArray[])
 							{
 								if (Blokeak[id].apurtuta != 1)
 								{
-									if ((multiBall.pos.x + 21 <= Blokeak[id].pos.x) && (multiBall.pos.x + 27 >= Blokeak[id].pos.x)) multiBall.nora.ezkerrera = 1;
-									else if (multiBall.pos.x == Blokeak[id].pos.x + 40) multiBall.nora.ezkerrera = 0;
-									else if ((multiBall.pos.y + 21 <= Blokeak[id].pos.y) && (multiBall.pos.y + 27 >= Blokeak[id].pos.y)) multiBall.nora.behera = 0;
-									else if (multiBall.pos.y == Blokeak[id].pos.y + 20) multiBall.nora.behera = 1;
+									multiBall.nora = erreboteaKalkulatu(multiBall, Blokeak[id].pos);
 
 									Blokeak[id].apurtuta = 1;
 									irudiaKendu(id + lehenLaukizuzen);
@@ -452,7 +416,8 @@ EGOERA jokatu(int scoreArray[])
 
 						if (multiBall.pos.x < 20) multiBall.nora.ezkerrera = 0;
 
-						if (multiBall.pos.y > 480) {
+						if (multiBall.pos.y > 480) 
+						{
 							pwUP = 0;
 							multiballon = 0;
 						}
@@ -463,8 +428,7 @@ EGOERA jokatu(int scoreArray[])
 							multiBall.pos.y = 4000;					
 							pwUP = 0;
 							multiballon = 0;
-							pilota.nora.ezkerrera = multiBall.nora.ezkerrera;
-							pilota.nora.behera = multiBall.nora.ezkerrera;
+							pilota.nora = multiBall.nora;
 						}
 					}
 			}
