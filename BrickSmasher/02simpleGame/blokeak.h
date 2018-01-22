@@ -9,5 +9,7 @@
 
 int JOKOA_LaukizuzenaIrudiaSortu(int posx, int posy, int zein);
 int laukizuzenakEzarri(LAUKIZUZENA_ELEMENTUA Laukizuzena, LAUKIZUZENA_ELEMENTUA blokeak[]);
+int laukizuzenakEzarriLvl2(LAUKIZUZENA_ELEMENTUA Laukizuzena, LAUKIZUZENA_ELEMENTUA blokeak[]);
 int Id_aurkitu(int x, int y, int goian, int rebote);
+int Id_aurkituLvl2(int x, int y, int goian, int rebote);
 #endif

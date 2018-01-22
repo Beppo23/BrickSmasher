@@ -2,7 +2,6 @@
   score_funtzioak.c
   powerup_funtzioak.c
   menua_funtzioak.c
-c:\popbl\bricksmasher\bricksmasher\02simplegame\menua_funtzioak.c(141): warning C4101: 'idSoundGame': variable local sin referencia
   kolisioak_funtzioak.c
   irudiaksortu_funtzioak.c
   arkanoid_Funtzioak.c
@@ -16,4 +15,4 @@ c:\popbl\bricksmasher\bricksmasher\02simplegame\menua_funtzioak.c(141): warning 
   graphics.c
   ebentoak.c
   Generando código...
-  02simpleGame.vcxproj -> C:\POPBL\BrickSmasher\BrickSmasher\Debug\Arkanoid.exe
+  02simpleGame.vcxproj -> C:\Users\USUARIO\Desktop\Mondragon\POPBL\BrickSmasher\BrickSmasher\Debug\Arkanoid.exe

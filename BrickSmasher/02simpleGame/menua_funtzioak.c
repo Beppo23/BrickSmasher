@@ -138,7 +138,6 @@ int  jokoAmaierakoa(EGOERA egoera, int scoreArray[])
 {
 	int ebentu = 0, id;
 	int idAudioGame;
-	int idSoundGame;
 	int saguaclick = 0;
 	POSIZIOA pos;
 	if (egoera == ITXITA) {
@@ -157,6 +156,7 @@ int  jokoAmaierakoa(EGOERA egoera, int scoreArray[])
 		loadTheMusic(LOSE_SOUND);
 		playMusic();
 		id = BUKAERA_irudiaBistaratu(scoreArray);
+		
 	}
 	do
 	{
@@ -167,7 +167,7 @@ int  jokoAmaierakoa(EGOERA egoera, int scoreArray[])
 			saguaclick = 1;
 		}
 	} while (saguaclick != 1);
-	/*audioTerminate();*/
+	//audioTerminate();
 	irudiaKendu(id);
 	return (saguaclick != 1) ? 1 : 0;
 }

@@ -16,13 +16,8 @@
 #include "irudiaksortu.h"
 
 #define JOKOA_SOUND ".\\sound\\arkanoid_audio.wav"
-#define JOKOA_PLAYER_IMAGE ".\\img\\barra1.bmp"
-#define JOKOA_PELOTA_IMAGE ".\\img\\pelota.bmp"
-#define JOKOA_ENERGIA_IMAGE ".\\img\\barra_energia.bmp"
-#define JOKOA_TIROA_IMAGE ".\\img\\tiroa.bmp"
+#define JOKOALVL2_SOUND ".\\sound\\Level2.wav"
 #define BUKAERA_SOUND_1 ".\\sound\\arkanoid_audio.wav"
-#define BUKAERA_IMAGE ".\\img\\gameOver_3.bmp"
-#define IRABAZI_IMAGE ".\\img\\IRABAZI.bmp"
 #define TIROA_SOUND ".\\sound\\Tiro.wav"
 
 
@@ -556,8 +551,6 @@ EGOERA jokatu(int scoreArray[])
 		}
 	} while (egoera == JOLASTEN);
 	irudiaKendu(jokalaria.id);
-	toggleMusic();
-	audioTerminate();
 	pantailaGarbitu();
 	pantailaBerriztu();
 	return egoera;
@@ -628,11 +621,11 @@ EGOERA jokatu2(int scoreArray[], int bizitza)
 	powerup.pos.y = -550;
 
 	audioInit();
-	loadTheMusic(JOKOA_SOUND);
+	loadTheMusic(JOKOALVL2_SOUND);
 	tiroaid = loadSound(TIROA_SOUND);
 	//playMusic();    /////////////////////////Comentado para que no de la brasa durante el testeo, quitar para la publicación final
 	fondoa.id = JOKOA_fondoaSortu2();
-	lehenLaukizuzen = laukizuzenakEzarri(Laukizuzena, Blokeak);
+	lehenLaukizuzen = laukizuzenakEzarriLvl2(Laukizuzena, Blokeak);
 	bihotzakEzarri(bihotzak, bizitza, bihotzArray);
 	jokalaria.id = JOKOA_jokalariaIrudiaSortu();
 	pilota.id = JOKOA_pilotaIrudiaSortu();
@@ -774,9 +767,9 @@ EGOERA jokatu2(int scoreArray[], int bizitza)
 
 			if ((pilota.pos.y + 24 >= 50) && (pilota.pos.y <= 250) && (pilota.pos.x + 24 >= 60) && (pilota.pos.x <= 580))
 			{
-				id = Id_aurkitu(pilota.pos.x, pilota.pos.y, pilota.nora.behera, pilota.nora.ezkerrera);
+				id = Id_aurkituLvl2(pilota.pos.x, pilota.pos.y, pilota.nora.behera, pilota.nora.ezkerrera);
 
-				if (id >= 0 && id <= 129)
+				if (id >= 0 && id <= 77)
 				{
 					if (Blokeak[id].apurtuta != 1)
 					{
@@ -835,7 +828,7 @@ EGOERA jokatu2(int scoreArray[], int bizitza)
 					powerupak[1].pos.y = aux.y;
 					if (powerupak[1].pos.y == 390)
 					{
-						powerupak[1] = powerupJaso(powerupak[1], jokalaria.pos);/*|| ((powerupak[1].pos.x+29 > jokalaria.pos.x) && (powerupak[1].pos.x+29 < (jokalaria.pos.x + 106)))*/
+						powerupak[1] = powerupJaso(powerupak[1], jokalaria.pos);
 						if (powerupak[1].pos.x == 4000)
 						{
 							jokalaria.egoera = TIROAK;
@@ -915,35 +908,15 @@ EGOERA jokatu2(int scoreArray[], int bizitza)
 
 						if (pilota.nora.ezkerrera) multiBall.nora.ezkerrera = 0;
 						else multiBall.nora.ezkerrera = 1;
-						////ARRIBA IZQUIERDA
-						//if (!pilota.nora.behera && pilota.nora.ezkerrera) {
-						//	multiBall.nora.behera = 1;
-						//	multiBall.nora.ezkerrera = 0;
-						//}
-						////ARRIBA DERECHAa
-						//else if (!pilota.nora.behera && !pilota.nora.ezkerrera) {
-						//	multiBall.nora.behera = 1;
-						//	multiBall.nora.ezkerrera = 1;
-						//}
-						////ABAJO DERECHA
-						//else if (pilota.nora.behera && !pilota.nora.ezkerrera) {
-						//	multiBall.nora.behera = 0;
-						//	multiBall.nora.ezkerrera = 1;
-						//}
-						////ABAJO IZQUIERDA
-						//else if (pilota.nora.behera && pilota.nora.ezkerrera) {
-						//	multiBall.nora.behera = 0;
-						//	multiBall.nora.ezkerrera = 0;
-						//}
 					}
 
 					multiBall.pos = pilotaMugitu(multiBall.nora.behera, multiBall.nora.ezkerrera, multiBall.pos, aux);
 
 					if ((multiBall.pos.y + 24 >= 50) && (multiBall.pos.y <= 250) && (multiBall.pos.x + 24 >= 60) && (multiBall.pos.x <= 580))
 					{
-						id = Id_aurkitu(multiBall.pos.x, multiBall.pos.y, multiBall.nora.behera, multiBall.nora.ezkerrera);
+						id = Id_aurkituLvl2(multiBall.pos.x, multiBall.pos.y, multiBall.nora.behera, multiBall.nora.ezkerrera);
 
-						if (id >= 0 && id <= 129)
+						if (id >= 0 && id <= 77)
 						{
 							if (Blokeak[id].apurtuta != 1)
 							{

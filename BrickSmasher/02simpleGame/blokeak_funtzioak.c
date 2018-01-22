@@ -85,3 +85,66 @@ int Id_aurkitu(int x, int y, int goian, int rebote)
 	}
 	return id;
 }
+int laukizuzenakEzarriLvl2(LAUKIZUZENA_ELEMENTUA Laukizuzena, LAUKIZUZENA_ELEMENTUA blokeak[])
+{
+	int r = 1, maximoa = 0, j = 0, blokeKop = 1;
+
+	for (int i = 0; i < 12; i++)
+	{
+		if (i == 0)	posy = 50;
+
+		for (int t = 0; t < blokeKop; t++)
+		{
+			if (t == 0)	posx = 60;
+			Laukizuzena.id = JOKOA_LaukizuzenaIrudiaSortu(posx, posy, r);
+			Laukizuzena.apurtuta = 0;
+			Laukizuzena.pos.x = posx;
+			Laukizuzena.pos.y = posy;
+			Laukizuzena.apurtuta = 0;
+			Laukizuzena.mota = IRUDIA;
+			blokeak[j] = Laukizuzena;
+			posx += 40;
+			j++;
+		}
+		blokeKop++;
+		posy += 20;
+		if (r == 3)	maximoa = 1;
+
+		else if (r == 1) maximoa = 0;
+
+		if (maximoa == 1) r--;
+
+		else r++;
+	}
+	return blokeak[0].id;
+}
+int Id_aurkituLvl2(int x, int y, int goian, int rebote)
+{
+	if (!goian && !rebote) x += 24;
+	else if (goian && !rebote)
+	{
+		x += 24;
+		y += 24;
+	}
+	else if (goian && rebote) y += 24;
+
+	int id = 0, j = 1, xtxiki = 60, ytxikia = 50;
+
+	if (x < 60 || x > 540 || y < 50 || y > 290) id = 1000;
+
+	while ((y < ytxikia || y > ytxikia + 20) && (ytxikia < 300))
+	{
+		ytxikia += 20;
+		id += j;
+		j++;
+	}
+	if (x > 60 + 40 * j)id = 1000;
+
+	while ((x<xtxiki || x > xtxiki + 40) && (xtxiki < (60 + 40 * j)))
+	{
+		xtxiki += 40;
+		id++;
+	}
+
+	return id;
+}
