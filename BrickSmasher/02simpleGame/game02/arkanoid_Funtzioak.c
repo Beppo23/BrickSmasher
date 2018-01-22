@@ -562,6 +562,7 @@ EGOERA jokatu(int scoreArray[])
 	pantailaBerriztu();
 	return egoera;
 }
+////////////////////////////////////////////////////////////////////// level 2
 EGOERA jokatu2(int scoreArray[], int bizitza)
 {
 	int posx = 0;
@@ -630,7 +631,7 @@ EGOERA jokatu2(int scoreArray[], int bizitza)
 	loadTheMusic(JOKOA_SOUND);
 	tiroaid = loadSound(TIROA_SOUND);
 	//playMusic();    /////////////////////////Comentado para que no de la brasa durante el testeo, quitar para la publicación final
-	fondoa.id = JOKOA_fondoaSortu();
+	fondoa.id = JOKOA_fondoaSortu2();
 	lehenLaukizuzen = laukizuzenakEzarri(Laukizuzena, Blokeak);
 	bihotzakEzarri(bihotzak, bizitza, bihotzArray);
 	jokalaria.id = JOKOA_jokalariaIrudiaSortu();
