@@ -179,11 +179,10 @@ EGOERA JOKOA_egoera(JOKALARIA_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bi
 
 	if (hutsik == 129)
 	{
-		do
-		{
+
 			egoera2 = jokatu2(scoreArray, bizitza);
 			jarraitu = jokoAmaierakoa(egoera2, scoreArray);
-		} while (jarraitu);
+			ret = ITXITA;
 	}
 	else if (bizitza == 0)
 	{

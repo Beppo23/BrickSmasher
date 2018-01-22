@@ -538,6 +538,7 @@ EGOERA jokatu2(int scoreArray[], int bizitza)
 	int pause = 0;
 	int pauseid;
 	int itxid;
+	int musicid;
 
 	EGOERA  egoera = JOLASTEN;
 	int ebentu = 0;
@@ -586,6 +587,7 @@ EGOERA jokatu2(int scoreArray[], int bizitza)
 
 	audioInit();
 	loadTheMusic(JOKOALVL2_SOUND);
+	playMusic(musicid);
 	tiroaid = loadSound(TIROA_SOUND);
 	//playMusic();    /////////////////////////Comentado para que no de la brasa durante el testeo, quitar para la publicación final
 	fondoa.id = JOKOA_fondoaSortu2();
