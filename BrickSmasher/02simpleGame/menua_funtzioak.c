@@ -171,7 +171,33 @@ int  jokoAmaierakoa(EGOERA egoera, int scoreArray[])
 	irudiaKendu(id);
 	return (saguaclick != 1) ? 1 : 0;
 }
-EGOERA JOKOA_egoera(JOKALARIA_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bizitza, int hutsik)
+EGOERA JOKOA_egoera(JOKALARIA_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bizitza, int hutsik, int scoreArray[])
+{
+	EGOERA  ret = JOLASTEN;
+	EGOERA egoera2;
+	int jarraitu = 0;
+
+	if (hutsik == 129)
+	{
+		do
+		{
+			egoera2 = jokatu2(scoreArray, bizitza);
+			jarraitu = jokoAmaierakoa(egoera2, scoreArray);
+		} while (jarraitu);
+	}
+	else if (bizitza == 0)
+	{
+		irudiaKendu(jokalaria.id);
+		toggleMusic();
+		audioTerminate();
+
+		ret = GALDU;
+		irudiaKendu(jokalaria.id);
+		irudiaKendu(pilota.id);
+	}
+	return ret;
+}
+EGOERA JOKOA_egoera2(JOKALARIA_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bizitza, int hutsik)
 {
 	EGOERA  ret = JOLASTEN;
 	if (hutsik == 129)

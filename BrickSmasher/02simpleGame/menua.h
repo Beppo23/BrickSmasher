@@ -19,5 +19,6 @@
 
 int jokoaAurkeztu();
 int  jokoAmaierakoa(EGOERA egoera, int scoreArray[]);
-EGOERA JOKOA_egoera(JOKALARIA_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bizitza, int hutsik);
+EGOERA JOKOA_egoera(JOKALARIA_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bizitza, int hutsik, int scoreArray[]);
+EGOERA JOKOA_egoera2(JOKALARIA_ELEMENTUA jokalaria, JOKO_ELEMENTUA pilota, int bizitza, int hutsik);
 #endif

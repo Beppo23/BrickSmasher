@@ -101,6 +101,16 @@ int JOKOA_fondoaSortu()
 	pantailaBerriztu();
 	return fondoaId;
 }
+int JOKOA_fondoaSortu2()
+{
+	int fondoaId = -1;
+	fondoaId = irudiaKargatu(BACKGROUND_LEVEL2);
+	irudiaMugitu(fondoaId, 0, 0);
+	pantailaGarbitu();
+	irudiakMarraztu();
+	pantailaBerriztu();
+	return fondoaId;
+}
 int JOKOA_jokatu()
 {
 	int jokatuId = -1;

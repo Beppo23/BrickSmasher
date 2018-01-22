@@ -106,7 +106,7 @@ void finalScore(int scoreArray[], int posizioax, int posizioay)
 		j = i;
 		i /= 1000;
 		zifra(posizioax, posizioay, i);
-		j -= 1000;
+		j = j - i * 1000;
 		i = j;
 		zifra(posizioax + 16, posizioay, 0);
 	}

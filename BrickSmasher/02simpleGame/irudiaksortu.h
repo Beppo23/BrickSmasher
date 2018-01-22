@@ -11,6 +11,7 @@
 #define ITXI ".\\img\\itxijokua.bmp"
 #define MENU_BACKGROUD_IMAGE ".\\img\\men.bmp"
 #define JOKOA_BACKGROUND_IMAGE ".\\img\\arkanoid_fondo.bmp"
+#define BACKGROUND_LEVEL2 ".\\img\\background_2.bmp"
 #define TECLA_BARRA ".\\img\\espacio.bmp"
 #define TECLA_EZKERRA ".\\img\\ezkerra.bmp"
 #define TECLA_ESKUMA ".\\img\\eskuma.bmp"
@@ -30,6 +31,7 @@
 #define PAUSA "Pausa->ESC"
 
 int JOKOA_fondoaSortu();
+int JOKOA_fondoaSortu2();
 int JOKOA_itzuli();
 int JOKOA_teclaEzkerra();
 int JOKOA_teclaEskuma();
