@@ -96,7 +96,7 @@ int tiroaPuxkatu(TIROA_ELEMENTUA tiroa, LAUKIZUZENA_ELEMENTUA Blokeak[], int leh
 }
 int powerupaErabaki(int pwUP, POWERUP_ELEMENTUA powerupak[], LAUKIZUZENA_ELEMENTUA Blokeak[], int id)
 {
-	int random;
+	int random, rand = 0;;
 
 	random = rng(40);
 	switch (random)
@@ -108,22 +108,26 @@ int powerupaErabaki(int pwUP, POWERUP_ELEMENTUA powerupak[], LAUKIZUZENA_ELEMENT
 		powerupak[2].zein = 1;
 		break;
 	case 2:
-		pwUP = 1;
-		powerupak[0].pos.x = Blokeak[id].pos.x + 20;
-		powerupak[0].pos.y = Blokeak[id].pos.y + 10;
-		powerupak[0].zein = 1;
+		rand = rng(4);
+		if (rand == 1) {
+			pwUP = 1;
+			powerupak[0].pos.x = Blokeak[id].pos.x + 20;
+			powerupak[0].pos.y = Blokeak[id].pos.y + 10;
+			powerupak[0].zein = 1;
+		}
+		if (rand == 2)
+		{
+			pwUP = 1;
+			powerupak[3].pos.x = Blokeak[id].pos.x + 20;
+			powerupak[3].pos.y = Blokeak[id].pos.y + 10;
+			powerupak[3].zein = 1;
+		}
 		break;
 	case 3:
 		pwUP = 1;
 		powerupak[1].pos.x = Blokeak[id].pos.x + 20;
 		powerupak[1].pos.y = Blokeak[id].pos.y + 10;
 		powerupak[1].zein = 1;
-		break;
-	case 4:
-		pwUP = 1;
-		powerupak[3].pos.x = Blokeak[id].pos.x + 20;
-		powerupak[3].pos.y = Blokeak[id].pos.y + 10;
-		powerupak[3].zein = 1;
 		break;
 	}
 	return pwUP;
