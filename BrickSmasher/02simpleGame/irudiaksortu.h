@@ -29,6 +29,7 @@
 #define PAUSA2 ".\\img\\pause.bmp"
 #define MUTE "Mute->M"
 #define PAUSA "Pausa->ESC"
+#define DREAM ".\\img\\TEAM.bmp"
 
 int JOKOA_fondoaSortu();
 int JOKOA_fondoaSortu2();

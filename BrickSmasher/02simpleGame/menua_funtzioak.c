@@ -14,7 +14,7 @@
 
 int jokoaAurkeztu()
 {
-	int ebentu = 0, saguaclick = 0, barruan = 0, bar = 0, irten = 0;
+	int id, ebentu = 0, saguaclick = 0, barruan = 0, bar = 0, irten = 0, d = 0, r = 0, e = 0, a = 0, m = 0, t = 0, e2 = 0, a2 = 0, m2 = 0;
 	POSIZIOA pos;
 	audioInit();
 	loadTheMusic(MENU_AUDIO);
@@ -23,12 +23,41 @@ int jokoaAurkeztu()
 
 	do
 	{
+		ebentu = ebentuaJasoGertatuBada();
+		if (ebentu == TECLA_d) { d = 1; }
+		if (ebentu == TECLA_r && (d == 1)) { r = 1; }
+		if (ebentu == TECLA_e && (d == 1) && (r == 1)) { e = 1; }
+		if (ebentu == TECLA_a && (d == 1) && (r == 1) && (e == 1)) { a = 1; }
+		if (ebentu == TECLA_m && (d == 1) && (r == 1) && (e == 1) && (a == 1)) { m = 1; }
+		if (ebentu == TECLA_t && (d == 1) && (r == 1) && (e == 1) && (a == 1) && (m == 1)) { t = 1; }
+		if (ebentu == TECLA_e && (d == 1) && (r == 1) && (e == 1) && (a == 1) && (m == 1) && (t == 1)) { e2 = 1; }
+		if (ebentu == TECLA_a && (d == 1) && (r == 1) && (e == 1) && (a == 1) && (m == 1) && (t == 1) && (e2 == 1)) { a2 = 1; }
+		if (ebentu == TECLA_m && (d == 1) && (r == 1) && (e == 1) && (a == 1) && (m == 1) && (t == 1) && (e2 == 1) && (a2 == 1)) { m2 = 1; }
+		if ((d == 1) && (r == 1) && (e == 1) && (a == 1) && (m == 1) && (t == 1) && (e2 == 1) && (a2 == 1) && (m2 == 1))
+		{
+			toggleMusic();
+			id = JOKOA_dreamteam();
+			d = 0;
+			r = 0;
+			e = 0;
+			a = 0;
+			m = 0;
+			t = 0;
+			e2 = 0;
+			a2 = 0;
+			m2 = 0;
+			do
+			{
+				ebentu = ebentuaJasoGertatuBada();
+			} while (ebentu != TECLA_RETURN);
+			irudiaKendu(id);
+			sarreraMezuaIdatzi();
+		}
 		if (ebentu == TECLA_m)
 		{
 			toggleMusic();
 		}
 		pos = saguarenPosizioa();
-		ebentu = ebentuaJasoGertatuBada();
 		////BOTON DE JOKATU
 		if (ebentu == SAGU_BOTOIA_EZKERRA && (pos.x >= 260) && (pos.x <= 375) && (pos.y >= 120) && (pos.y <= 153) && barruan == 0)
 		{

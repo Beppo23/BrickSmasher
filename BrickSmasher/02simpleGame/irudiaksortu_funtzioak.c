@@ -68,6 +68,17 @@ int IRABAZI_irudiaBistaratu(int scoreArray[])
 	return id;
 }
 
+int JOKOA_dreamteam()
+{
+	int dreamId = -1;
+	dreamId = irudiaKargatu(DREAM);
+	irudiaMugitu(dreamId, 120, 120);
+	pantailaGarbitu();
+	irudiakMarraztu();
+	pantailaBerriztu();
+	return dreamId;
+}
+
 int BUKAERA_irudiaBistaratu(int scoreArray[])
 {
 	int id = -1;

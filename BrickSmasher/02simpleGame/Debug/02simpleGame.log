@@ -2,6 +2,7 @@
   score_funtzioak.c
   powerup_funtzioak.c
   menua_funtzioak.c
+c:\popbl\brick smasher\bricksmasher\bricksmasher\bricksmasher\02simplegame\menua_funtzioak.c(39): warning C4013: 'JOKOA_dreamteam' sin definir; se supone que extern devuelve como resultado int
   kolisioak_funtzioak.c
   irudiaksortu_funtzioak.c
   arkanoid_Funtzioak.c
@@ -15,4 +16,5 @@
   graphics.c
   ebentoak.c
   Generando código...
-  02simpleGame.vcxproj -> C:\Users\USUARIO\Desktop\Mondragon\POPBL\BrickSmasher\BrickSmasher\Debug\Arkanoid.exe
+  LINK : no se encontró C:\POPBL\Brick Smasher\BrickSmasher\BrickSmasher\BrickSmasher\Debug\Arkanoid.exe o no lo generó el último vínculo incremental; ejecutando vínculo completo
+  02simpleGame.vcxproj -> C:\POPBL\Brick Smasher\BrickSmasher\BrickSmasher\BrickSmasher\Debug\Arkanoid.exe
